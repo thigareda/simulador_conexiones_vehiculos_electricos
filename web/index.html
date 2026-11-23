@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Conexiones de Vehículos Eléctricos e Híbridos</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="img/electric_motor.png" type="image/png">
+</head>
+<body>
+
+  <!-- Barra de Navegación Superior -->
+  <header class="top-navbar">
+    <div class="brand" id="nav_brand">
+      <div class="brand-icon">⚡</div>
+      <div>
+        <div class="brand-title">Simulador EV & HEV</div>
+        <div class="brand-subtitle">Electromovilidad & Conexiones</div>
+      </div>
+    </div>
+    <nav class="nav-links">
+      <button class="nav-btn active" id="nav_home">Inicio</button>
+      <button class="nav-btn" id="nav_bev">Vehículos Eléctricos (BEV)</button>
+      <button class="nav-btn" id="nav_hev">Vehículos Híbridos (HEV)</button>
+      <button class="nav-btn" id="nav_notes">📘 Anotaciones</button>
+      <button class="nav-btn" id="nav_back" style="display: none;">⬅ Volver</button>
+    </nav>
+  </header>
+
+  <!-- Contenido Principal -->
+  <main class="main-content">
+
+    <!-- Vista 1: Portada / Menú Principal (Page 1) -->
+    <section class="app-view active" id="view_home">
+      <div class="hero-section">
+        <span class="hero-badge">Plataforma de Simulación & Práctica</span>
+        <h1 class="hero-title">Sistema de Aprendizaje y Práctica del Sistema de Accionamiento Eléctrico</h1>
+        <p class="hero-desc">
+          Entorno interactivo para el estudio y práctica del conexionado de componentes de alta tensión,
+          sistemas auxiliares, arneses de control y principios de funcionamiento en vehículos eléctricos puros e híbridos.
+        </p>
+      </div>
+
+      <div class="modules-grid">
+        <!-- Tarjeta BEV -->
+        <div class="module-card" id="card_goto_bev">
+          <img src="img/bg_electric_car.jpg" alt="Vehículo Eléctrico Puro" class="card-img-preview" onerror="this.src='img/electric_motor.png'">
+          <span class="card-tag">100% Eléctrico (BEV)</span>
+          <h2 class="card-title">Vehículo Eléctrico Puro</h2>
+          <p class="card-desc">
+            Simulador de conexiones prácticas de componentes de tracción de alta tensión (batería, inversor, motor trifásico, contactores, convertidor DC-DC) y diagrama de principios de funcionamiento.
+          </p>
+          <div class="card-btn">
+            Explorar Módulos BEV ➔
+          </div>
+        </div>
+
+        <!-- Tarjeta HEV -->
+        <div class="module-card" id="card_goto_hev">
+          <img src="img/bg_hybrid_car.jpg" alt="Vehículo Eléctrico Híbrido" class="card-img-preview" onerror="this.src='img/motor_controller.png'">
+          <span class="card-tag">Híbridos (HEV)</span>
+          <h2 class="card-title">Vehículo Eléctrico Híbrido</h2>
+          <p class="card-desc">
+            Estudio interactivo de arquitecturas de propulsión híbrida: configuración en Serie, configuración en Paralelo y configuración Combinada (Serie-Paralelo con divisor planetario).
+          </p>
+          <div class="card-btn">
+            Explorar Módulos HEV ➔
+          </div>
+        </div>
+
+        <!-- Tarjeta Anotaciones de Aprendizaje -->
+        <div class="module-card" id="card_goto_notes">
+          <div class="card-icon-banner" aria-hidden="true">📘</div>
+          <span class="card-tag">Documentación & Mantenimiento</span>
+          <h2 class="card-title">Anotaciones de Aprendizaje</h2>
+          <p class="card-desc">
+            Guía técnica completa del simulador: arquitecturas BEV, separación HV/LV, inversor, baterías, contactores y sistemas híbridos serie, paralelo y combinado.
+          </p>
+          <div class="card-btn">
+            Consultar Anotaciones ➔
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vista 2: Submenú Vehículo Eléctrico Puro (Page 2) -->
+    <section class="app-view" id="view_bev_menu">
+      <div class="hero-section">
+        <span class="hero-badge">Módulos BEV</span>
+        <h1 class="hero-title">Sistema de Tracción de Vehículo Eléctrico Puro</h1>
+        <p class="hero-desc">
+          Selecciona una modalidad de aprendizaje: simulación de cableado práctico entre componentes reales o el análisis del principio de funcionamiento lógico y flujo de energía.
+        </p>
+      </div>
+
+      <div class="modules-grid">
+        <!-- Submódulo Práctica de Cableado -->
+        <div class="module-card" id="card_bev_wiring">
+          <img src="img/traction_battery.png" alt="Cableado de componentes" class="card-img-preview" style="object-fit: contain; background: #152033; padding: 10px;">
+          <span class="card-tag">Simulación Práctica</span>
+          <h2 class="card-title">Simulador de Cableado Físico</h2>
+          <p class="card-desc">
+            Conecta los terminales del convertidor DC-DC, relé, contactor DC, fusibles de alta tensión, controlador de motor, batería de tracción y motor eléctrico trifásico.
+          </p>
+          <div class="card-btn">
+            Iniciar Práctica de Cableado ➔
+          </div>
+        </div>
+
+        <!-- Submódulo Principio de Funcionamiento -->
+        <div class="module-card" id="card_bev_principles">
+          <img src="img/motor_controller.png" alt="Principio de funcionamiento" class="card-img-preview" style="object-fit: contain; background: #152033; padding: 10px;">
+          <span class="card-tag">Principio de Operación</span>
+          <h2 class="card-title">Diagrama de Flujo y Principios</h2>
+          <p class="card-desc">
+            Establece las relaciones de control (VCU, BMS), flujo de potencia eléctrica bidireccional y enlaces mecánicos hacia la transmisión y las ruedas motrices.
+          </p>
+          <div class="card-btn">
+            Iniciar Diagrama Lógico ➔
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <button class="action-btn" id="btn_bev_back_home">⬅ Volver al Menú Principal</button>
+      </div>
+    </section>
+
+    <!-- Vista 3: Submenú Vehículos Híbridos (Page 5) -->
+    <section class="app-view" id="view_hev_menu">
+      <div class="hero-section">
+        <span class="hero-badge">Módulos HEV</span>
+        <h1 class="hero-title">Sistema de Tracción de Vehículos Eléctricos Híbridos</h1>
+        <p class="hero-desc">
+          Analiza y realiza las conexiones de potencia, mecánicas y de combustible en las tres principales arquitecturas de propulsión híbrida automotriz.
+        </p>
+      </div>
+
+      <div class="modules-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+        <!-- Híbrido Serie -->
+        <div class="module-card" id="card_hev_series">
+          <span class="card-tag">Arquitectura 1</span>
+          <h2 class="card-title">Híbrido en Serie</h2>
+          <p class="card-desc">
+            El motor térmico acciona un generador para cargar la batería o suministrar electricidad al motor de tracción eléctrico.
+          </p>
+          <div class="card-btn">
+            Abrir Híbrido en Serie ➔
+          </div>
+        </div>
+
+        <!-- Híbrido Paralelo -->
+        <div class="module-card" id="card_hev_parallel">
+          <span class="card-tag">Arquitectura 2</span>
+          <h2 class="card-title">Híbrido en Paralelo</h2>
+          <p class="card-desc">
+            Tanto el motor de combustión como el motor eléctrico están acoplados mecánicamente a las ruedas mediante la transmisión.
+          </p>
+          <div class="card-btn">
+            Abrir Híbrido en Paralelo ➔
+          </div>
+        </div>
+
+        <!-- Híbrido Combinado -->
+        <div class="module-card" id="card_hev_combined">
+          <span class="card-tag">Arquitectura 3</span>
+          <h2 class="card-title">Híbrido Combinado</h2>
+          <p class="card-desc">
+            Sistema serie-paralelo con engranaje planetario divisor de potencia (PSD). Permite tracción mecánica y generación simultánea.
+          </p>
+          <div class="card-btn">
+            Abrir Híbrido Combinado ➔
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <button class="action-btn" id="btn_hev_back_home">⬅ Volver al Menú Principal</button>
+      </div>
+    </section>
+
+    <!-- Vista 4: Entorno del Simulador Interactivo (Page 3, 4, 6, 7, 8) -->
+    <section class="app-view" id="view_simulator">
+      <div class="simulator-layout">
+
+        <!-- Barra superior de herramientas y controles -->
+        <div class="sim-header">
+          <div class="sim-info-group">
+            <h2 class="sim-title" id="sim_module_title">Simulador de Cableado</h2>
+            <div class="sim-subtitle" id="sim_module_subtitle">Conexión de componentes de tracción</div>
+          </div>
+
+          <div class="sim-actions-toolbar">
+            <button class="action-btn btn-primary" id="btn_run_check" title="Comprobar si el circuito está correctamente conectado">
+              ▶ Ejecutar / Probar
+            </button>
+            <button class="action-btn" id="btn_undo" title="Deshacer última conexión (Ctrl+Z)">
+              ↩ Deshacer
+            </button>
+            <button class="action-btn btn-danger" id="btn_delete_mode" title="Activa el modo para eliminar cables al hacer clic en ellos">
+              🗑 Modo Eliminar
+            </button>
+            <button class="action-btn" id="btn_clear" title="Borrar todas las conexiones del lienzo">
+              🧹 Limpiar Todo
+            </button>
+            <button class="action-btn btn-success" id="btn_solution" title="Mostrar/Ocultar diagrama con las conexiones correctas">
+              👁 Ver Solución
+            </button>
+          </div>
+        </div>
+
+        <!-- Área Central de Trabajo: Lienzo y Barra Lateral -->
+        <div class="sim-body">
+          <!-- Lienzo SVG Interactivo -->
+          <div class="sim-canvas-panel">
+            <div id="sim_canvas_container" class="sim-wrapper"></div>
+          </div>
+
+          <!-- Panel Lateral de Selección de Cables y Detalles -->
+          <aside class="sim-sidebar">
+            <div class="sidebar-section">
+              <div class="sidebar-title">
+                <span>⚡ Tipo de Cable / Conexión</span>
+              </div>
+              <div class="cables-list" id="cables_list">
+                <!-- Se llena dinámicamente según el módulo activo -->
+              </div>
+            </div>
+
+            <div class="sidebar-section">
+              <div class="sidebar-title">
+                <span>📋 Descripción Técnica</span>
+              </div>
+              <p id="sim_module_desc" style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;"></p>
+            </div>
+
+            <div class="sidebar-section">
+              <div class="sidebar-title">
+                <span>💡 Instrucciones Rápidas</span>
+              </div>
+              <ul style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.45; padding-left: 1.1rem;">
+                <li>Selecciona el tipo de cable en la lista superior.</li>
+                <li>Haz clic sobre el primer terminal (resaltará en amarillo).</li>
+                <li>Haz clic en el terminal de destino para trazar la línea.</li>
+                <li>Presiona <strong>"Ejecutar / Probar"</strong> para verificar el sistema.</li>
+                <li>Haz clic sobre cualquier componente para ver su ficha técnica.</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Barra inferior de estado y resultados -->
+        <div class="status-bar status-ready" id="sim_status_bar">
+          <div style="font-size: 1.2rem;">📢</div>
+          <div style="flex: 1;">
+            <div id="sim_status_text">Sistema listo. Selecciona dos terminales para conectar.</div>
+            <div id="validation_report"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Vista 5: Visor de Anotaciones Técnicas de Aprendizaje -->
+    <section class="app-view" id="view_notes">
+      <div class="notes-layout">
+        <div class="notes-header">
+          <div class="notes-header-info">
+            <span class="hero-badge" style="margin-bottom: 0.5rem;">Referencia Técnica Canónica</span>
+            <h1 class="notes-main-title">Anotaciones de Aprendizaje y Mantenimiento</h1>
+            <p class="notes-main-subtitle">Arquitectura eléctrica y lógica de funcionamiento BEV &amp; HEV del simulador autónomo.</p>
+          </div>
+          <div class="notes-header-actions">
+            <button class="action-btn" id="btn_notes_back" title="Volver a la vista anterior">⬅ Volver</button>
+            <button class="action-btn btn-primary" id="btn_notes_top" title="Ir al inicio del documento">⬆ Subir</button>
+          </div>
+        </div>
+
+        <div class="notes-body">
+          <aside class="notes-toc-sidebar" aria-label="Tabla de contenidos">
+            <div class="notes-toc-header">📑 Índice de Contenidos</div>
+            <nav class="notes-toc-nav" id="notes_toc"></nav>
+          </aside>
+          <article class="notes-content-panel" id="notes_content"></article>
+        </div>
+
+        <div class="notes-footer-actions">
+          <button class="action-btn" id="btn_notes_back_bottom">⬅ Volver a la vista anterior</button>
+          <button class="action-btn" id="btn_notes_top_bottom">⬆ Volver arriba</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal de Información Técnica de Componentes -->
+  <div class="modal-overlay" id="device_modal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="modal_close">&times;</button>
+      <div class="modal-header">
+        <img src="" alt="" class="modal-img" id="modal_img">
+        <div>
+          <span style="font-size: 0.75rem; color: var(--accent-cyan); text-transform: uppercase; font-weight: 700;">Ficha Técnica</span>
+          <h3 class="modal-title" id="modal_title">Nombre del Componente</h3>
+        </div>
+      </div>
+      <div class="modal-body" id="modal_desc">
+        Descripción del componente.
+      </div>
+      <div id="modal_terminals" class="modal-terminals-list"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/simulator.js"></script>
+  <script src="js/notes_data.js"></script>
+  <script src="js/notes_renderer.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
