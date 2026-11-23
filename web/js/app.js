@@ -64,39 +64,48 @@ document.addEventListener("DOMContentLoaded", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  const t = (key, ...args) => (window.I18N ? window.I18N.t(key, ...args) : key);
+
+  function updateSimulatorHeaderAndCables(moduleKey) {
+    const cfg = SIMULATOR_DATA[moduleKey];
+    if (!cfg) return;
+    const modText = window.I18N ? window.I18N.getModuleText(moduleKey, cfg) : cfg;
+    document.getElementById("sim_module_title").textContent = modText.title;
+    document.getElementById("sim_module_subtitle").textContent = modText.subtitle;
+    document.getElementById("sim_module_desc").textContent = modText.description;
+    renderCablesList(cfg.cableTypes, moduleKey);
+  }
+
   function openModule(moduleKey) {
     simulator.loadModule(moduleKey);
-    const cfg = SIMULATOR_DATA[moduleKey];
 
-    // Actualizar textos del header del simulador
-    document.getElementById("sim_module_title").textContent = cfg.title;
-    document.getElementById("sim_module_subtitle").textContent = cfg.subtitle;
-    document.getElementById("sim_module_desc").textContent = cfg.description;
-
-    // Renderizar lista de cables en el panel lateral
-    renderCablesList(cfg.cableTypes);
+    // Actualizar textos del header del simulador y lista de cables
+    updateSimulatorHeaderAndCables(moduleKey);
 
     // Limpiar reporte de validación anterior
     validationReport.innerHTML = "";
-    handleStatusChange({ state: "ready", message: "Selecciona un tipo de cable y haz clic en dos terminales para unirlos." });
+    handleStatusChange({ state: "ready", message: t("sim_status_ready_module") });
 
     switchView("simulator");
   }
 
-  function renderCablesList(cables) {
+  function renderCablesList(cables, moduleKey) {
     const listContainer = document.getElementById("cables_list");
     listContainer.innerHTML = "";
 
-    cables.forEach((c, idx) => {
+    const activeCableId = simulator.selectedCable ? simulator.selectedCable.id : (cables[0] && cables[0].id);
+
+    cables.forEach((c) => {
+      const cText = window.I18N ? window.I18N.getCableText(moduleKey, c.id, c) : c;
       const btn = document.createElement("button");
-      btn.className = `cable-select-btn ${idx === 0 ? "active" : ""}`;
+      btn.className = `cable-select-btn ${!simulator.isDeleteMode && c.id === activeCableId ? "active" : ""}`;
       btn.setAttribute("data-cable-id", c.id);
 
       btn.innerHTML = `
         <div class="cable-sample-line" style="background-color: ${c.color};"></div>
         <div class="cable-info">
-          <span class="cable-name">${c.name}</span>
-          <span class="cable-desc">${c.desc}</span>
+          <span class="cable-name">${cText.name}</span>
+          <span class="cable-desc">${cText.desc}</span>
         </div>
       `;
 
@@ -123,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
       validationReport.innerHTML = `
         <div class="report-list">
           <div class="report-item" style="background: rgba(46,196,182,0.15); color: #2ec4b6;">
-            ✔ Circuito validado exitosamente. Todos los módulos y arneses tienen continuidad nominal.
+            ${t("sim_status_success_detail")}
           </div>
         </div>
       `;
@@ -135,8 +144,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function showDeviceModal(device) {
     sounds.playClick();
     const modal = document.getElementById("device_modal");
-    document.getElementById("modal_title").textContent = device.name;
-    document.getElementById("modal_desc").textContent = device.desc || "Componente del sistema de electromovilidad.";
+    const modKey = simulator.moduleKey;
+    const dText = window.I18N ? window.I18N.getDeviceText(modKey, device.id, device) : device;
+
+    document.getElementById("modal_title").textContent = dText.name;
+    document.getElementById("modal_desc").textContent = dText.desc || t("modal_default_desc");
 
     const img = document.getElementById("modal_img");
     if (device.image) {
@@ -149,13 +161,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const terminalsContainer = document.getElementById("modal_terminals");
     if (device.terminals && device.terminals.length > 0) {
       terminalsContainer.innerHTML = `
-        <div class="modal-terminals-title">Terminales y Conexiones:</div>
-        ${device.terminals.map(t => `
+        <div class="modal-terminals-title">${t("modal_terminals_title")}</div>
+        ${device.terminals.map(term => {
+          const tText = window.I18N ? window.I18N.getTerminalText(modKey, device.id, term.id, term) : term;
+          return `
           <div class="terminal-item">
-            <span><strong>${t.label || t.name}:</strong> ${t.name}</span>
-            <span style="color: var(--accent-cyan);">PIN ${t.id}</span>
+            <span><strong>${tText.label || tText.name}:</strong> ${tText.name}</span>
+            <span style="color: var(--accent-cyan);">PIN ${term.id}</span>
           </div>
-        `).join("")}
+        `;
+        }).join("")}
       `;
     } else {
       terminalsContainer.innerHTML = "";
@@ -277,12 +292,34 @@ document.addEventListener("DOMContentLoaded", () => {
       if (currentView === "simulator" && simulator.selectedPin) {
         simulator.highlightPin(simulator.selectedPin, false);
         simulator.selectedPin = null;
-        handleStatusChange({ state: "ready", message: "Selección de terminal cancelada." });
+        handleStatusChange({ state: "ready", message: t("sim_status_cancel_esc") });
       }
     }
   });
 
-  // Inicializar visor de anotaciones una sola vez e iniciar en portada
+  // Selector de idioma (ES / 廣東話)
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const lang = btn.getAttribute("data-lang");
+      if (window.I18N && lang) {
+        sounds.playClick();
+        window.I18N.setLang(lang);
+      }
+    });
+  });
+
+  window.addEventListener("sim:langchange", () => {
+    if (simulator.moduleKey) {
+      updateSimulatorHeaderAndCables(simulator.moduleKey);
+      simulator.renderDevices();
+      simulator.renderLines();
+    }
+  });
+
+  // Aplicar idioma inicial, inicializar visor de anotaciones e iniciar en portada
+  if (window.I18N) {
+    window.I18N.applyTranslations();
+  }
   initNotesView();
   switchView("home");
 });

@@ -55,6 +55,10 @@ class WiringSimulator {
     this.renderLines();
   }
 
+  t(key, ...args) {
+    return window.I18N ? window.I18N.t(key, ...args) : key;
+  }
+
   undo() {
     if (this.history.length === 0) return;
     const lastAction = this.history.pop();
@@ -67,7 +71,7 @@ class WiringSimulator {
     }
     this.lastValidation = null;
     this.renderLines();
-    this.onStatusChange({ state: "ready", message: "Acción deshecha." });
+    this.onStatusChange({ state: "ready", message: this.t("sim_status_undo") });
   }
 
   clear() {
@@ -78,16 +82,16 @@ class WiringSimulator {
     this.lastValidation = null;
     sounds.playDisconnect();
     this.renderLines();
-    this.onStatusChange({ state: "ready", message: "Lienzo limpiado." });
+    this.onStatusChange({ state: "ready", message: this.t("sim_status_cleared") });
   }
 
   toggleSolution() {
     this.isShowingSolution = !this.isShowingSolution;
     this.renderLines();
     if (this.isShowingSolution) {
-      this.onStatusChange({ state: "info", message: "Mostrando diagrama de conexiones oficial." });
+      this.onStatusChange({ state: "info", message: this.t("sim_status_solution_on") });
     } else {
-      this.onStatusChange({ state: "ready", message: "Modo edición de conexiones activo." });
+      this.onStatusChange({ state: "ready", message: this.t("sim_status_solution_off") });
     }
   }
 
@@ -103,11 +107,11 @@ class WiringSimulator {
         userTotal: 0,
         correctCount: 0,
         missingCount: answers.length,
-        errors: ["Aún no se ha realizado ninguna conexión en el sistema."]
+        errors: [this.t("sim_status_no_cables_err")]
       };
       this.lastValidation = res;
       this.renderLines();
-      this.onStatusChange({ state: "error", message: "Fallo: No hay cables conectados.", details: res });
+      this.onStatusChange({ state: "error", message: this.t("sim_status_no_cables_msg"), details: res });
       return res;
     }
 
@@ -126,7 +130,7 @@ class WiringSimulator {
       });
 
       if (matchedIdx === -1) {
-        errors.push(`Conexión incorrecta entre ${this.getTerminalName(uLine.from)} y ${this.getTerminalName(uLine.to)}.`);
+        errors.push(this.t("sim_err_wrong_conn", this.getTerminalName(uLine.from), this.getTerminalName(uLine.to)));
       } else {
         const expected = answers[matchedIdx];
         // Comprobar tipo o color
@@ -134,7 +138,7 @@ class WiringSimulator {
         const colorMatch = uLine.color.toLowerCase() === expected.color.toLowerCase();
 
         if (!typeMatch || !colorMatch) {
-          errors.push(`Conexión entre ${this.getTerminalName(uLine.from)} y ${this.getTerminalName(uLine.to)} tiene tipo de cable o color incorrecto.`);
+          errors.push(this.t("sim_err_wrong_type", this.getTerminalName(uLine.from), this.getTerminalName(uLine.to)));
         } else {
           matchedAnswers.add(matchedIdx);
           correctCount++;
@@ -144,7 +148,7 @@ class WiringSimulator {
 
     const missingCount = answers.length - matchedAnswers.size;
     if (missingCount > 0) {
-      errors.push(`Faltan ${missingCount} conexiones por realizar en el circuito.`);
+      errors.push(this.t("sim_err_missing", missingCount));
     }
 
     const success = (correctCount === answers.length && userLines.length === answers.length);
@@ -165,14 +169,14 @@ class WiringSimulator {
       sounds.playSuccess();
       this.onStatusChange({
         state: "success",
-        message: "¡Éxito! Todas las conexiones del sistema son 100% correctas. El vehículo opera adecuadamente.",
+        message: this.t("sim_status_success"),
         details: result
       });
     } else {
       sounds.playError();
       this.onStatusChange({
         state: "error",
-        message: `Fallo en la prueba (${correctCount}/${answers.length} correctas). Revisa los circuitos señalados.`,
+        message: this.t("sim_status_fail", correctCount, answers.length),
         details: result
       });
     }
@@ -183,7 +187,11 @@ class WiringSimulator {
   getTerminalName(pinId) {
     for (const dev of this.config.devices) {
       const pin = dev.terminals.find(t => t.id === pinId);
-      if (pin) return `${dev.name} [${pin.name || pin.label}]`;
+      if (pin) {
+        const dText = window.I18N ? window.I18N.getDeviceText(this.moduleKey, dev.id, dev) : dev;
+        const tText = window.I18N ? window.I18N.getTerminalText(this.moduleKey, dev.id, pin.id, pin) : pin;
+        return `${dText.name} [${tText.name || tText.label}]`;
+      }
     }
     return pinId;
   }
@@ -216,7 +224,7 @@ class WiringSimulator {
         sounds.playDisconnect();
         this.lastValidation = null;
         this.renderLines();
-        this.onStatusChange({ state: "ready", message: `Cable(s) eliminado(s) de ${this.getTerminalName(pinId)}.` });
+        this.onStatusChange({ state: "ready", message: this.t("sim_status_removed_pin", this.getTerminalName(pinId)) });
       }
       return;
     }
@@ -224,13 +232,13 @@ class WiringSimulator {
     if (!this.selectedPin) {
       this.selectedPin = pinId;
       this.highlightPin(pinId, true);
-      this.onStatusChange({ state: "ready", message: `Punto inicial seleccionado: ${this.getTerminalName(pinId)}. Ahora selecciona el terminal destino.` });
+      this.onStatusChange({ state: "ready", message: this.t("sim_status_start_pin", this.getTerminalName(pinId)) });
     } else {
       if (this.selectedPin === pinId) {
         // Deseleccionar el mismo punto
         this.highlightPin(this.selectedPin, false);
         this.selectedPin = null;
-        this.onStatusChange({ state: "ready", message: "Selección cancelada." });
+        this.onStatusChange({ state: "ready", message: this.t("sim_status_cancel_pin") });
         return;
       }
 
@@ -243,7 +251,7 @@ class WiringSimulator {
       // Verificar si ya existe este cable
       const exists = this.lines.some(l => (l.from === p1 && l.to === p2) || (l.from === p2 && l.to === p1));
       if (exists) {
-        this.onStatusChange({ state: "warning", message: "Ya existe un cable entre estos dos terminales." });
+        this.onStatusChange({ state: "warning", message: this.t("sim_status_exists") });
         return;
       }
 
@@ -261,7 +269,7 @@ class WiringSimulator {
       this.lastValidation = null;
       sounds.playConnect();
       this.renderLines();
-      this.onStatusChange({ state: "ready", message: `Cable conectado: ${this.getTerminalName(p1)} -> ${this.getTerminalName(p2)}.` });
+      this.onStatusChange({ state: "ready", message: this.t("sim_status_connected", this.getTerminalName(p1), this.getTerminalName(p2)) });
     }
   }
 
@@ -351,12 +359,13 @@ class WiringSimulator {
       }
 
       // Etiqueta del dispositivo
+      const dText = window.I18N ? window.I18N.getDeviceText(this.moduleKey, dev.id, dev) : dev;
       const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
       text.setAttribute("x", dev.width / 2);
       text.setAttribute("y", dev.image ? dev.height + 18 : dev.height / 2 + 5);
       text.setAttribute("text-anchor", "middle");
       text.setAttribute("class", "device-title");
-      text.textContent = dev.name;
+      text.textContent = dText.name;
       gDev.appendChild(text);
 
       // Botón o clic de información técnica
@@ -393,7 +402,8 @@ class WiringSimulator {
         gPin.appendChild(circle);
 
         // Texto o etiqueta del terminal
-        if (pin.label) {
+        const tText = window.I18N ? window.I18N.getTerminalText(this.moduleKey, dev.id, pin.id, pin) : pin;
+        if (tText.label) {
           const pText = document.createElementNS("http://www.w3.org/2000/svg", "text");
           pText.setAttribute("class", "pin-label");
           // Posición según ubicación relativa
@@ -402,7 +412,7 @@ class WiringSimulator {
           pText.setAttribute("x", offsetX);
           pText.setAttribute("y", offsetY);
           pText.setAttribute("text-anchor", offsetX < 0 ? "end" : (offsetX > 0 ? "start" : "middle"));
-          pText.textContent = pin.label;
+          pText.textContent = tText.label;
           gPin.appendChild(pText);
         }
 
@@ -481,7 +491,7 @@ class WiringSimulator {
           sounds.playDisconnect();
           this.lastValidation = null;
           this.renderLines();
-          this.onStatusChange({ state: "ready", message: "Cable eliminado." });
+          this.onStatusChange({ state: "ready", message: this.t("sim_status_line_removed") });
         }
       });
       gLine.appendChild(hitPath);
