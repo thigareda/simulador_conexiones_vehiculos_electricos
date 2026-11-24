@@ -61,6 +61,7 @@ class WiringSimulator {
 
   undo() {
     if (this.history.length === 0) return;
+    this.isShowingSolution = false;
     const lastAction = this.history.pop();
     if (lastAction.action === "add") {
       this.lines = this.lines.filter(l => l.id !== lastAction.line.id);
@@ -75,7 +76,8 @@ class WiringSimulator {
   }
 
   clear() {
-    if (this.lines.length === 0) return;
+    if (this.lines.length === 0 && !this.isShowingSolution) return;
+    this.isShowingSolution = false;
     this.lines = [];
     this.history = [];
     this.selectedPin = null;
@@ -95,7 +97,51 @@ class WiringSimulator {
     }
   }
 
+  normalizeConnectionSpec(line) {
+    const t = line.type;
+    if (t === "RSArrow" || t === "LSArrow") {
+      return {
+        category: "sig_dir",
+        directed: true,
+        source: t === "RSArrow" ? line.from : line.to,
+        target: t === "RSArrow" ? line.to : line.from
+      };
+    }
+    if (t === "RDArrow" || t === "LDArrow") {
+      return {
+        category: "pwr_dir",
+        directed: true,
+        source: t === "RDArrow" ? line.from : line.to,
+        target: t === "RDArrow" ? line.to : line.from
+      };
+    }
+    return {
+      category: t,
+      directed: false,
+      source: line.from,
+      target: line.to
+    };
+  }
+
+  compareLineWithAnswer(uLine, expected) {
+    const colorMatch = uLine.color.toLowerCase() === expected.color.toLowerCase();
+    const uSpec = this.normalizeConnectionSpec(uLine);
+    const eSpec = this.normalizeConnectionSpec(expected);
+
+    if (uSpec.category !== eSpec.category || !colorMatch) {
+      return "wrong_type";
+    }
+    if (uSpec.directed) {
+      if (uSpec.source === eSpec.source && uSpec.target === eSpec.target) {
+        return "ok";
+      }
+      return "wrong_dir";
+    }
+    return "ok";
+  }
+
   validate() {
+    this.isShowingSolution = false;
     const answers = this.config.answers;
     const userLines = this.lines;
 
@@ -121,7 +167,6 @@ class WiringSimulator {
 
     // Comprobar cada cable del usuario
     userLines.forEach(uLine => {
-      // Buscar en answers si existe un match sin importar el orden de terminales (A->B o B->A)
       const matchedIdx = answers.findIndex((ans, idx) => {
         if (matchedAnswers.has(idx)) return false;
         const matchesTerminals = (uLine.from === ans.from && uLine.to === ans.to) ||
@@ -133,11 +178,11 @@ class WiringSimulator {
         errors.push(this.t("sim_err_wrong_conn", this.getTerminalName(uLine.from), this.getTerminalName(uLine.to)));
       } else {
         const expected = answers[matchedIdx];
-        // Comprobar tipo o color
-        const typeMatch = uLine.type === expected.type;
-        const colorMatch = uLine.color.toLowerCase() === expected.color.toLowerCase();
+        const cmp = this.compareLineWithAnswer(uLine, expected);
 
-        if (!typeMatch || !colorMatch) {
+        if (cmp === "wrong_dir") {
+          errors.push(this.t("sim_err_wrong_dir", this.getTerminalName(uLine.from), this.getTerminalName(uLine.to)));
+        } else if (cmp !== "ok") {
           errors.push(this.t("sim_err_wrong_type", this.getTerminalName(uLine.from), this.getTerminalName(uLine.to)));
         } else {
           matchedAnswers.add(matchedIdx);
@@ -213,6 +258,10 @@ class WiringSimulator {
 
   onPinClick(pinId) {
     sounds.playClick();
+    if (this.isShowingSolution) {
+      this.isShowingSolution = false;
+      this.renderLines();
+    }
     if (this.isDeleteMode) {
       // Eliminar cables asociados a este terminal
       const toRemove = this.lines.filter(l => l.from === pinId || l.to === pinId);
@@ -505,9 +554,8 @@ class WiringSimulator {
     return answers.some(ans => {
       const matchTerm = (uLine.from === ans.from && uLine.to === ans.to) ||
                         (uLine.from === ans.to && uLine.to === ans.from);
-      const matchType = uLine.type === ans.type;
-      const matchColor = uLine.color.toLowerCase() === ans.color.toLowerCase();
-      return matchTerm && matchType && matchColor;
+      if (!matchTerm) return false;
+      return this.compareLineWithAnswer(uLine, ans) === "ok";
     });
   }
 

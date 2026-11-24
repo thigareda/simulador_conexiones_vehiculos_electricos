@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
     bevMenu: document.getElementById("view_bev_menu"),
     hevMenu: document.getElementById("view_hev_menu"),
     simulator: document.getElementById("view_simulator"),
-    notes: document.getElementById("view_notes")
+    notes: document.getElementById("view_notes"),
+    autonomy: document.getElementById("view_autonomy")
   };
 
   const navHomeBtn = document.getElementById("nav_home");
@@ -31,6 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let lastNonNotesView = "home";
 
   function switchView(viewName) {
+    if (currentView === "autonomy" && viewName !== "autonomy" && window.AutonomyLab) {
+      window.AutonomyLab.pause();
+    }
     if (viewName === "notes" && currentView !== "notes") {
       lastNonNotesView = currentView;
     }
@@ -50,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Actualizar botones del navbar
     document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
     if (viewName === "home" && navHomeBtn) navHomeBtn.classList.add("active");
-    if (viewName === "bevMenu" && navBevBtn) navBevBtn.classList.add("active");
+    if ((viewName === "bevMenu" || viewName === "autonomy") && navBevBtn) navBevBtn.classList.add("active");
     if (viewName === "hevMenu" && navHevBtn) navHevBtn.classList.add("active");
     if (viewName === "notes" && navNotesBtn) navNotesBtn.classList.add("active");
 
@@ -65,6 +69,26 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const t = (key, ...args) => (window.I18N ? window.I18N.t(key, ...args) : key);
+
+  function escapeHtml(str) {
+    return String(str ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  // Fallback seguro de imágenes sin atributos inline onerror (compatible con CSP estricta)
+  document.querySelectorAll("img[data-fallback-src]").forEach(img => {
+    img.addEventListener("error", function onImgErr() {
+      const fb = img.getAttribute("data-fallback-src");
+      if (fb && img.getAttribute("src") !== fb) {
+        img.setAttribute("src", fb);
+      }
+      img.removeEventListener("error", onImgErr);
+    });
+  });
 
   function updateSimulatorHeaderAndCables(moduleKey) {
     const cfg = SIMULATOR_DATA[moduleKey];
@@ -101,11 +125,12 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.className = `cable-select-btn ${!simulator.isDeleteMode && c.id === activeCableId ? "active" : ""}`;
       btn.setAttribute("data-cable-id", c.id);
 
+      const safeColor = /^#[0-9a-fA-F]{3,8}$/.test(c.color) ? c.color : "#1d2a3a";
       btn.innerHTML = `
-        <div class="cable-sample-line" style="background-color: ${c.color};"></div>
+        <div class="cable-sample-line" style="background-color: ${safeColor};"></div>
         <div class="cable-info">
-          <span class="cable-name">${cText.name}</span>
-          <span class="cable-desc">${cText.desc}</span>
+          <span class="cable-name">${escapeHtml(cText.name)}</span>
+          <span class="cable-desc">${escapeHtml(cText.desc)}</span>
         </div>
       `;
 
@@ -125,14 +150,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (status.details && status.details.errors && status.details.errors.length > 0) {
       validationReport.innerHTML = `
         <div class="report-list">
-          ${status.details.errors.map(err => `<div class="report-item err">• ${err}</div>`).join("")}
+          ${status.details.errors.map(err => `<div class="report-item err">• ${escapeHtml(err)}</div>`).join("")}
         </div>
       `;
     } else if (status.state === "success") {
       validationReport.innerHTML = `
         <div class="report-list">
           <div class="report-item" style="background: rgba(46,196,182,0.15); color: #2ec4b6;">
-            ${t("sim_status_success_detail")}
+            ${escapeHtml(t("sim_status_success_detail"))}
           </div>
         </div>
       `;
@@ -161,13 +186,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const terminalsContainer = document.getElementById("modal_terminals");
     if (device.terminals && device.terminals.length > 0) {
       terminalsContainer.innerHTML = `
-        <div class="modal-terminals-title">${t("modal_terminals_title")}</div>
+        <div class="modal-terminals-title">${escapeHtml(t("modal_terminals_title"))}</div>
         ${device.terminals.map(term => {
           const tText = window.I18N ? window.I18N.getTerminalText(modKey, device.id, term.id, term) : term;
           return `
           <div class="terminal-item">
-            <span><strong>${tText.label || tText.name}:</strong> ${tText.name}</span>
-            <span style="color: var(--accent-cyan);">PIN ${term.id}</span>
+            <span><strong>${escapeHtml(tText.label || tText.name)}:</strong> ${escapeHtml(tText.name)}</span>
+            <span style="color: var(--accent-cyan);">PIN ${escapeHtml(term.id)}</span>
           </div>
         `;
         }).join("")}
@@ -215,6 +240,8 @@ document.addEventListener("DOMContentLoaded", () => {
     navBackBtn.addEventListener("click", () => {
       if (currentView === "notes") {
         goBackFromNotes();
+      } else if (currentView === "autonomy") {
+        switchView("bevMenu");
       } else if (currentView === "simulator") {
         if (simulator.moduleKey && simulator.moduleKey.startsWith("bev")) {
           switchView("bevMenu");
@@ -247,6 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Tarjetas del Menú BEV
   document.getElementById("card_bev_wiring")?.addEventListener("click", () => openModule("bevWiring"));
   document.getElementById("card_bev_principles")?.addEventListener("click", () => openModule("bevPrinciples"));
+  document.getElementById("card_bev_autonomy")?.addEventListener("click", () => switchView("autonomy"));
   document.getElementById("btn_bev_back_home")?.addEventListener("click", () => switchView("home"));
 
   // Tarjetas del Menú HEV
@@ -312,7 +340,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (simulator.moduleKey) {
       updateSimulatorHeaderAndCables(simulator.moduleKey);
       simulator.renderDevices();
-      simulator.renderLines();
+      if (simulator.lastValidation) {
+        simulator.validate();
+      } else {
+        simulator.renderLines();
+      }
     }
   });
 
