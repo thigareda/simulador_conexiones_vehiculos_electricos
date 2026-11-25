@@ -25,6 +25,7 @@
       card_battery_btn: "Entrar al Laboratorio ➔",
       bat_title: "🧪 Laboratorio de Diseño y Pruebas de Baterías",
       bat_subtitle: "Dimensionamiento Ns/Np, modelo electrotérmico dinámico, cargas auxiliares, inyección de fallas y telemetría BMS en tiempo real.",
+      bat_btn_tutorial: "📖 Tutorial / Guía Rápida",
 
       home_badge: "Plataforma de Simulación & Práctica",
       home_title: "Sistema de Aprendizaje y Práctica del Sistema de Accionamiento Eléctrico",
@@ -183,6 +184,7 @@
       card_battery_btn: "進入實驗室 ➔",
       bat_title: "🧪 電池設計及測試實驗室 (Battery Design Lab)",
       bat_subtitle: "Ns/Np 串並聯匹配、電熱動態模型、輔助負載、故障注入及 BMS 實時監測。",
+      bat_btn_tutorial: "📖 使用教學及指南",
 
       home_badge: "模擬及實習平台",
       home_title: "電動驅動系統學習與接線實習平台",

@@ -728,6 +728,7 @@
             <p data-i18n="bat_subtitle">Dimensionamiento Ns/Np, modelo electrotérmico dinámico, cargas auxiliares, inyección de fallas y telemetría BMS en tiempo real.</p>
           </div>
           <div class="battery-header-actions">
+            <button class="btn-neon-action" id="btn_battery_tutorial" data-i18n="bat_btn_tutorial">📖 Tutorial / Guía Rápida</button>
             <button class="btn-outline-action" id="btn_battery_back">⬅ Volver</button>
           </div>
         </div>
@@ -1237,6 +1238,226 @@
         Descripción del componente.
       </div>
       <div id="modal_terminals" class="modal-terminals-list"></div>
+    </div>
+  </div>
+
+  <!-- Modal de Tutorial y Guía del Battery Design Lab -->
+  <div class="modal-overlay" id="battery_tutorial_modal">
+    <div class="modal-card modal-tutorial">
+      <button class="modal-close-btn" id="battery_tutorial_close">&times;</button>
+      <div class="modal-header">
+        <div>
+          <span style="font-size: 0.75rem; color: var(--accent-cyan); text-transform: uppercase; font-weight: 700;">Manual de Operación</span>
+          <h3 class="modal-title">📖 Guía de Uso del Simulador de Baterías</h3>
+        </div>
+      </div>
+
+      <!-- Barra de navegación del tutorial -->
+      <div class="modal-tutorial-nav">
+        <button class="tut-nav-btn active" id="btn_tut_controls" data-tut-target="tut_pane_controls">🎮 1. Mapa de Controles</button>
+        <button class="tut-nav-btn" id="btn_tut_panes" data-tut-target="tut_pane_panes">📑 2. Las 5 Pestañas</button>
+        <button class="tut-nav-btn" id="btn_tut_example" data-tut-target="tut_pane_example">🚀 3. Ejemplo Práctico Paso a Paso</button>
+      </div>
+
+      <!-- Contenido del Tutorial -->
+      <div class="modal-tutorial-body">
+
+        <!-- Panel 1: Controles -->
+        <div class="tut-pane active" id="tut_pane_controls">
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">🎛️ Sliders Sincronizados con Entradas Numéricas</span>
+              <span class="tutorial-step-badge">Precisión</span>
+            </div>
+            <p class="tutorial-step-desc">
+              Cada parámetro clave (<span class="tutorial-control-pill">Energía kWh</span>, <span class="tutorial-control-pill">Voltaje V</span>, <span class="tutorial-control-pill">Potencias kW</span>, <span class="tutorial-control-pill">SOC %</span>, <span class="tutorial-control-pill">C-rate</span>) cuenta con un slider continuo y una caja numérica. Puedes arrastrar la barra para exploración rápida o escribir el valor exacto con el teclado.
+            </p>
+          </div>
+
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">📋 Selectores Inteligentes de Química y Celdas</span>
+              <span class="tutorial-step-badge">Filtrado Dinámico</span>
+            </div>
+            <p class="tutorial-step-desc">
+              Al seleccionar una química electroquímica (ej. <strong>LFP</strong> o <strong>NCM</strong>), el menú de <span class="tutorial-control-pill">Formato de Celda</span> se actualiza automáticamente mostrando únicamente las celdas comerciales compatibles (§4) con sus capacidades reales en Ah y resistencia interna.
+            </p>
+          </div>
+
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">🟢 Semáforo de Viabilidad en Tiempo Real</span>
+              <span class="tutorial-step-badge">Validación Automática</span>
+            </div>
+            <p class="tutorial-step-desc">
+              Un indicador visual con 3 puntos (<span style="color:#2ec4b6;">● Verde = Cumple</span>, <span style="color:#e63946;">● Rojo = No Cumple</span>) evalúa si tu pack soporta la <strong>Potencia Continua</strong>, <strong>Potencia Pico</strong> y la <strong>Energía Requerida</strong> basándose en las densidades de potencia ($W/kg$) y $C\text{-rate}$ límite del fabricante.
+            </p>
+          </div>
+
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">🔋 SVG Interactivo del Pack de Baterías</span>
+              <span class="tutorial-step-badge">Inspección al Clic</span>
+            </div>
+            <p class="tutorial-step-desc">
+              El panel visual dibuja la estructura física en serie y paralelo. <strong>Haz clic sobre cualquier celda</strong> para abrir su ficha técnica con voltaje instantáneo, temperatura local y resistencia interna. Las celdas cambian de color (cian, amarillo o rojo pulsante) ante sobrecalentamiento o fallas.
+            </p>
+          </div>
+
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">⚡ Interruptores de Cargas Auxiliares & Velocidad</span>
+              <span class="tutorial-step-badge">Duty Cycle 0-100%</span>
+            </div>
+            <p class="tutorial-step-desc">
+              Activa o apaga accesorios (climatización, calefactor PTC, desempañador, audio, ADAS) con el interruptor y ajusta su ciclo de servicio. Observa al instante el impacto en la autonomía disponible en km.
+            </p>
+          </div>
+
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">📈 Controles de Simulación & Gráficas</span>
+              <span class="tutorial-step-badge">Telemetría Viva</span>
+            </div>
+            <p class="tutorial-step-desc">
+              Botones <span class="tutorial-control-pill">▶ Iniciar</span>, <span class="tutorial-control-pill">⏸ Pausar</span>, <span class="tutorial-control-pill">⏭ Paso (1s)</span> y multiplicadores de velocidad (<span class="tutorial-control-pill">1x</span>, <span class="tutorial-control-pill">5x</span>, <span class="tutorial-control-pill">20x</span>) para registrar curvas dinámicas de Tensión, Corriente, Temperatura y SOC.
+            </p>
+          </div>
+
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">⚠️ Interruptor de Fuga Térmica & Consola BMS</span>
+              <span class="tutorial-step-badge">Seguridad Didáctica</span>
+            </div>
+            <p class="tutorial-step-desc">
+              Permite inyectar 17 fallas en 4 niveles y activar el <span class="tutorial-control-pill">Bypass de Fuga Térmica</span> para simular la propagación exotérmica descontrolada cuando se anula la intervención protectora del BMS.
+            </p>
+          </div>
+        </div>
+
+        <!-- Panel 2: Las 5 Pestañas -->
+        <div class="tut-pane" id="tut_pane_panes" style="display: none;">
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">📐 Pestaña 1: Diseño & Dimensionamiento</span>
+              <span class="tutorial-step-badge">Fórmula §5.1</span>
+            </div>
+            <p class="tutorial-step-desc">
+              Aquí configuras el pack. Calcula automáticamente el número de celdas en serie ($Ns = \lceil V_{bus}/V_{celda} \rceil$), celdas en paralelo ($Np$), masa de celdas, masa total del pack (con factor 1.20 de empaquetado), volumen, densidad gravimétrica ($Wh/kg$), volumétrica ($Wh/L$) y costo económico estimado ($/kWh).
+            </p>
+          </div>
+
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">⚡ Pestaña 2: Cargas & Autonomía</span>
+              <span class="tutorial-step-badge">Fórmula §6</span>
+            </div>
+            <p class="tutorial-step-desc">
+              Analiza el impacto del mundo real en el vehículo. Ingresa la velocidad de crucero (ej. 90 km/h) y el consumo base (ej. 150 Wh/km). Descubre cómo el aire acondicionado (3 kW) reduce la autonomía un 12% y el calefactor PTC combinado (4 kW) la reduce hasta un 24%.
+            </p>
+          </div>
+
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">📈 Pestaña 3: Pruebas Dinámicas Carga/Descarga</span>
+              <span class="tutorial-step-badge">Telemetría Chart.js</span>
+            </div>
+            <p class="tutorial-step-desc">
+              Somete el pack a perfiles de descarga a corriente constante (CC), potencia constante (CP), carga rápida CC-CV, pulsos de tracción/frenado regenerativo o un ciclo dinámico urbano. Cuatro gráficas muestran la caída por resistencia interna, calentamiento Joule ($I^2 R$) y descarga coulómbica.
+            </p>
+          </div>
+
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">⚠️ Pestaña 4: Inyección de Fallas & BMS</span>
+              <span class="tutorial-step-badge">Diagnóstico §8 & §9.2</span>
+            </div>
+            <p class="tutorial-step-desc">
+              Experimenta inyectando fallas a nivel celda (resistencia alta, autodescarga, cortocircuito), módulo (conexión floja, sensor NTC ciego), pack (fuga de refrigerante, contactores) o sistema (pérdida de CAN, fallo DC/DC). Observa el log del BMS reaccionar con derating de potencia, modo limp o apertura de contactores.
+            </p>
+          </div>
+
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">📊 Pestaña 5: Comparador & Resultados</span>
+              <span class="tutorial-step-badge">Toma de Decisiones §10</span>
+            </div>
+            <p class="tutorial-step-desc">
+              Guarda tus diseños (hasta 4 a la vez) para compararlos frente a frente en una tabla. Consulta la guía de decisión inteligente para saber cuándo conviene elegir LFP (costo/vida), NCM (autonomía), LTO (potencia/frío extremo) o Plomo-ácido (arranque económico). Incluye exportación directa a CSV.
+            </p>
+          </div>
+        </div>
+
+        <!-- Panel 3: Ejemplo Práctico -->
+        <div class="tut-pane" id="tut_pane_example" style="display: none;">
+          <div class="tutorial-callout">
+            <strong>🎯 Misión Didáctica:</strong> Dimensionarás un pack de <strong>40 kWh a 400 V</strong> para un BEV urbano, probarás el impacto térmico de descargarlo a alta potencia y observarás cómo responde el BMS ante una celda defectuosa.
+          </div>
+
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">Paso 1: Configurar el Pack en la Pestaña 1</span>
+              <span class="tutorial-step-badge">Caso V1</span>
+            </div>
+            <p class="tutorial-step-desc">
+              1. En <strong>Aplicación de Referencia</strong>, selecciona <em>BEV urbano</em>.<br>
+              2. Verifica que la química sea <em>LFP (LiFePO₄)</em> y la celda sea <em>Prismática LFP 100 Ah</em>.<br>
+              3. Comprueba el cálculo en el HUD: <strong>125S 1P</strong> (125 celdas), <strong>40.0 kWh</strong>, masa del pack de <strong>300 kg</strong> y densidad de <strong>133 Wh/kg</strong>.<br>
+              4. En el visor SVG inferior, <strong>haz clic sobre la Celda 1</strong> para ver su ficha técnica (3.2 V, 0.55 mΩ).
+            </p>
+          </div>
+
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">Paso 2: Comprobar el Efecto de la Climatización en la Pestaña 2</span>
+              <span class="tutorial-step-badge">Caso V3</span>
+            </div>
+            <p class="tutorial-step-desc">
+              1. Cambia a la pestaña <strong>2. Cargas & Autonomía</strong>.<br>
+              2. Con velocidad a 90 km/h y sin cargas, la autonomía inicial es de <strong>400 km</strong>.<br>
+              3. Enciende el <em>A/C</em> al 60% de ciclo: el consumo sube a 170 Wh/km y la autonomía baja a <strong>353 km</strong> (-12%).<br>
+              4. Enciende además el <em>Calefactor PTC</em> al 60%: el consumo sube a 197 Wh/km y la autonomía desciende a <strong>305 km</strong> (-24%).
+            </p>
+          </div>
+
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">Paso 3: Corrida Dinámica a 2C en la Pestaña 3</span>
+              <span class="tutorial-step-badge">Caso V2</span>
+            </div>
+            <p class="tutorial-step-desc">
+              1. Pasa a la pestaña <strong>3. Pruebas Carga/Descarga</strong>.<br>
+              2. Ajusta el deslizador de C-Rate a <strong>2.0C</strong> (corriente de 200 A).<br>
+              3. Haz clic en <strong>▶ Iniciar</strong> y pulsa <strong>5x</strong> para acelerar el tiempo.<br>
+              4. Observa cómo la gráfica de tensión cae por resistencia interna y la temperatura sube progresivamente debido a la disipación Joule ($I^2 R$).
+            </p>
+          </div>
+
+          <div class="tutorial-step-card">
+            <div class="tutorial-step-header">
+              <span class="tutorial-step-title">Paso 4: Inyectar Falla y Desatar Fuga Térmica en la Pestaña 4</span>
+              <span class="tutorial-step-badge">Casos V6 & §8</span>
+            </div>
+            <p class="tutorial-step-desc">
+              1. Ve a la pestaña <strong>4. Inyección Fallas & BMS</strong>.<br>
+              2. Marca la casilla <strong>Resistencia alta (R×10)</strong>. En el registro del BMS aparecerá una alerta por gradiente térmico $\Delta T$.<br>
+              3. Vuelve a la Pestaña 1: verás que la Celda 1 ahora parpadea en color naranja/rojo como punto caliente.<br>
+              4. En la Pestaña 4, activa el interruptor superior: <strong>Modo Didáctico de Fuga Térmica</strong>.<br>
+              5. Marca <strong>Disparo térmico</strong>: la celda entrará en descomposición exotérmica ($dT/dt > 1\text{ K/s}$), aparecerá la pantalla de advertencia animada y podrás ver el peligro de una fuga térmica sin corte del BMS.
+            </p>
+          </div>
+
+          <div class="tutorial-step-card" style="text-align: center; background: rgba(0, 245, 212, 0.05); border-color: rgba(0, 245, 212, 0.4);">
+            <p style="font-size: 0.9rem; color: var(--text-main); margin-bottom: 0.75rem;">
+              ¿Listo para empezar la práctica? Haz clic en el botón para cargar este ejemplo automáticamente:
+            </p>
+            <button class="btn-neon-action" id="btn_apply_tutorial_example" style="font-size: 0.95rem; padding: 0.65rem 1.4rem;">
+              ⚡ Cargar Ejemplo BEV Urbano y Abrir Simulador
+            </button>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 

@@ -87,6 +87,7 @@
     bindSimulationControls();
     bindFaultsControls();
     bindResultsControls();
+    bindTutorialModal();
 
     // Calcular diseño inicial
     recalculateDesign();
@@ -1118,6 +1119,74 @@
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Modal de Tutorial y Guía Rápida
+  // ---------------------------------------------------------------------------
+  function bindTutorialModal() {
+    const modal = document.getElementById("battery_tutorial_modal");
+    const btnOpen = document.getElementById("btn_battery_tutorial");
+    const btnClose = document.getElementById("battery_tutorial_close");
+    const btnApplyExample = document.getElementById("btn_apply_tutorial_example");
+
+    if (btnOpen && modal) {
+      btnOpen.addEventListener("click", () => {
+        modal.classList.add("active");
+        if (window.sounds) sounds.playClick();
+      });
+    }
+
+    if (btnClose && modal) {
+      btnClose.addEventListener("click", () => {
+        modal.classList.remove("active");
+        if (window.sounds) sounds.playClick();
+      });
+    }
+
+    if (modal) {
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.classList.remove("active");
+        }
+      });
+    }
+
+    // Navegación entre paneles del tutorial
+    const tutNavBtns = document.querySelectorAll(".tut-nav-btn");
+    tutNavBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        tutNavBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const targetId = btn.getAttribute("data-tut-target");
+        document.querySelectorAll(".tut-pane").forEach((pane) => {
+          pane.style.display = (pane.id === targetId) ? "block" : "none";
+        });
+        if (window.sounds) sounds.playClick();
+      });
+    });
+
+    // Carga automática del ejemplo didáctico (Caso V1 BEV 40 kWh)
+    if (btnApplyExample) {
+      btnApplyExample.addEventListener("click", () => {
+        labState.design.appId = "urbano";
+        labState.design.chemId = "LFP";
+        labState.design.cellId = "PRISM_LFP_100";
+        labState.design.coolingId = "liquid";
+        labState.design.eTargetKWh = 40;
+        labState.design.vBusV = 400;
+        labState.design.pPeakKW = 100;
+        labState.design.pContKW = 50;
+        labState.design.socInitialPct = 90;
+        labState.design.tAmbC = 25;
+
+        syncDesignInputsToDOM();
+        recalculateDesign();
+        switchTab("design");
+        if (modal) modal.classList.remove("active");
+        if (window.sounds) sounds.playSuccess();
+      });
+    }
   }
 
   // ---------------------------------------------------------------------------
