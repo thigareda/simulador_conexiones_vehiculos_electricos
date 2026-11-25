@@ -559,3 +559,93 @@ const offsetY = pin.relY === 0 ? -12 : (pin.relY >= dev.height ? 16 : -10);
 | `FDIJ`, `FDJ1` | `发电机` | Generador Eléctrico (`FDIJ` errata en serie; `FDJ1` MG1 en combinado) | `hybridSeries` (`FDIJ`), `hybridCombined` (`FDJ1`) |
 | `FDOJ2` | `发动机` *(defecto C#)* | Motor Eléctrico de Tracción (corregido en Web, ID preservado) | `hybridSeries` |
 | `CGZZ`, `CDZZ` | `传动装置` | Transmisión / Acoplador / Divisor Planetario (`CGZZ` errata en serie; `L1/L2` $\leftarrow$ `L41/L44` o `L81/L88`) | `hybridSeries` (`CGZZ`), `Parallel`/`Combined` (`CDZZ`) |
+
+
+---
+
+## 8. Manual de Operación y Tutorial: Laboratorio de Diseño y Pruebas de Baterías (Battery Design Lab)
+
+### 8.1 Propósito y Objetivos de Aprendizaje
+El **Laboratorio de Diseño y Pruebas de Baterías** (*Battery Design Lab*) es un submódulo interactivo de Didaktikos concebido para capacitar a estudiantes e ingenieros en:
+1. **Dimensionamiento electroquímico y físico**: cálculo de asociaciones en serie ($Ns$) y paralelo ($Np$), masa del pack con factor de empaque de 1.20, volumen, densidad gravimétrica ($Wh/kg$) y volumétrica ($Wh/L$).
+2. **Impacto de accesorios y cargas de 12 V / HV**: cuantificación precisa del drenaje auxiliar y reducción de autonomía ante climatización ($A/C$) y calefacción resistiva ($PTC$).
+3. **Dinámica de carga y descarga**: análisis temporal de tensión terminal $V_t$, calentamiento por efecto Joule $I^2 R$, capacitancia térmica $C_{th}$, disipación convectiva $UA$ y estado de carga ($SOC$).
+4. **Respuesta del BMS ante fallas**: detección de sobretensión, subtensión, desequilibrio entre celdas, sobrecorriente, deriva térmica y aislamiento con tres niveles de criticidad (*Alerta*, *Falla/Limp Mode* y *Corte Crítico*).
+5. **Fenomenología de la Fuga Térmica (*Thermal Runaway*)**: comprensión didáctica de la aceleración exotérmica ($dT/dt > 1\text{ K/s}$) cuando se anulan las protecciones activas.
+
+---
+
+### 8.2 Mapa de Controles e Instrumentos
+
+| Control / Instrumento | Ubicación | Función Operativa |
+|---|---|---|
+| **Selector de Aplicación** | Pestaña 1 (arriba) | Carga configuraciones típicas preestablecidas: BEV urbano (40 kWh), Sedán (80 kWh), Autobús (325 kWh), Camión (400 kWh), Scooter (48 V) o Arranque SLI (12 V). |
+| **Selector de Química** | Pestaña 1 | Filtra entre 9 materiales electroquímicos (§3): LFP, NCM, LTO, LMO, Pb-ácido (AGM / Inundada), NiMH y Ni-Cd. |
+| **Selector de Celda Comercial** | Pestaña 1 | Muestra celdas comerciales reales (§4) compatibles con la química: 18650, 21700, 26650, 32650, Prismática 100 Ah, Prismática 280 Ah. |
+| **Entradas Duales (Slider + Input)** | Pestañas 1, 2 y 3 | Permite arrastrar la barra para barrido rápido o digitar el número exacto con el teclado. |
+| **Semáforo de Viabilidad** | Pestaña 1 (derecha) | Evalúa si el pack cumple la Potencia Continua, Potencia Pico y Energía Objetivo según los límites de la química. |
+| **Visor SVG del Pack** | Pestaña 1 (inferior) | Representación gráfica escalada de las celdas, busbars y canalizaciones de refrigeración. **Al hacer clic en cualquier celda**, se despliega una ventana modal con su voltaje, resistencia interna y temperatura. |
+| **Interruptores de Cargas (Toggles)** | Pestaña 2 | Enciende o apaga 12 consumidores de alta tensión y 12 V, permitiendo regular el *duty cycle* de 0 a 100%. |
+| **Barra de Simulación Dinámica** | Pestaña 3 | Botones ▶ Iniciar, ⏸ Pausar, ⏭ Paso (1s) y acelerador temporal (1x, 5x, 20x). |
+| **Selector de Perfiles** | Pestaña 3 | Alterna entre Descarga CC (corriente constante), CP (potencia constante), Carga rápida CC-CV, Pulsos dinámicos y Ciclo urbano. |
+| **Gráficas en Tiempo Real** | Pestaña 3 | 4 osciloscopios virtuales sincronizados: Tensión $V(t)$, Corriente $I(t)$, Temperatura $T(t)$ y Estado de Carga $SOC(t)$. |
+| **Matriz de Inyección de Fallas** | Pestaña 4 | Casillas para inyectar 17 anomalías en Celdas, Módulos, Pack o Sistema (§8). |
+| **Bypass de Fuga Térmica** | Pestaña 4 | Modo pedagógico que desconecta la protección del BMS para observar la reacción exotérmica incontrolada ($Q_{gen} \times 100$). |
+| **Consola de Eventos BMS** | Pestaña 4 | Terminal con marcas de tiempo y niveles de alarma: Nivel 1 (*Alerta*), Nivel 2 (*Falla/Limp Mode*) y Nivel 3 (*Corte Crítico*). |
+| **Comparador Multi-Diseño** | Pestaña 5 | Permite almacenar hasta 4 configuraciones lado a lado y descargarlas en formato CSV. |
+
+---
+
+### 8.3 Ejemplo Práctico Paso a Paso: Dimensionamiento y Prueba de un BEV Urbano de 40 kWh
+
+#### Paso 1: Configuración en Pestaña 1 (Diseño & Pack)
+1. En el desplegable **Aplicación de Referencia**, selecciona **BEV urbano**.
+2. Observa cómo el sistema autocompleta:
+   - **Química:** *LFP (LiFePO₄)* ($V_{nom} = 3.2\text{ V}$, $81\text{ \$/kWh}$).
+   - **Formato:** *Prismática LFP 100 Ah* ($2.0\text{ kg}$, $0.55\text{ m}\Omega$).
+   - **Energía:** $40\text{ kWh}$ · **Voltaje de bus:** $400\text{ V}$ · **Refrigeración:** *Líquido*.
+3. En el panel derecho de métricas HUD se obtienen inmediatamente los valores calculados:
+   - $Ns = \lceil 400 / 3.2 \rceil = \mathbf{125}$
+   - $Np = \lceil (40000 / 400) / 100 \rceil = \mathbf{1}$
+   - Total celdas: **125** · Tensión nominal: **400.0 V** · Capacidad: **100.0 Ah**.
+   - Masa de celdas: $125 \times 2.0 = 250\text{ kg}$ $\rightarrow$ Masa del pack ($250 \times 1.20$) = $\mathbf{300.0\text{ kg}}$.
+   - Densidad gravimétrica: $40000 / 300 = \mathbf{133\text{ Wh/kg}}$ · Costo estimado: **$3,240 USD**.
+4. Haz clic en la primera celda del visor SVG inferior para abrir la ficha técnica y verificar su resistencia de $0.55\text{ m}\Omega$.
+
+#### Paso 2: Análisis de Consumo en Pestaña 2 (Cargas & Autonomía)
+1. Pasa a la pestaña **2. Cargas & Autonomía**.
+2. Ajusta la velocidad de crucero a **90 km/h** y consumo base a **150 Wh/km**.
+3. Sin accesorios activos, la autonomía teórica es de **400 km** ($40000 / 150$).
+4. Activa el interruptor de **Climatización (A/C)** con un ciclo de servicio del **60%**:
+   - Potencia media consumida: $3000\text{ W} \times 0.60 = 1800\text{ W}$.
+   - Consumo añadido: $1800 / 90 = \mathbf{20.0\text{ Wh/km}}$.
+   - Autonomía reducida a **353 km** (caída del **-12%**).
+5. Activa adicionalmente el **Calefactor PTC** (4 kW) con ciclo del **60%**:
+   - Potencia adicional: $4000\text{ W} \times 0.60 = 2400\text{ W}$.
+   - Consumo añadido total: $(1800 + 2400) / 90 = 46.7\text{ Wh/km}$.
+   - Consumo total: $197\text{ Wh/km}$ $\rightarrow$ Autonomía final: **305 km** (pérdida del **-24%**).
+
+#### Paso 3: Corrida Térmica Dinámica en Pestaña 3 (Pruebas Carga/Descarga)
+1. Dirígete a la pestaña **3. Pruebas Carga/Descarga**.
+2. Deja el perfil en **Descarga Corriente Constante (CC)** y ajusta el deslizador de C-Rate a **2.0C** (corriente de descarga continua de $200\text{ A}$).
+3. Haz clic en **▶ Iniciar** y selecciona el multiplicador **5x** para visualizar la evolución temporal.
+4. Analiza las 4 gráficas en vivo:
+   - **Tensión V(t):** cae instantáneamente debido a la caída óhmica $I \cdot R_{int}$ y luego declina suavemente según la meseta electroquímica del LFP.
+   - **Temperatura T(t):** experimenta un aumento constante originado por la potencia disipada $I^2 R_{pack}$.
+   - **SOC(t):** desciende de manera lineal mediante culombimetría estricta.
+
+#### Paso 4: Inyección de Anomalías y Fuga Térmica en Pestaña 4 (Fallas & BMS)
+1. Navega a la pestaña **4. Inyección Fallas & BMS**.
+2. En el grupo de *Nivel Celda*, activa la casilla **Resistencia alta (R×10)**:
+   - En la consola del BMS se emitirá una alerta debido al incremento drástico en la disipación térmica de esa celda ($300^2 \times 0.0025 = 225\text{ W}$ frente a $22.5\text{ W}$ en una celda sana).
+   - Si regresas a la Pestaña 1, notarás que la Celda 1 se ilumina con una animación pulsante de color naranja-rojizo (*hot spot*).
+3. Vuelve a la Pestaña 4 y enciende el interruptor superior: **Modo Didáctico de Fuga Térmica**.
+4. Ahora activa la falla **Disparo térmico**:
+   - Dado que el bypass bloquea la desconexión protectora, la celda entra en reacción exotérmica violenta ($dT/dt > 1\text{ K/s}$).
+   - Se activará en pantalla el overlay de alerta crítica de **Thermal Runaway**, ilustrando los riesgos catastróficos que previene el BMS en operación normal.
+
+#### Paso 5: Comparativa y Exportación en Pestaña 5 (Resultados)
+1. Ve a la pestaña **5. Comparador & Resultados**.
+2. Haz clic en **+ Guardar Diseño Actual**: se añadirá una fila con la configuración LFP 125S1P, masa, densidad y costo.
+3. Puedes regresar a la Pestaña 1, cambiar la química a **NCM**, volver y pulsar nuevamente guardar para comparar densidad de energía frente a costo.
+4. Finalmente, haz clic en **📥 Exportar CSV** para descargar la telemetría completa de la simulación en tu equipo.

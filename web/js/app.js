@@ -14,11 +14,14 @@ document.addEventListener("DOMContentLoaded", () => {
     hevMenu: document.getElementById("view_hev_menu"),
     simulator: document.getElementById("view_simulator"),
     notes: document.getElementById("view_notes"),
-    eprix: document.getElementById("view_eprix")
+    eprix: document.getElementById("view_eprix"),
+    autonomy: document.getElementById("view_autonomy"),
+    batteryLab: document.getElementById("view_battery_lab")
   };
 
   const navHomeBtn = document.getElementById("nav_home");
   const navBevBtn = document.getElementById("nav_bev");
+  const navBatteryLabBtn = document.getElementById("nav_battery_lab");
   const navHevBtn = document.getElementById("nav_hev");
   const navNotesBtn = document.getElementById("nav_notes");
   const navEprixBtn = document.getElementById("nav_eprix");
@@ -34,6 +37,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let eprixInitialized = false;
 
   function switchView(viewName) {
+    if (currentView === "autonomy" && viewName !== "autonomy" && window.AutonomyLab) {
+      window.AutonomyLab.pause();
+    }
+    if (currentView === "batteryLab" && viewName !== "batteryLab" && window.BatteryLab) {
+      window.BatteryLab.pause();
+    }
     if (viewName === "notes" && currentView !== "notes") {
       lastNonNotesView = currentView;
     }
@@ -63,7 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Actualizar botones del navbar
     document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
     if (viewName === "home" && navHomeBtn) navHomeBtn.classList.add("active");
-    if (viewName === "bevMenu" && navBevBtn) navBevBtn.classList.add("active");
+    if ((viewName === "bevMenu" || viewName === "autonomy") && navBevBtn) navBevBtn.classList.add("active");
+    if (viewName === "batteryLab" && navBatteryLabBtn) navBatteryLabBtn.classList.add("active");
     if (viewName === "hevMenu" && navHevBtn) navHevBtn.classList.add("active");
     if (viewName === "notes" && navNotesBtn) navNotesBtn.classList.add("active");
     if (viewName === "eprix" && navEprixBtn) navEprixBtn.classList.add("active");
@@ -79,6 +89,26 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const t = (key, ...args) => (window.I18N ? window.I18N.t(key, ...args) : key);
+
+  function escapeHtml(str) {
+    return String(str ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  // Fallback seguro de imágenes sin atributos inline onerror (compatible con CSP estricta)
+  document.querySelectorAll("img[data-fallback-src]").forEach(img => {
+    img.addEventListener("error", function onImgErr() {
+      const fb = img.getAttribute("data-fallback-src");
+      if (fb && img.getAttribute("src") !== fb) {
+        img.setAttribute("src", fb);
+      }
+      img.removeEventListener("error", onImgErr);
+    });
+  });
 
   function updateSimulatorHeaderAndCables(moduleKey) {
     const cfg = SIMULATOR_DATA[moduleKey];
@@ -115,11 +145,12 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.className = `cable-select-btn ${!simulator.isDeleteMode && c.id === activeCableId ? "active" : ""}`;
       btn.setAttribute("data-cable-id", c.id);
 
+      const safeColor = /^#[0-9a-fA-F]{3,8}$/.test(c.color) ? c.color : "#1d2a3a";
       btn.innerHTML = `
-        <div class="cable-sample-line" style="background-color: ${c.color};"></div>
+        <div class="cable-sample-line" style="background-color: ${safeColor};"></div>
         <div class="cable-info">
-          <span class="cable-name">${cText.name}</span>
-          <span class="cable-desc">${cText.desc}</span>
+          <span class="cable-name">${escapeHtml(cText.name)}</span>
+          <span class="cable-desc">${escapeHtml(cText.desc)}</span>
         </div>
       `;
 
@@ -139,14 +170,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (status.details && status.details.errors && status.details.errors.length > 0) {
       validationReport.innerHTML = `
         <div class="report-list">
-          ${status.details.errors.map(err => `<div class="report-item err">• ${err}</div>`).join("")}
+          ${status.details.errors.map(err => `<div class="report-item err">• ${escapeHtml(err)}</div>`).join("")}
         </div>
       `;
     } else if (status.state === "success") {
       validationReport.innerHTML = `
         <div class="report-list">
           <div class="report-item" style="background: rgba(46,196,182,0.15); color: #2ec4b6;">
-            ${t("sim_status_success_detail")}
+            ${escapeHtml(t("sim_status_success_detail"))}
           </div>
         </div>
       `;
@@ -175,13 +206,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const terminalsContainer = document.getElementById("modal_terminals");
     if (device.terminals && device.terminals.length > 0) {
       terminalsContainer.innerHTML = `
-        <div class="modal-terminals-title">${t("modal_terminals_title")}</div>
+        <div class="modal-terminals-title">${escapeHtml(t("modal_terminals_title"))}</div>
         ${device.terminals.map(term => {
           const tText = window.I18N ? window.I18N.getTerminalText(modKey, device.id, term.id, term) : term;
           return `
           <div class="terminal-item">
-            <span><strong>${tText.label || tText.name}:</strong> ${tText.name}</span>
-            <span style="color: var(--accent-cyan);">PIN ${term.id}</span>
+            <span><strong>${escapeHtml(tText.label || tText.name)}:</strong> ${escapeHtml(tText.name)}</span>
+            <span style="color: var(--accent-cyan);">PIN ${escapeHtml(term.id)}</span>
           </div>
         `;
         }).join("")}
@@ -222,6 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Event Listeners de Botones de Navegación
   if (navHomeBtn) navHomeBtn.addEventListener("click", () => switchView("home"));
   if (navBevBtn) navBevBtn.addEventListener("click", () => switchView("bevMenu"));
+  if (navBatteryLabBtn) navBatteryLabBtn.addEventListener("click", () => switchView("batteryLab"));
   if (navHevBtn) navHevBtn.addEventListener("click", () => switchView("hevMenu"));
   if (navNotesBtn) navNotesBtn.addEventListener("click", () => switchView("notes"));
   if (navEprixBtn) navEprixBtn.addEventListener("click", () => switchView("eprix"));
@@ -230,6 +262,8 @@ document.addEventListener("DOMContentLoaded", () => {
     navBackBtn.addEventListener("click", () => {
       if (currentView === "notes") {
         goBackFromNotes();
+      } else if (currentView === "autonomy" || currentView === "batteryLab") {
+        switchView("bevMenu");
       } else if (currentView === "simulator") {
         if (simulator.moduleKey && simulator.moduleKey.startsWith("bev")) {
           switchView("bevMenu");
@@ -246,9 +280,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Tarjetas del Menú Home
   document.getElementById("card_goto_bev")?.addEventListener("click", () => switchView("bevMenu"));
+  document.getElementById("card_goto_battery_lab")?.addEventListener("click", () => switchView("batteryLab"));
   document.getElementById("card_goto_hev")?.addEventListener("click", () => switchView("hevMenu"));
   document.getElementById("card_goto_notes")?.addEventListener("click", () => switchView("notes"));
   document.getElementById("card_goto_eprix")?.addEventListener("click", () => switchView("eprix"));
+
+  // Controles del Laboratorio de Baterías
+  document.getElementById("btn_battery_back")?.addEventListener("click", () => switchView("bevMenu"));
 
   // Controles de la vista de Anotaciones
   document.getElementById("btn_notes_back")?.addEventListener("click", goBackFromNotes);
@@ -265,6 +303,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Tarjetas del Menú BEV
   document.getElementById("card_bev_wiring")?.addEventListener("click", () => openModule("bevWiring"));
   document.getElementById("card_bev_principles")?.addEventListener("click", () => openModule("bevPrinciples"));
+  document.getElementById("card_bev_autonomy")?.addEventListener("click", () => switchView("autonomy"));
+  document.getElementById("card_bev_battery_lab")?.addEventListener("click", () => switchView("batteryLab"));
   document.getElementById("btn_bev_back_home")?.addEventListener("click", () => switchView("home"));
 
   // Tarjetas del Menú HEV
@@ -330,7 +370,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (simulator.moduleKey) {
       updateSimulatorHeaderAndCables(simulator.moduleKey);
       simulator.renderDevices();
-      simulator.renderLines();
+      if (simulator.lastValidation) {
+        simulator.validate();
+      } else {
+        simulator.renderLines();
+      }
     }
   });
 
