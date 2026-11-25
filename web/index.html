@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Conexiones de Vehículos Eléctricos e Híbridos</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="eprix/eprix.css">
   <link rel="icon" href="img/electric_motor.png" type="image/png">
 </head>
 <body>
@@ -23,6 +24,7 @@
       <button class="nav-btn" id="nav_bev" data-i18n="nav_bev">Vehículos Eléctricos (BEV)</button>
       <button class="nav-btn" id="nav_hev" data-i18n="nav_hev">Vehículos Híbridos (HEV)</button>
       <button class="nav-btn" id="nav_notes" data-i18n="nav_notes">📘 Anotaciones</button>
+      <button class="nav-btn" id="nav_eprix" data-i18n="nav_eprix">🏎️ E-Prix</button>
       <button class="nav-btn" id="nav_back" style="display: none;" data-i18n="nav_back">⬅ Volver</button>
       <div class="lang-switcher" role="group" aria-label="Language selector">
         <button class="lang-btn active" data-lang="es" title="Español">ES</button>
@@ -82,6 +84,19 @@
           </p>
           <div class="card-btn" data-i18n="card_notes_btn">
             Consultar Anotaciones ➔
+          </div>
+        </div>
+
+        <!-- Tarjeta E-Prix Didaktikos (Módulo de Carreras y Baterías) -->
+        <div class="module-card" id="card_goto_eprix">
+          <div class="card-icon-banner" aria-hidden="true" style="font-size: 2.2rem; background: linear-gradient(135deg, rgba(0, 245, 212, 0.2), rgba(67, 97, 238, 0.2)); border-radius: 8px; display: flex; align-items: center; justify-content: center; height: 140px;">🏎️</div>
+          <span class="card-tag" data-i18n="card_eprix_tag">Competición & Electroquímica</span>
+          <h2 class="card-title" data-i18n="card_eprix_title">E-Prix Didaktikos</h2>
+          <p class="card-desc" data-i18n="card_eprix_desc">
+            Simulador de carreras eléctricas top-down: 4 vehículos compiten 4 vueltas donde la química de la batería, el C-rate y el freno regenerativo deciden la victoria.
+          </p>
+          <div class="card-btn" data-i18n="card_eprix_btn">
+            Iniciar E-Prix ➔
           </div>
         </div>
       </div>
@@ -295,6 +310,11 @@
           <button class="action-btn" id="btn_notes_top_bottom" data-i18n="notes_btn_top_bottom">⬆ Volver arriba</button>
         </div>
       </div>
+    </section>
+
+    <!-- Vista 6: E-Prix Didaktikos (Módulo de Carreras y Baterías de Tracción) -->
+    <section class="app-view" id="view_eprix" style="padding: 0; max-width: 100%;">
+      <div id="eprix_integrated_root"></div>
     </section>
 
   </main>

@@ -1,0 +1,974 @@
+/**
+ * web/eprix/eprix.css
+ * Estilos modulares scopeados bajo .eprix
+ * Respeta tokens existentes de :root de Didaktikos
+ */
+
+:where(.eprix) {
+  --eprix-bg: #0a0e17;
+  --eprix-surface: #131a29;
+  --eprix-surface-card: rgba(19, 26, 41, 0.90);
+  --eprix-surface-hover: #1c263b;
+  --eprix-border: rgba(255, 255, 255, 0.08);
+  --eprix-border-accent: rgba(0, 245, 212, 0.35);
+
+  --eprix-cyan: #00f5d4;
+  --eprix-blue: #00b4d8;
+  --eprix-electric: #4361ee;
+  --eprix-purple: #7209b7;
+  --eprix-orange: #f77f00;
+  --eprix-red: #e63946;
+  --eprix-green: #2ec4b6;
+  --eprix-yellow: #ffb703;
+
+  --eprix-text-main: #f8f9fa;
+  --eprix-text-muted: #94a3b8;
+  --eprix-text-dim: #64748b;
+
+  --eprix-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --eprix-radius-sm: 6px;
+  --eprix-radius-md: 12px;
+  --eprix-radius-lg: 20px;
+  --eprix-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+}
+
+.eprix {
+  font-family: var(--eprix-font);
+  background-color: var(--eprix-bg);
+  color: var(--eprix-text-main);
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 1.5rem;
+  line-height: 1.5;
+  background-image: 
+    radial-gradient(circle at 10% 15%, rgba(0, 180, 216, 0.07) 0%, transparent 45%),
+    radial-gradient(circle at 90% 85%, rgba(114, 9, 183, 0.07) 0%, transparent 45%);
+}
+
+.eprix *,
+.eprix *::before,
+.eprix *::after {
+  box-sizing: border-box;
+}
+
+/* Header superior */
+.eprix .eprix-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--eprix-border);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.eprix .eprix-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eprix .eprix-brand-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--eprix-cyan), var(--eprix-electric));
+  border-radius: var(--eprix-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.4);
+}
+
+.eprix .eprix-brand-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eprix .eprix-badge {
+  font-size: 0.7rem;
+  background: rgba(0, 245, 212, 0.15);
+  color: var(--eprix-cyan);
+  padding: 2px 8px;
+  border-radius: 12px;
+  border: 1px solid var(--eprix-border-accent);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.eprix .eprix-brand-desc {
+  font-size: 0.8rem;
+  color: var(--eprix-text-muted);
+}
+
+.eprix .eprix-nav-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.eprix .eprix-tab-btn {
+  background: var(--eprix-surface);
+  color: var(--eprix-text-muted);
+  border: 1px solid var(--eprix-border);
+  padding: 8px 16px;
+  border-radius: var(--eprix-radius-sm);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.eprix .eprix-tab-btn:hover {
+  background: var(--eprix-surface-hover);
+  color: var(--eprix-text-main);
+  border-color: var(--eprix-border-accent);
+}
+
+.eprix .eprix-tab-btn.active {
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.2), rgba(67, 97, 238, 0.2));
+  color: var(--eprix-cyan);
+  border-color: var(--eprix-cyan);
+}
+
+/* Vistas */
+.eprix .eprix-view {
+  display: none;
+}
+.eprix .eprix-view.active {
+  display: block;
+}
+
+/* Pantalla 1: Preparación */
+.eprix .prep-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .eprix .prep-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.eprix .card-box {
+  background: var(--eprix-surface-card);
+  border: 1px solid var(--eprix-border);
+  border-radius: var(--eprix-radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--eprix-shadow);
+  backdrop-filter: blur(10px);
+}
+
+.eprix .box-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: var(--eprix-text-main);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eprix .box-desc {
+  font-size: 0.8rem;
+  color: var(--eprix-text-muted);
+  margin-bottom: 1rem;
+}
+
+/* Selector de circuitos */
+.eprix .circuit-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.eprix .circuit-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--eprix-surface);
+  border: 1px solid var(--eprix-border);
+  padding: 10px;
+  border-radius: var(--eprix-radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.eprix .circuit-card:hover {
+  background: var(--eprix-surface-hover);
+  border-color: var(--eprix-border-accent);
+}
+
+.eprix .circuit-card.active {
+  background: rgba(0, 245, 212, 0.12);
+  border-color: var(--eprix-cyan);
+}
+
+.eprix .circuit-mini-preview {
+  width: 70px;
+  height: 48px;
+  background: #0c121e;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.eprix .circuit-mini-preview svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.eprix .circuit-card-info {
+  flex: 1;
+}
+
+.eprix .circuit-card-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--eprix-text-main);
+}
+
+.eprix .circuit-card-stats {
+  font-size: 0.72rem;
+  color: var(--eprix-text-muted);
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+/* Ranuras de la parrilla (4 coches) */
+.eprix .slots-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.eprix .car-slot {
+  background: var(--eprix-surface);
+  border: 2px dashed var(--eprix-border);
+  border-radius: var(--eprix-radius-md);
+  padding: 12px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.eprix .car-slot.filled {
+  border-style: solid;
+  border-color: var(--eprix-border-accent);
+  background: rgba(19, 26, 41, 0.95);
+}
+
+.eprix .car-slot.active-slot {
+  border-color: var(--eprix-cyan);
+  box-shadow: 0 0 15px rgba(0, 245, 212, 0.25);
+}
+
+.eprix .slot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.eprix .slot-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #000;
+}
+
+.eprix .slot-badge-p1 { background: var(--eprix-cyan); }
+.eprix .slot-badge-p2 { background: var(--eprix-blue); }
+.eprix .slot-badge-p3 { background: var(--eprix-yellow); }
+.eprix .slot-badge-p4 { background: var(--eprix-orange); }
+
+.eprix .slot-car-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--eprix-text-main);
+  margin-bottom: 4px;
+}
+
+.eprix .slot-car-meta {
+  font-size: 0.75rem;
+  color: var(--eprix-text-muted);
+  margin-bottom: 8px;
+}
+
+.eprix .slot-style-select {
+  width: 100%;
+  background: var(--eprix-surface-hover);
+  color: var(--eprix-text-main);
+  border: 1px solid var(--eprix-border);
+  padding: 6px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+/* Catálogo de 16 coches */
+.eprix .catalog-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.eprix .filter-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--eprix-text-muted);
+}
+
+.eprix .filter-btn {
+  background: var(--eprix-surface);
+  border: 1px solid var(--eprix-border);
+  color: var(--eprix-text-muted);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.eprix .filter-btn.active,
+.eprix .filter-btn:hover {
+  background: var(--eprix-surface-hover);
+  color: var(--eprix-cyan);
+  border-color: var(--eprix-cyan);
+}
+
+.eprix .cars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.eprix .car-card {
+  background: var(--eprix-surface);
+  border: 1px solid var(--eprix-border);
+  border-radius: var(--eprix-radius-sm);
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.eprix .car-card:hover {
+  background: var(--eprix-surface-hover);
+  border-color: var(--eprix-border-accent);
+  transform: translateY(-2px);
+}
+
+.eprix .car-card.selected-in-slot {
+  opacity: 0.55;
+  border-color: var(--eprix-border);
+}
+
+.eprix .car-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.eprix .chem-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.eprix .chem-LFP { background: rgba(46, 196, 182, 0.2); color: var(--eprix-green); border: 1px solid var(--eprix-green); }
+.eprix .chem-NCM { background: rgba(0, 245, 212, 0.2); color: var(--eprix-cyan); border: 1px solid var(--eprix-cyan); }
+.eprix .chem-NiMH { background: rgba(67, 97, 238, 0.2); color: #70a1ff; border: 1px solid #70a1ff; }
+.eprix .chem-Plomo { background: rgba(230, 57, 70, 0.2); color: #ff6b6b; border: 1px solid #ff6b6b; }
+
+.eprix .car-card-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--eprix-text-main);
+  margin-bottom: 4px;
+}
+
+.eprix .car-card-specs {
+  font-size: 0.7rem;
+  color: var(--eprix-text-muted);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.eprix .car-btn-inspect {
+  margin-top: 6px;
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--eprix-border);
+  color: var(--eprix-cyan);
+  padding: 3px;
+  border-radius: 3px;
+  font-size: 0.68rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.eprix .car-btn-inspect:hover {
+  background: rgba(0, 245, 212, 0.15);
+}
+
+/* Botones principales de acción */
+.eprix .action-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-top: 1.5rem;
+  align-items: center;
+}
+
+.eprix .btn-eprix {
+  background: var(--eprix-surface-hover);
+  color: var(--eprix-text-main);
+  border: 1px solid var(--eprix-border);
+  padding: 10px 20px;
+  border-radius: var(--eprix-radius-sm);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.eprix .btn-eprix:hover:not(:disabled) {
+  border-color: var(--eprix-border-accent);
+  background: #25334d;
+}
+
+.eprix .btn-eprix:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.eprix .btn-primary {
+  background: linear-gradient(135deg, var(--eprix-cyan), var(--eprix-blue));
+  color: #000;
+  border: none;
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.35);
+}
+
+.eprix .btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 0 25px rgba(0, 245, 212, 0.55);
+}
+
+.eprix .btn-danger {
+  background: rgba(230, 57, 70, 0.15);
+  color: var(--eprix-red);
+  border-color: rgba(230, 57, 70, 0.4);
+}
+
+/* Pantalla 2: Carrera y Canvas 2D */
+.eprix .race-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.5rem;
+}
+
+@media (max-width: 1100px) {
+  .eprix .race-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.eprix .race-track-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.eprix .race-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--eprix-surface-card);
+  border: 1px solid var(--eprix-border);
+  border-radius: var(--eprix-radius-md);
+  padding: 10px 16px;
+}
+
+.eprix .race-clock {
+  font-family: monospace;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--eprix-cyan);
+}
+
+.eprix .race-flag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.eprix .race-flag-icon {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--eprix-green);
+  box-shadow: 0 0 10px var(--eprix-green);
+}
+
+.eprix .canvas-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1200 / 700;
+  background: #080c14;
+  border: 1px solid var(--eprix-border);
+  border-radius: var(--eprix-radius-md);
+  overflow: hidden;
+  box-shadow: var(--eprix-shadow);
+}
+
+.eprix .track-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.eprix .fps-counter {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--eprix-cyan);
+  font-family: monospace;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--eprix-border);
+  pointer-events: none;
+}
+
+/* HUD Lateral por Coche */
+.eprix .hud-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.eprix .hud-car-card {
+  background: var(--eprix-surface-card);
+  border: 1px solid var(--eprix-border);
+  border-radius: var(--eprix-radius-sm);
+  padding: 10px 12px;
+  position: relative;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.eprix .hud-car-card.leader {
+  border-color: var(--eprix-cyan);
+  box-shadow: 0 0 15px rgba(0, 245, 212, 0.15);
+}
+
+.eprix .hud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.eprix .hud-pos {
+  font-size: 0.95rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.eprix .hud-car-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.eprix .hud-gap {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--eprix-text-muted);
+}
+
+/* Barras de telemetría HUD (transform: scaleX) */
+.eprix .hud-telemetry-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 0.72rem;
+}
+
+.eprix .hud-bar-wrapper {
+  margin-top: 2px;
+}
+
+.eprix .hud-bar-bg {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.eprix .hud-bar-fill {
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
+  transform: scaleX(0.9);
+  transition: transform 0.1s linear;
+}
+
+.eprix .fill-soc {
+  background: linear-gradient(90deg, var(--eprix-red), var(--eprix-yellow), var(--eprix-cyan));
+}
+
+.eprix .fill-temp-green { background: var(--eprix-green); }
+.eprix .fill-temp-amber { background: var(--eprix-orange); }
+.eprix .fill-temp-red { background: var(--eprix-red); }
+
+.eprix .hud-flags {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.eprix .hud-tag {
+  font-size: 0.65rem;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 700;
+}
+
+.eprix .tag-limiting { background: rgba(247, 127, 0, 0.2); color: var(--eprix-orange); border: 1px solid var(--eprix-orange); }
+.eprix .tag-derating { background: rgba(230, 57, 70, 0.2); color: var(--eprix-red); border: 1px solid var(--eprix-red); }
+.eprix .tag-turtle { background: rgba(255, 183, 3, 0.25); color: var(--eprix-yellow); border: 1px solid var(--eprix-yellow); }
+
+/* Pantalla 3: Resultados */
+.eprix .results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.eprix .podium-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .eprix .podium-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.eprix .podium-card {
+  background: var(--eprix-surface-card);
+  border: 1px solid var(--eprix-border);
+  border-radius: var(--eprix-radius-md);
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.eprix .podium-card.winner {
+  border-color: var(--eprix-cyan);
+  box-shadow: 0 0 25px rgba(0, 245, 212, 0.25);
+  background: linear-gradient(180deg, rgba(0, 245, 212, 0.1), var(--eprix-surface-card));
+}
+
+.eprix .podium-place {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--eprix-cyan);
+}
+
+.eprix .podium-car-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin: 6px 0;
+}
+
+.eprix .podium-time {
+  font-family: monospace;
+  font-size: 0.95rem;
+  color: var(--eprix-text-muted);
+}
+
+/* Análisis "Por qué ganó" */
+.eprix .why-it-won-box {
+  background: rgba(0, 245, 212, 0.08);
+  border: 1px solid var(--eprix-border-accent);
+  border-radius: var(--eprix-radius-md);
+  padding: 1.25rem;
+}
+
+.eprix .why-it-won-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--eprix-cyan);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.eprix .why-it-won-text {
+  font-size: 0.9rem;
+  color: var(--eprix-text-main);
+  line-height: 1.6;
+}
+
+/* Tabla completa de resultados */
+.eprix .results-table-wrapper {
+  overflow-x: auto;
+}
+
+.eprix .results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  text-align: left;
+}
+
+.eprix .results-table th,
+.eprix .results-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--eprix-border);
+  white-space: nowrap;
+}
+
+.eprix .results-table th {
+  background: var(--eprix-surface);
+  color: var(--eprix-text-muted);
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+}
+
+.eprix .results-table th:hover {
+  color: var(--eprix-cyan);
+}
+
+.eprix .results-table tr:hover td {
+  background: var(--eprix-surface-hover);
+}
+
+/* Ledger de energía canónico */
+.eprix .ledger-box {
+  background: var(--eprix-surface-card);
+  border: 1px solid var(--eprix-border);
+  border-radius: var(--eprix-radius-md);
+  padding: 1.25rem;
+}
+
+.eprix .ledger-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 1rem;
+}
+
+.eprix .ledger-item {
+  background: var(--eprix-surface);
+  border: 1px solid var(--eprix-border);
+  border-radius: var(--eprix-radius-sm);
+  padding: 10px;
+}
+
+.eprix .ledger-item-label {
+  font-size: 0.75rem;
+  color: var(--eprix-text-muted);
+}
+
+.eprix .ledger-item-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--eprix-cyan);
+  font-family: monospace;
+  margin-top: 4px;
+}
+
+/* Pantalla 4: Modo Conceptos / Quiz */
+.eprix .concepts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.eprix .quiz-card {
+  background: var(--eprix-surface-card);
+  border: 1px solid var(--eprix-border);
+  border-radius: var(--eprix-radius-md);
+  padding: 1.5rem;
+}
+
+.eprix .quiz-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.eprix .trap-warning-pill {
+  background: rgba(230, 57, 70, 0.15);
+  color: var(--eprix-red);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.eprix .quiz-question {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.eprix .quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.eprix .quiz-option-btn {
+  background: var(--eprix-surface);
+  color: var(--eprix-text-main);
+  border: 1px solid var(--eprix-border);
+  padding: 10px 14px;
+  border-radius: var(--eprix-radius-sm);
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.eprix .quiz-option-btn:hover {
+  background: var(--eprix-surface-hover);
+  border-color: var(--eprix-border-accent);
+}
+
+.eprix .quiz-option-btn.correct {
+  background: rgba(46, 196, 182, 0.2);
+  border-color: var(--eprix-green);
+  color: var(--eprix-green);
+}
+
+.eprix .quiz-option-btn.wrong {
+  background: rgba(230, 57, 70, 0.2);
+  border-color: var(--eprix-red);
+  color: var(--eprix-red);
+}
+
+.eprix .quiz-feedback {
+  margin-top: 1rem;
+  padding: 10px 12px;
+  border-radius: var(--eprix-radius-sm);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  display: none;
+}
+
+.eprix .quiz-feedback.active {
+  display: block;
+}
+
+/* Chips del Grafo */
+.eprix .graph-chips-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 1rem;
+}
+
+.eprix .graph-chip {
+  background: rgba(67, 97, 238, 0.15);
+  color: #70a1ff;
+  border: 1px solid rgba(67, 97, 238, 0.35);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.eprix .graph-chip:hover {
+  background: rgba(67, 97, 238, 0.3);
+  border-color: #70a1ff;
+}
+
+/* Modal Ficha Técnica */
+.eprix .eprix-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.eprix .eprix-modal-overlay.active {
+  display: flex;
+}
+
+.eprix .eprix-modal-card {
+  background: var(--eprix-surface-card);
+  border: 1px solid var(--eprix-border-accent);
+  border-radius: var(--eprix-radius-md);
+  width: 100%;
+  max-width: 650px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  padding: 1.5rem;
+  position: relative;
+}
+
+.eprix .modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--eprix-text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.eprix .modal-close:hover {
+  color: var(--eprix-text-main);
+}

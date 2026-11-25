@@ -13,13 +13,15 @@ document.addEventListener("DOMContentLoaded", () => {
     bevMenu: document.getElementById("view_bev_menu"),
     hevMenu: document.getElementById("view_hev_menu"),
     simulator: document.getElementById("view_simulator"),
-    notes: document.getElementById("view_notes")
+    notes: document.getElementById("view_notes"),
+    eprix: document.getElementById("view_eprix")
   };
 
   const navHomeBtn = document.getElementById("nav_home");
   const navBevBtn = document.getElementById("nav_bev");
   const navHevBtn = document.getElementById("nav_hev");
   const navNotesBtn = document.getElementById("nav_notes");
+  const navEprixBtn = document.getElementById("nav_eprix");
   const navBackBtn = document.getElementById("nav_back");
 
   const statusBar = document.getElementById("sim_status_bar");
@@ -29,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentView = "home";
   let previousView = "home";
   let lastNonNotesView = "home";
+  let eprixInitialized = false;
 
   function switchView(viewName) {
     if (viewName === "notes" && currentView !== "notes") {
@@ -47,12 +50,23 @@ document.addEventListener("DOMContentLoaded", () => {
       views[viewName].classList.add("active");
     }
 
+    // Inicializar módulo E-Prix Didaktikos en su primer acceso
+    if (viewName === "eprix" && !eprixInitialized) {
+      eprixInitialized = true;
+      import("../eprix/eprix.js").then(m => {
+        m.initEPrix("eprix_integrated_root");
+      }).catch(err => {
+        console.error("Error al inicializar E-Prix Didaktikos:", err);
+      });
+    }
+
     // Actualizar botones del navbar
     document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
     if (viewName === "home" && navHomeBtn) navHomeBtn.classList.add("active");
     if (viewName === "bevMenu" && navBevBtn) navBevBtn.classList.add("active");
     if (viewName === "hevMenu" && navHevBtn) navHevBtn.classList.add("active");
     if (viewName === "notes" && navNotesBtn) navNotesBtn.classList.add("active");
+    if (viewName === "eprix" && navEprixBtn) navEprixBtn.classList.add("active");
 
     if (viewName === "simulator") {
       navBackBtn.style.display = "inline-flex";
@@ -210,6 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (navBevBtn) navBevBtn.addEventListener("click", () => switchView("bevMenu"));
   if (navHevBtn) navHevBtn.addEventListener("click", () => switchView("hevMenu"));
   if (navNotesBtn) navNotesBtn.addEventListener("click", () => switchView("notes"));
+  if (navEprixBtn) navEprixBtn.addEventListener("click", () => switchView("eprix"));
 
   if (navBackBtn) {
     navBackBtn.addEventListener("click", () => {
@@ -221,6 +236,8 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           switchView("hevMenu");
         }
+      } else if (currentView === "eprix") {
+        switchView("home");
       } else {
         switchView("home");
       }
@@ -231,6 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("card_goto_bev")?.addEventListener("click", () => switchView("bevMenu"));
   document.getElementById("card_goto_hev")?.addEventListener("click", () => switchView("hevMenu"));
   document.getElementById("card_goto_notes")?.addEventListener("click", () => switchView("notes"));
+  document.getElementById("card_goto_eprix")?.addEventListener("click", () => switchView("eprix"));
 
   // Controles de la vista de Anotaciones
   document.getElementById("btn_notes_back")?.addEventListener("click", goBackFromNotes);

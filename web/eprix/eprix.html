@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Prix Didaktikos · Simulador de Carreras y Baterías de Tracción</title>
+  <meta name="description" content="Módulo didáctico de simulación de carreras eléctricas: la química importa, el C-rate calienta, el SOC se administra y el freno regenerativo tiene límites.">
+  <link rel="stylesheet" href="eprix.css">
+  <link rel="icon" href="../img/electric_motor.png" type="image/png">
+</head>
+<body style="margin: 0; background-color: #0a0e17;">
+
+  <!-- Contenedor Raíz del Módulo E-Prix -->
+  <main id="eprix_app_root"></main>
+
+  <!-- Inicialización ESM Autónoma -->
+  <script type="module">
+    import { initEPrix } from './eprix.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Soporte para fijar semilla determinista por URL (?seed=1234)
+      const urlParams = new URLSearchParams(window.location.search);
+      const seedParam = urlParams.get('seed');
+      const seed = seedParam ? parseInt(seedParam, 10) : undefined;
+
+      initEPrix('eprix_app_root', { seed });
+    });
+  </script>
+</body>
+</html>
