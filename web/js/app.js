@@ -14,11 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
     hevMenu: document.getElementById("view_hev_menu"),
     simulator: document.getElementById("view_simulator"),
     notes: document.getElementById("view_notes"),
-    autonomy: document.getElementById("view_autonomy")
+    autonomy: document.getElementById("view_autonomy"),
+    batteryLab: document.getElementById("view_battery_lab")
   };
 
   const navHomeBtn = document.getElementById("nav_home");
   const navBevBtn = document.getElementById("nav_bev");
+  const navBatteryLabBtn = document.getElementById("nav_battery_lab");
   const navHevBtn = document.getElementById("nav_hev");
   const navNotesBtn = document.getElementById("nav_notes");
   const navBackBtn = document.getElementById("nav_back");
@@ -34,6 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function switchView(viewName) {
     if (currentView === "autonomy" && viewName !== "autonomy" && window.AutonomyLab) {
       window.AutonomyLab.pause();
+    }
+    if (currentView === "batteryLab" && viewName !== "batteryLab" && window.BatteryLab) {
+      window.BatteryLab.pause();
     }
     if (viewName === "notes" && currentView !== "notes") {
       lastNonNotesView = currentView;
@@ -55,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
     if (viewName === "home" && navHomeBtn) navHomeBtn.classList.add("active");
     if ((viewName === "bevMenu" || viewName === "autonomy") && navBevBtn) navBevBtn.classList.add("active");
+    if (viewName === "batteryLab" && navBatteryLabBtn) navBatteryLabBtn.classList.add("active");
     if (viewName === "hevMenu" && navHevBtn) navHevBtn.classList.add("active");
     if (viewName === "notes" && navNotesBtn) navNotesBtn.classList.add("active");
 
@@ -233,6 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Event Listeners de Botones de Navegación
   if (navHomeBtn) navHomeBtn.addEventListener("click", () => switchView("home"));
   if (navBevBtn) navBevBtn.addEventListener("click", () => switchView("bevMenu"));
+  if (navBatteryLabBtn) navBatteryLabBtn.addEventListener("click", () => switchView("batteryLab"));
   if (navHevBtn) navHevBtn.addEventListener("click", () => switchView("hevMenu"));
   if (navNotesBtn) navNotesBtn.addEventListener("click", () => switchView("notes"));
 
@@ -240,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
     navBackBtn.addEventListener("click", () => {
       if (currentView === "notes") {
         goBackFromNotes();
-      } else if (currentView === "autonomy") {
+      } else if (currentView === "autonomy" || currentView === "batteryLab") {
         switchView("bevMenu");
       } else if (currentView === "simulator") {
         if (simulator.moduleKey && simulator.moduleKey.startsWith("bev")) {
@@ -256,8 +263,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Tarjetas del Menú Home
   document.getElementById("card_goto_bev")?.addEventListener("click", () => switchView("bevMenu"));
+  document.getElementById("card_goto_battery_lab")?.addEventListener("click", () => switchView("batteryLab"));
   document.getElementById("card_goto_hev")?.addEventListener("click", () => switchView("hevMenu"));
   document.getElementById("card_goto_notes")?.addEventListener("click", () => switchView("notes"));
+
+  // Controles del Laboratorio de Baterías
+  document.getElementById("btn_battery_back")?.addEventListener("click", () => switchView("bevMenu"));
 
   // Controles de la vista de Anotaciones
   document.getElementById("btn_notes_back")?.addEventListener("click", goBackFromNotes);
@@ -275,6 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("card_bev_wiring")?.addEventListener("click", () => openModule("bevWiring"));
   document.getElementById("card_bev_principles")?.addEventListener("click", () => openModule("bevPrinciples"));
   document.getElementById("card_bev_autonomy")?.addEventListener("click", () => switchView("autonomy"));
+  document.getElementById("card_bev_battery_lab")?.addEventListener("click", () => switchView("batteryLab"));
   document.getElementById("btn_bev_back_home")?.addEventListener("click", () => switchView("home"));
 
   // Tarjetas del Menú HEV

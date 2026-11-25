@@ -6,6 +6,7 @@
   <title>Simulador de Conexiones de Vehículos Eléctricos e Híbridos</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/autonomy.css">
+  <link rel="stylesheet" href="css/battery_lab.css">
   <link rel="icon" href="img/electric_motor.png" type="image/png">
 </head>
 <body>
@@ -22,6 +23,7 @@
     <nav class="nav-links">
       <button class="nav-btn active" id="nav_home" data-i18n="nav_home">Inicio</button>
       <button class="nav-btn" id="nav_bev" data-i18n="nav_bev">Vehículos Eléctricos (BEV)</button>
+      <button class="nav-btn" id="nav_battery_lab" data-i18n="nav_battery_lab">🧪 Lab de Baterías</button>
       <button class="nav-btn" id="nav_hev" data-i18n="nav_hev">Vehículos Híbridos (HEV)</button>
       <button class="nav-btn" id="nav_notes" data-i18n="nav_notes">📘 Anotaciones</button>
       <button class="nav-btn" id="nav_back" style="display: none;" data-i18n="nav_back">⬅ Volver</button>
@@ -70,6 +72,19 @@
           </p>
           <div class="card-btn" data-i18n="card_hev_btn">
             Explorar Módulos HEV ➔
+          </div>
+        </div>
+
+        <!-- Tarjeta Battery Design Lab -->
+        <div class="module-card" id="card_goto_battery_lab">
+          <div class="card-icon-banner" aria-hidden="true">🧪</div>
+          <span class="card-tag" data-i18n="card_battery_tag">Diseño &amp; Pruebas</span>
+          <h2 class="card-title" data-i18n="card_battery_title">Battery Design Lab</h2>
+          <p class="card-desc" data-i18n="card_battery_desc">
+            Diseña packs de baterías electroquímicos (LFP, NCM, LTO, Pb, NiMH), dimensiona Ns/Np, evalúa térmicamente, inyecta fallas y analiza la respuesta del BMS con simulación de fuga térmica.
+          </p>
+          <div class="card-btn" data-i18n="card_battery_btn">
+            Entrar al Laboratorio ➔
           </div>
         </div>
 
@@ -135,6 +150,19 @@
           </p>
           <div class="card-btn" data-i18n="bev_autonomy_btn">
             Abrir Laboratorio de Autonomía ➔
+          </div>
+        </div>
+
+        <!-- Submódulo Battery Design Lab -->
+        <div class="module-card" id="card_bev_battery_lab">
+          <div class="card-icon-banner" aria-hidden="true">🧪</div>
+          <span class="card-tag" data-i18n="card_battery_tag">Diseño &amp; Pruebas</span>
+          <h2 class="card-title" data-i18n="card_battery_title">Battery Design Lab</h2>
+          <p class="card-desc" data-i18n="card_battery_desc">
+            Laboratorio de electroquímica y baterías: dimensiona packs Ns/Np, curvas térmicas, fallas internas y alarmas del BMS.
+          </p>
+          <div class="card-btn" data-i18n="card_battery_btn">
+            Abrir Lab de Baterías ➔
           </div>
         </div>
       </div>
@@ -689,6 +717,478 @@
       </div>
     </section>
 
+    <!-- Vista 7: Laboratorio de Diseño y Pruebas de Baterías (Battery Design Lab) -->
+    <section class="app-view" id="view_battery_lab">
+      <div class="battery-lab-layout">
+        <!-- Cabecera del Laboratorio -->
+        <div class="battery-header">
+          <div class="battery-header-info">
+            <span class="hero-badge" style="margin-bottom: 0.35rem;" data-i18n="card_battery_tag">Diseño &amp; Pruebas</span>
+            <h2 data-i18n="bat_title">🧪 Laboratorio de Diseño y Pruebas de Baterías</h2>
+            <p data-i18n="bat_subtitle">Dimensionamiento Ns/Np, modelo electrotérmico dinámico, cargas auxiliares, inyección de fallas y telemetría BMS en tiempo real.</p>
+          </div>
+          <div class="battery-header-actions">
+            <button class="btn-outline-action" id="btn_battery_back">⬅ Volver</button>
+          </div>
+        </div>
+
+        <!-- Barra de Pestañas (5 pestañas) -->
+        <nav class="battery-tabs-bar" role="tablist">
+          <button class="battery-tab-btn active" data-tab="design">📐 1. Diseño &amp; Pack</button>
+          <button class="battery-tab-btn" data-tab="loads">⚡ 2. Cargas &amp; Autonomía</button>
+          <button class="battery-tab-btn" data-tab="simulation">📈 3. Pruebas Carga/Descarga</button>
+          <button class="battery-tab-btn" data-tab="faults">⚠️ 4. Inyección Fallas &amp; BMS</button>
+          <button class="battery-tab-btn" data-tab="results">📊 5. Comparador &amp; Resultados</button>
+        </nav>
+
+        <!-- Pestaña 1: Diseño y Dimensionamiento -->
+        <div class="battery-tab-pane active" id="tab_pane_design">
+          <div class="battery-grid-2col">
+            <!-- Columna Izquierda: Parámetros de Entrada -->
+            <div class="battery-card">
+              <div class="battery-card-header">
+                <span class="battery-card-title">⚙️ Parámetros de Diseño</span>
+                <span class="battery-card-badge">Inputs Sincronizados</span>
+              </div>
+
+              <!-- Aplicación Objetivo -->
+              <div class="input-field-group">
+                <label class="input-field-header" for="bat_app_select">
+                  <span>Aplicación de Referencia</span>
+                </label>
+                <select id="bat_app_select" class="select-input"></select>
+              </div>
+
+              <!-- Química de Celda -->
+              <div class="input-field-group">
+                <label class="input-field-header" for="bat_chem_select">
+                  <span>Química Electroquímica</span>
+                </label>
+                <select id="bat_chem_select" class="select-input"></select>
+              </div>
+
+              <!-- Formato Comercial de Celda -->
+              <div class="input-field-group">
+                <label class="input-field-header" for="bat_cell_select">
+                  <span>Formato de Celda (§4)</span>
+                </label>
+                <select id="bat_cell_select" class="select-input"></select>
+              </div>
+
+              <!-- Sistema de Refrigeración -->
+              <div class="input-field-group">
+                <label class="input-field-header" for="bat_cooling_select">
+                  <span>Sistema Térmico / Refrigeración</span>
+                </label>
+                <select id="bat_cooling_select" class="select-input"></select>
+              </div>
+
+              <!-- Energía Objetivo (kWh) -->
+              <div class="input-field-group">
+                <div class="input-field-header">
+                  <span>Energía Objetivo (kWh)</span>
+                  <span class="input-field-val" id="bat_energy_val">40</span>
+                </div>
+                <div class="input-slider-row">
+                  <input type="range" id="bat_energy_range" class="range-input" min="0.5" max="600" step="0.5" value="40">
+                  <input type="number" id="bat_energy_num" class="num-input" min="0.5" max="600" step="0.5" value="40">
+                </div>
+              </div>
+
+              <!-- Voltaje de Bus (V) -->
+              <div class="input-field-group">
+                <div class="input-field-header">
+                  <span>Voltaje de Bus Nominal (V)</span>
+                  <span class="input-field-val" id="bat_vbus_val">400</span>
+                </div>
+                <div class="input-slider-row">
+                  <input type="range" id="bat_vbus_range" class="range-input" min="12" max="1000" step="1" value="400">
+                  <input type="number" id="bat_vbus_num" class="num-input" min="12" max="1000" step="1" value="400">
+                </div>
+              </div>
+
+              <!-- Potencia Continua (kW) -->
+              <div class="input-field-group">
+                <div class="input-field-header">
+                  <span>Potencia Continua Requerida (kW)</span>
+                  <span class="input-field-val" id="bat_pcont_val">50</span>
+                </div>
+                <div class="input-slider-row">
+                  <input type="range" id="bat_pcont_range" class="range-input" min="0.5" max="250" step="0.5" value="50">
+                  <input type="number" id="bat_pcont_num" class="num-input" min="0.5" max="250" step="0.5" value="50">
+                </div>
+              </div>
+
+              <!-- Potencia Pico (kW) -->
+              <div class="input-field-group">
+                <div class="input-field-header">
+                  <span>Potencia Pico Requerida (kW)</span>
+                  <span class="input-field-val" id="bat_ppeak_val">100</span>
+                </div>
+                <div class="input-slider-row">
+                  <input type="range" id="bat_ppeak_range" class="range-input" min="1" max="400" step="1" value="100">
+                  <input type="number" id="bat_ppeak_num" class="num-input" min="1" max="400" step="1" value="100">
+                </div>
+              </div>
+
+              <!-- SOC Inicial (%) y Tamb (°C) -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                <div class="input-field-group">
+                  <div class="input-field-header">
+                    <span>SOC Inicial (%)</span>
+                    <span class="input-field-val" id="bat_soc_init_val">90</span>
+                  </div>
+                  <input type="range" id="bat_soc_init_range" class="range-input" min="5" max="100" step="1" value="90">
+                  <input type="number" id="bat_soc_init_num" class="num-input" min="5" max="100" step="1" value="90">
+                </div>
+                <div class="input-field-group">
+                  <div class="input-field-header">
+                    <span>T. Ambiente (°C)</span>
+                    <span class="input-field-val" id="bat_tamb_val">25</span>
+                  </div>
+                  <input type="range" id="bat_tamb_range" class="range-input" min="-30" max="50" step="1" value="25">
+                  <input type="number" id="bat_tamb_num" class="num-input" min="-30" max="50" step="1" value="25">
+                </div>
+              </div>
+            </div>
+
+            <!-- Columna Derecha: HUD de Métricas en Vivo y Pack SVG -->
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <!-- Semáforo de Viabilidad -->
+              <div class="feasibility-banner">
+                <div class="check-item" id="check_pcont">
+                  <span class="check-dot ok"></span>
+                  <span>Potencia Continua</span>
+                </div>
+                <div class="check-item" id="check_ppeak">
+                  <span class="check-dot ok"></span>
+                  <span>Potencia Pico</span>
+                </div>
+                <div class="check-item" id="check_energy">
+                  <span class="check-dot ok"></span>
+                  <span>Energía Mínima</span>
+                </div>
+              </div>
+
+              <!-- HUD Grid de Métricas Calculadas -->
+              <div class="metrics-hud-grid">
+                <div class="metric-hud-box">
+                  <span class="metric-hud-label">Configuración</span>
+                  <span class="metric-hud-value" id="hud_ns_np">125S 1P</span>
+                </div>
+                <div class="metric-hud-box">
+                  <span class="metric-hud-label">Total Celdas</span>
+                  <span class="metric-hud-value" id="hud_total_cells">125</span>
+                </div>
+                <div class="metric-hud-box">
+                  <span class="metric-hud-label">Tensión Nominal</span>
+                  <span class="metric-hud-value" id="hud_v_nom">400.0 V</span>
+                </div>
+                <div class="metric-hud-box">
+                  <span class="metric-hud-label">Capacidad Pack</span>
+                  <span class="metric-hud-value" id="hud_cap_ah">100.0 Ah</span>
+                </div>
+                <div class="metric-hud-box">
+                  <span class="metric-hud-label">Energía Real</span>
+                  <span class="metric-hud-value" id="hud_e_real">40.0 kWh</span>
+                </div>
+                <div class="metric-hud-box">
+                  <span class="metric-hud-label">Masa Pack (×1.20)</span>
+                  <span class="metric-hud-value" id="hud_mass_pack">300.0 kg</span>
+                </div>
+                <div class="metric-hud-box">
+                  <span class="metric-hud-label">Densidad Grav.</span>
+                  <span class="metric-hud-value" id="hud_density_whkg">133 Wh/kg</span>
+                </div>
+                <div class="metric-hud-box">
+                  <span class="metric-hud-label">Densidad Vol.</span>
+                  <span class="metric-hud-value" id="hud_density_whl">197 Wh/L</span>
+                </div>
+                <div class="metric-hud-box">
+                  <span class="metric-hud-label">Costo Estimado</span>
+                  <span class="metric-hud-value" id="hud_cost_total">$3,240</span>
+                </div>
+                <div class="metric-hud-box">
+                  <span class="metric-hud-label">Resistencia Rint</span>
+                  <span class="metric-hud-value" id="hud_rint">68.75 mΩ</span>
+                </div>
+              </div>
+
+              <!-- Visualizador SVG Interactivo del Pack -->
+              <div class="battery-card" style="padding: 1rem;">
+                <div class="battery-card-header" style="margin-bottom: 0.5rem;">
+                  <span class="battery-card-title">🔋 Arquitectura Física del Pack (SVG Interactivo)</span>
+                  <span style="font-size: 0.75rem; color: var(--text-dim);">Haz clic sobre una celda para ver sus detalles</span>
+                </div>
+                <div class="battery-svg-wrapper" id="pack_svg_container">
+                  <!-- Renderizado dinámico vía battery_ui.js -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pestaña 2: Cargas Auxiliares y Autonomía -->
+        <div class="battery-tab-pane" id="tab_pane_loads">
+          <div class="battery-card">
+            <div class="battery-card-header">
+              <span class="battery-card-title">⚡ Desglose de Cargas de Alta Tensión y 12 V (V3)</span>
+              <span class="battery-card-badge">Ciclo de Servicio 0–100%</span>
+            </div>
+
+            <!-- Parámetros Vehiculares y Resumen de Consumo -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; background: rgba(0,0,0,0.25); padding: 1rem; border-radius: var(--radius-sm);">
+              <div class="input-field-group">
+                <div class="input-field-header">
+                  <span>Velocidad de Crucero (km/h)</span>
+                  <span class="input-field-val" id="aux_speed_val">90</span>
+                </div>
+                <div class="input-slider-row">
+                  <input type="range" id="aux_speed_range" class="range-input" min="20" max="160" step="5" value="90">
+                  <input type="number" id="aux_speed_num" class="num-input" min="20" max="160" step="5" value="90">
+                </div>
+              </div>
+
+              <div class="input-field-group">
+                <div class="input-field-header">
+                  <span>Consumo Base Vehicular (Wh/km)</span>
+                  <span class="input-field-val" id="aux_base_whkm_val">150</span>
+                </div>
+                <div class="input-slider-row">
+                  <input type="range" id="aux_base_whkm_range" class="range-input" min="50" max="400" step="5" value="150">
+                  <input type="number" id="aux_base_whkm_num" class="num-input" min="50" max="400" step="5" value="150">
+                </div>
+              </div>
+
+              <!-- HUD Resultados de Autonomía -->
+              <div class="metric-hud-box">
+                <span class="metric-hud-label">Potencia Auxiliar Total</span>
+                <span class="metric-hud-value" id="aux_power_total">1800 W</span>
+              </div>
+              <div class="metric-hud-box">
+                <span class="metric-hud-label">Consumo Añadido</span>
+                <span class="metric-hud-value" id="aux_added_whkm">+20.0 Wh/km</span>
+              </div>
+              <div class="metric-hud-box">
+                <span class="metric-hud-label">Consumo Total</span>
+                <span class="metric-hud-value" id="aux_total_whkm">170.0 Wh/km</span>
+              </div>
+              <div class="metric-hud-box">
+                <span class="metric-hud-label">Autonomía Resultante</span>
+                <span class="metric-hud-value" id="aux_range_km" style="color: var(--accent-cyan);">353 km</span>
+                <span style="font-size: 0.72rem; color: #e63946;" id="aux_range_drop">-12.0%</span>
+              </div>
+            </div>
+
+            <!-- Grilla de Cargas -->
+            <div class="aux-loads-grid" id="aux_loads_grid">
+              <!-- Renderizado dinámico vía battery_ui.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Pestaña 3: Pruebas Dinámicas Carga/Descarga -->
+        <div class="battery-tab-pane" id="tab_pane_simulation">
+          <div class="battery-card">
+            <!-- Barra de Controles de Corrida -->
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.8rem;">
+              <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                <button class="btn-neon-action" id="sim_btn_play">▶ Iniciar</button>
+                <button class="btn-outline-action" id="sim_btn_step">⏭ Paso (1s)</button>
+                <button class="btn-outline-action" id="sim_btn_reset">↺ Reiniciar</button>
+                
+                <div style="display: inline-flex; align-items: center; gap: 0.4rem; margin-left: 0.5rem;">
+                  <span style="font-size: 0.8rem; color: var(--text-muted);">Perfil:</span>
+                  <select id="sim_profile_select" class="select-input" style="width: auto;">
+                    <option value="cc">Descarga Corriente Constante (CC)</option>
+                    <option value="cp">Descarga Potencia Constante (CP)</option>
+                    <option value="cccv">Carga CC-CV</option>
+                    <option value="pulse">Pulsos de Tracción / Regen</option>
+                    <option value="drive">Ciclo Dinámico Urbano</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Velocidad y Régimen C-Rate -->
+              <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 0.4rem;">
+                  <span style="font-size: 0.8rem; color: var(--text-muted);">C-Rate:</span>
+                  <input type="range" id="sim_crate_range" class="range-input" min="0.1" max="5.0" step="0.1" value="1.0" style="width: 80px;">
+                  <span class="input-field-val" id="sim_crate_val">1.0</span>C
+                </div>
+                <div class="speed-toggle-group">
+                  <button class="speed-btn sim-speed-btn active" data-mult="1">1x</button>
+                  <button class="speed-btn sim-speed-btn" data-mult="5">5x</button>
+                  <button class="speed-btn sim-speed-btn" data-mult="20">20x</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Telemetría Dinámica Superior -->
+            <div class="metrics-hud-grid">
+              <div class="metric-hud-box">
+                <span class="metric-hud-label">Tiempo</span>
+                <span class="metric-hud-value" id="telem_time">0 s</span>
+              </div>
+              <div class="metric-hud-box">
+                <span class="metric-hud-label">Tensión Pack</span>
+                <span class="metric-hud-value" id="telem_v">400.0 V</span>
+              </div>
+              <div class="metric-hud-box">
+                <span class="metric-hud-label">Corriente</span>
+                <span class="metric-hud-value" id="telem_i">0.0 A</span>
+              </div>
+              <div class="metric-hud-box">
+                <span class="metric-hud-label">Potencia</span>
+                <span class="metric-hud-value" id="telem_p">0.0 kW</span>
+              </div>
+              <div class="metric-hud-box">
+                <span class="metric-hud-label">Temperatura</span>
+                <span class="metric-hud-value" id="telem_t">25.0 °C</span>
+              </div>
+              <div class="metric-hud-box">
+                <span class="metric-hud-label">Estado de Carga</span>
+                <span class="metric-hud-value" id="telem_soc">90.0 %</span>
+              </div>
+              <div class="metric-hud-box">
+                <span class="metric-hud-label">Estado BMS</span>
+                <span class="bms-status-badge normal" id="bms_status_badge">NORMAL</span>
+              </div>
+            </div>
+
+            <!-- Gráficas Chart.js Cuádruples -->
+            <div class="charts-grid-container">
+              <div class="chart-card-box">
+                <span class="battery-card-title" style="font-size: 0.9rem;">📉 Tensión Terminal V(t) [V]</span>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chart_voltage"></canvas>
+                </div>
+              </div>
+              <div class="chart-card-box">
+                <span class="battery-card-title" style="font-size: 0.9rem;">⚡ Corriente I(t) [A]</span>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chart_current"></canvas>
+                </div>
+              </div>
+              <div class="chart-card-box">
+                <span class="battery-card-title" style="font-size: 0.9rem;">🌡️ Temperatura T(t) [°C]</span>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chart_temp"></canvas>
+                </div>
+              </div>
+              <div class="chart-card-box">
+                <span class="battery-card-title" style="font-size: 0.9rem;">🔋 Estado de Carga SOC(t) [%]</span>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chart_soc"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pestaña 4: Inyección de Fallas & BMS -->
+        <div class="battery-tab-pane" id="tab_pane_faults">
+          <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <!-- Interruptor Didáctico de Fuga Térmica -->
+            <div class="battery-card" style="border-color: rgba(230, 57, 70, 0.4); background: rgba(230, 57, 70, 0.04);">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+                <div>
+                  <h3 style="color: #e63946; font-size: 1.05rem; display: flex; align-items: center; gap: 0.5rem;">
+                    ⚠️ Modo Didáctico de Fuga Térmica (Thermal Runaway)
+                  </h3>
+                  <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem;">
+                    Al activar este modo pedagógico se anula la desconexión protectora del BMS para ilustrar el sobrecalentamiento exotérmico (>1 K/s) y la propagación térmica incontrolada.
+                  </p>
+                </div>
+                <label class="aux-toggle-switch">
+                  <input type="checkbox" id="bypass_runaway_toggle">
+                  <span class="toggle-slider" style="background-color: rgba(230, 57, 70, 0.3);"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Pantalla overlay de fuga térmica animada -->
+            <div class="runaway-alert-overlay" id="runaway_alert_screen">
+              <span class="runaway-badge">🔥 ALERTA CRÍTICA: FUGA TÉRMICA ACTIVA (dT/dt &gt; 1 K/s)</span>
+              <p style="color: #fff; font-size: 0.88rem; text-align: center; max-width: 500px;">
+                La celda ha entrado en descomposición exotérmica. En condiciones reales, los contactores se abrirían de inmediato y se activaría la refrigeración de emergencia.
+              </p>
+            </div>
+
+            <!-- Catálogo de 4 Niveles de Fallas -->
+            <div class="battery-card">
+              <div class="battery-card-header">
+                <span class="battery-card-title">🛠️ Inyección de Fallas en 4 Niveles (§8)</span>
+                <span class="battery-card-badge">Celdas · Módulos · Pack · Sistema</span>
+              </div>
+              <div class="fault-groups-container" id="fault_groups_container">
+                <!-- Renderizado dinámico vía battery_ui.js -->
+              </div>
+            </div>
+
+            <!-- Terminal Consola del BMS -->
+            <div class="bms-console-card">
+              <div class="bms-console-header">
+                <span style="font-size: 0.9rem; font-weight: 700; color: #00f5d4; display: flex; align-items: center; gap: 0.4rem;">
+                  🖥️ Registro de Eventos y Decisiones del BMS (§9.2)
+                </span>
+                <button class="btn-outline-action" id="btn_clear_bms_logs" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;">Limpiar Log</button>
+              </div>
+              <div class="bms-log-terminal" id="bms_log_terminal">
+                <!-- Log feed en tiempo real -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pestaña 5: Comparador de Diseños y Resultados -->
+        <div class="battery-tab-pane" id="tab_pane_results">
+          <div class="battery-card">
+            <div class="battery-card-header">
+              <span class="battery-card-title">📊 Comparador de Configuraciones de Pack</span>
+              <div style="display: flex; gap: 0.6rem; align-items: center;">
+                <button class="btn-neon-action" id="btn_save_design_comparison">+ Guardar Diseño Actual</button>
+                <button class="btn-outline-action" id="btn_export_csv">📥 Exportar CSV</button>
+              </div>
+            </div>
+
+            <div class="comparator-table-wrapper">
+              <table class="comparator-table">
+                <thead>
+                  <tr>
+                    <th>Nombre / Aplicación</th>
+                    <th>Química</th>
+                    <th>Configuración</th>
+                    <th>Celdas</th>
+                    <th>Energía</th>
+                    <th>Masa Pack</th>
+                    <th>Densidad</th>
+                    <th>Costo</th>
+                    <th>Rint Pack</th>
+                  </tr>
+                </thead>
+                <tbody id="comparator_tbody">
+                  <!-- Filas dinámicas -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Guía de Selección y Recomendación Inteligente (§10) -->
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem;">
+              <h4 style="color: var(--accent-cyan); font-size: 0.95rem;">🧠 Matriz de Decisión Recomendada (§10)</h4>
+              <ul style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; padding-left: 1.2rem;">
+                <li><strong>Prioridad Autonomía / Densidad Gravimétrica:</strong> <em>NCM / NCA</em> (hasta 250 Wh/kg y 700 Wh/L).</li>
+                <li><strong>Prioridad Costo y Máximo Ciclo de Vida:</strong> <em>LFP (LiFePO₄)</em> (2000–6000 ciclos, 81 $/kWh, alta estabilidad térmica).</li>
+                <li><strong>Prioridad Carga Ultrarrápida / Temperatura Extrema (-30 °C):</strong> <em>LTO (Titanato de Litio)</em> (hasta 10C carga, &gt;15,000 ciclos).</li>
+                <li><strong>Prioridad Costo Mínimo de Arranque (12 V):</strong> <em>Plomo-ácido AGM</em> (alta corriente instantánea de arranque en frío, bajo costo).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <!-- Modal de Resultados de Autonomía -->
@@ -748,6 +1248,10 @@
   <script src="js/notes_data.js"></script>
   <script src="js/notes_renderer.js"></script>
   <script src="js/autonomy.js"></script>
+  <script src="js/vendor/chart.umd.js"></script>
+  <script src="js/battery_data.js"></script>
+  <script src="js/battery_physics.js"></script>
+  <script src="js/battery_ui.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
