@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700" data-name="Inspirado en Dubái" data-length-km="4.60" id="circuit_dubai">
+  <defs>
+    <filter id="circuit-glow-dubai" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="700" fill="#0c121e" rx="16"/>
+
+  <path d="M 200 550 L 950 550 C 1030 550 1080 500 1060 420 C 1040 340 960 320 920 280 C 880 240 880 160 920 120 C 960 80 920 50 820 60 C 720 70 600 100 520 160 C 460 210 400 240 320 220 C 240 200 160 220 140 290 C 120 360 170 410 230 430 C 290 450 310 490 270 520 C 240 540 210 545 200 550 Z"
+        fill="none" stroke="#16253b" stroke-width="36" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <path id="centerline"
+        d="M 200 550 L 950 550 C 1030 550 1080 500 1060 420 C 1040 340 960 320 920 280 C 880 240 880 160 920 120 C 960 80 920 50 820 60 C 720 70 600 100 520 160 C 460 210 400 240 320 220 C 240 200 160 220 140 290 C 120 360 170 410 230 430 C 290 450 310 490 270 520 C 240 540 210 545 200 550 Z"
+        fill="none" stroke="#00b4d8" stroke-width="12" stroke-linejoin="round" stroke-linecap="round" filter="url(#circuit-glow-dubai)"/>
+
+  <g id="sectors">
+    <circle cx="920" cy="280" r="7" fill="#f77f00" />
+    <text x="935" y="285" fill="#f77f00" font-size="12" font-family="sans-serif" font-weight="700">S1</text>
+    <circle cx="400" cy="240" r="7" fill="#4361ee" />
+    <text x="415" y="245" fill="#4361ee" font-size="12" font-family="sans-serif" font-weight="700">S2</text>
+  </g>
+
+  <g id="start-finish">
+    <line x1="550" y1="532" x2="550" y2="568" stroke="#ffffff" stroke-width="4" stroke-dasharray="4,4"/>
+    <text x="540" y="585" fill="#ffffff" font-size="12" font-family="sans-serif" font-weight="700">META</text>
+  </g>
+</svg>

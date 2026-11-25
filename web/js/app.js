@@ -61,12 +61,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Inicializar módulo E-Prix Didaktikos en su primer acceso
     if (viewName === "eprix" && !eprixInitialized) {
-      eprixInitialized = true;
-      import("../eprix/eprix.js").then(m => {
-        m.initEPrix("eprix_integrated_root");
-      }).catch(err => {
-        console.error("Error al inicializar E-Prix Didaktikos:", err);
-      });
+      const initRoot = document.getElementById("eprix_integrated_root");
+      if (initRoot && !initRoot.hasChildNodes()) {
+        initRoot.innerHTML = '<div style="padding: 3rem; text-align: center; color: var(--accent-cyan); font-size: 1.2rem;">🏎️ Cargando simulador E-Prix Didaktikos...</div>';
+      }
+
+      const tryImports = [
+        () => import("./eprix/eprix.js"),
+        () => import("eprix/eprix.js"),
+        () => import("../eprix/eprix.js")
+      ];
+
+      function attemptImport(idx) {
+        if (idx >= tryImports.length) {
+          eprixInitialized = false;
+          console.error("No se pudo cargar el módulo E-Prix en ninguna ruta conocida");
+          if (initRoot) {
+            initRoot.innerHTML = `
+              <div style="padding: 2.5rem; text-align: center; color: var(--text-main); background: #152033; border-radius: 12px; margin: 1.5rem auto; max-width: 600px; border: 1px solid var(--border-color);">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🏎️</div>
+                <h2 style="color: var(--accent-cyan); margin-bottom: 0.75rem;">E-Prix Didaktikos</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;">
+                  El simulador está listo para ejecutarse en su ventana dedicada:
+                </p>
+                <a href="eprix/eprix.html" class="action-btn btn-primary" style="display: inline-block; padding: 0.85rem 1.75rem; text-decoration: none; border-radius: 8px; font-weight: 600;">
+                  ▶ Abrir E-Prix en Pantalla Completa
+                </a>
+              </div>
+            `;
+          }
+          return;
+        }
+
+        tryImports[idx]()
+          .then(m => {
+            eprixInitialized = true;
+            if (initRoot) initRoot.innerHTML = "";
+            m.initEPrix("eprix_integrated_root");
+          })
+          .catch(() => {
+            attemptImport(idx + 1);
+          });
+      }
+
+      attemptImport(0);
     }
 
     // Actualizar botones del navbar

@@ -111,8 +111,13 @@
           <p class="card-desc" data-i18n="card_eprix_desc">
             Simulador de carreras eléctricas top-down: 4 vehículos compiten 4 vueltas donde la química de la batería, el C-rate y el freno regenerativo deciden la victoria.
           </p>
-          <div class="card-btn" data-i18n="card_eprix_btn">
-            Iniciar E-Prix ➔
+          <div style="display: flex; gap: 0.5rem; margin-top: 1rem; align-items: stretch;">
+            <div class="card-btn" data-i18n="card_eprix_btn" style="flex: 1; text-align: center; margin-top: 0;">
+              Iniciar E-Prix ➔
+            </div>
+            <a href="eprix/eprix.html" class="action-btn" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; padding: 0 0.85rem; border-radius: var(--radius-sm); font-size: 0.9rem;" title="Abrir en pantalla completa independiente" onclick="event.stopPropagation();">
+              ↗
+            </a>
           </div>
         </div>
       </div>
