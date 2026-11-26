@@ -13,17 +13,23 @@
   <!-- Contenedor Raíz del Módulo E-Prix -->
   <main id="eprix_app_root"></main>
 
-  <!-- Inicialización ESM Autónoma -->
-  <script type="module">
-    import { initEPrix } from './eprix.js';
-
+  <!-- Bundle clásico compatible con file:// y HTTP (sin bloqueo CORS de ESM) -->
+  <script src="eprix.bundle.js"></script>
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
       // Soporte para fijar semilla determinista por URL (?seed=1234)
       const urlParams = new URLSearchParams(window.location.search);
       const seedParam = urlParams.get('seed');
       const seed = seedParam ? parseInt(seedParam, 10) : undefined;
 
-      initEPrix('eprix_app_root', { seed });
+      if (typeof window.initEPrix === 'function') {
+        window.initEPrix('eprix_app_root', { seed });
+      } else {
+        const root = document.getElementById('eprix_app_root');
+        if (root) {
+          root.innerHTML = '<div style="padding:2rem;color:#f87171;font-family:sans-serif;text-align:center;">Error al cargar E-Prix Didaktikos (eprix.bundle.js no disponible).</div>';
+        }
+      }
     });
   </script>
 </body>
