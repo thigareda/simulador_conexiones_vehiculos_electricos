@@ -135,11 +135,19 @@ export function initEPrix(rootElement, options = {}) {
    * Renderiza selector de circuitos
    */
   function initCircuitsList() {
-    dom.circuitCards.innerHTML = CIRCUIT_LIST.map(c => `
+    dom.circuitCards.innerHTML = CIRCUIT_LIST.map(c => {
+      const fullCircuit = CIRCUITS[c.id];
+      const wps = (fullCircuit && fullCircuit.waypoints) || [];
+      const step = Math.max(1, Math.floor(wps.length / 80));
+      const pts = wps
+        .filter((_, idx) => idx % step === 0)
+        .map(wp => `${Math.round(Array.isArray(wp) ? wp[0] : wp.x)},${Math.round(Array.isArray(wp) ? wp[1] : wp.y)}`)
+        .join(' ');
+      return `
       <div class="circuit-card ${c.id === state.selectedCircuitId ? 'active' : ''}" data-circuit-id="${c.id}" role="button" tabindex="0">
         <div class="circuit-mini-preview">
           <svg viewBox="0 0 1200 700">
-            <use href="${c.svg_file}#centerline" stroke="var(--eprix-cyan)" stroke-width="24" fill="none"/>
+            <polygon points="${pts}" stroke="var(--eprix-cyan)" stroke-width="24" stroke-linejoin="round" fill="none"/>
           </svg>
         </div>
         <div class="circuit-card-info">
@@ -150,7 +158,8 @@ export function initEPrix(rootElement, options = {}) {
           </div>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
 
     dom.circuitCards.querySelectorAll('.circuit-card').forEach(card => {
       card.addEventListener('click', () => {
@@ -340,7 +349,7 @@ export function initEPrix(rootElement, options = {}) {
     dom.btnExportJson.addEventListener('click', exportJson);
 
     // Modal
-    dom.modalClose.addEventListener('click', closeCarModal);
+    if (dom.modalClose) dom.modalClose.addEventListener('click', closeCarModal);
     dom.modalOverlay.addEventListener('click', (e) => {
       if (e.target === dom.modalOverlay) closeCarModal();
     });
