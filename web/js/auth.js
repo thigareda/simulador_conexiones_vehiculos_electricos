@@ -197,6 +197,37 @@
     }
   }
 
+  function renderGoogleButtonIfNeeded() {
+    const gsiBtn = document.getElementById("ddk_google_signin_btn");
+    if (!gsiBtn) return false;
+
+    const gsiId = window.google && window.google.accounts && window.google.accounts.id;
+    if (!gsiId) return false;
+
+    if (gsiBtn.childElementCount === 0) {
+      try {
+        gsiId.initialize({
+          client_id: GOOGLE_CLIENT_ID,
+          callback: handleGoogleCredentialResponse,
+          auto_select: false,
+          ux_mode: "popup",
+          context: "signin"
+        });
+        gsiId.renderButton(gsiBtn, {
+          type: "standard",
+          shape: "pill",
+          theme: "filled_black",
+          text: "signin_with",
+          size: "medium",
+          logo_alignment: "left"
+        });
+      } catch (_) {
+        return false;
+      }
+    }
+    return gsiBtn.childElementCount > 0;
+  }
+
   function updateGisAvailability() {
     const offlineBadge = document.getElementById("ddk_auth_offline_badge");
     const gsiBtn = document.getElementById("ddk_google_signin_btn");
@@ -204,14 +235,35 @@
 
     const isFileProtocol = window.location.protocol === "file:";
     const hasGsi = Boolean(window.google && window.google.accounts && window.google.accounts.id);
+    if (hasGsi && gsiBtn.childElementCount === 0) {
+      renderGoogleButtonIfNeeded();
+    }
     const hasRenderedBtn = gsiBtn.childElementCount > 0;
 
-    if (!navigator.onLine || window.__ddkGisLoadError || (!hasGsi && !hasRenderedBtn)) {
+    if (hasRenderedBtn && navigator.onLine && !window.__ddkGisLoadError) {
+      offlineBadge.hidden = true;
+      gsiBtn.hidden = false;
+      return;
+    }
+
+    if (!navigator.onLine || window.__ddkGisLoadError) {
       offlineBadge.hidden = false;
-      offlineBadge.textContent = isFileProtocol && navigator.onLine
-        ? t("auth_file_hint")
-        : t("auth_offline");
+      offlineBadge.textContent = t("auth_offline");
       gsiBtn.hidden = !hasRenderedBtn;
+      return;
+    }
+
+    if (isFileProtocol && !hasRenderedBtn) {
+      offlineBadge.hidden = false;
+      offlineBadge.textContent = t("auth_file_hint");
+      gsiBtn.hidden = true;
+      return;
+    }
+
+    if (!hasGsi && !hasRenderedBtn) {
+      offlineBadge.hidden = false;
+      offlineBadge.textContent = t("auth_offline");
+      gsiBtn.hidden = true;
     } else {
       offlineBadge.hidden = true;
       gsiBtn.hidden = false;
@@ -270,6 +322,11 @@
 
   // Exponer callback global requerido por data-callback en el marcado GIS
   window.didaktikosHandleGoogleCredential = handleGoogleCredentialResponse;
+  window.onGoogleLibraryLoad = () => {
+    window.__ddkGisLoadError = false;
+    renderGoogleButtonIfNeeded();
+    updateGisAvailability();
+  };
   window.DidaktikosAuth = {
     CLIENT_ID: GOOGLE_CLIENT_ID,
     STORAGE_KEY,
@@ -301,12 +358,14 @@
       });
       gsiScript.addEventListener("load", () => {
         window.__ddkGisLoadError = false;
-        setTimeout(updateGisAvailability, 300);
+        renderGoogleButtonIfNeeded();
+        setTimeout(updateGisAvailability, 200);
       });
     }
 
     window.addEventListener("online", () => {
       window.__ddkGisLoadError = false;
+      renderGoogleButtonIfNeeded();
       updateGisAvailability();
     });
     window.addEventListener("offline", updateGisAvailability);
@@ -315,7 +374,14 @@
     const existingUser = loadSession();
     updateAuthUI(existingUser);
 
-    // Esperar brevemente a que GIS async renderice el botón; si no, degradar limpiamente
-    setTimeout(updateGisAvailability, 2500);
+    if (window.google && window.google.accounts && window.google.accounts.id) {
+      renderGoogleButtonIfNeeded();
+      updateGisAvailability();
+    } else if (!navigator.onLine) {
+      updateGisAvailability();
+    } else {
+      // Dar margen suficiente a la carga async del CDN de Google antes de degradar
+      setTimeout(updateGisAvailability, 6000);
+    }
   });
 })();
