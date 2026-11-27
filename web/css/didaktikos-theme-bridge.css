@@ -382,3 +382,134 @@ body {
   background: var(--ddk-aquamarine) !important;
   color: #1A132B !important;
 }
+
+/* Widget de Autenticación Google en Navbar Didaktikos */
+.ddk-auth-widget {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ddk-auth-signed-out,
+.ddk-auth-signed-in {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ddk-auth-signed-out[hidden],
+.ddk-auth-signed-in[hidden],
+.ddk-auth-offline-badge[hidden],
+.ddk-auth-status[hidden] {
+  display: none !important;
+}
+
+.ddk-auth-signed-in {
+  padding: 3px 6px 3px 4px;
+  border-radius: var(--ddk-radius-pill);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1.5px solid rgba(26, 19, 43, 0.16);
+}
+
+[data-mode="dark"] .ddk-auth-signed-in {
+  background: rgba(26, 19, 43, 0.72);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.ddk-auth-avatar,
+.ddk-auth-initials {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1.5px solid var(--ddk-accent-strong);
+}
+
+.ddk-auth-avatar {
+  object-fit: cover;
+}
+
+.ddk-auth-initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ddk-purple);
+  color: #FFFFFF;
+  font-family: var(--ddk-font-body);
+  font-weight: 800;
+  font-size: 0.72rem;
+}
+
+.ddk-auth-name {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--ddk-font-body);
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: #1A132B;
+}
+
+[data-mode="dark"] .ddk-auth-name {
+  color: #F8FAFC;
+}
+
+.ddk-auth-logout-btn {
+  border: none;
+  border-radius: var(--ddk-radius-pill);
+  background: var(--ddk-coral);
+  color: #FFFFFF;
+  font-family: var(--ddk-font-body);
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.ddk-auth-logout-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+.ddk-auth-offline-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 11px;
+  border-radius: var(--ddk-radius-pill);
+  background: rgba(26, 19, 43, 0.12);
+  border: 1.5px dashed rgba(26, 19, 43, 0.25);
+  color: #1A132B;
+  font-family: var(--ddk-font-body);
+  font-weight: 700;
+  font-size: 0.76rem;
+}
+
+[data-mode="dark"] .ddk-auth-offline-badge {
+  background: rgba(26, 19, 43, 0.65);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: var(--ddk-text-secondary);
+}
+
+.ddk-auth-status {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 200;
+  padding: 6px 12px;
+  border-radius: var(--ddk-radius-sm);
+  background: var(--ddk-bg-surface);
+  border: 1.5px solid var(--ddk-border-subtle);
+  color: var(--ddk-text-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: var(--ddk-shadow-card);
+}
+
+.ddk-auth-status.is-error {
+  border-color: var(--ddk-coral);
+  color: #FCA5A5;
+}

@@ -52,6 +52,35 @@
         <button class="lang-btn" data-lang="en" title="English">EN</button>
         <button class="lang-btn" data-lang="zh" title="中文 (普通话 / Chino Mandarín)">中文</button>
       </div>
+      <!-- Autenticación Google (solo frontend / UX local) -->
+      <div class="ddk-auth-widget" id="ddk_auth_widget">
+        <div id="ddk_auth_signed_out" class="ddk-auth-signed-out">
+          <div id="g_id_onload"
+               data-client_id="804801707494-0lkbdmrv5pagfat99l15v7c3c6ud04t2.apps.googleusercontent.com"
+               data-context="signin"
+               data-ux_mode="popup"
+               data-callback="didaktikosHandleGoogleCredential"
+               data-auto_prompt="false">
+          </div>
+          <div class="g_id_signin"
+               id="ddk_google_signin_btn"
+               data-type="standard"
+               data-shape="pill"
+               data-theme="filled_black"
+               data-text="signin_with"
+               data-size="medium"
+               data-logo_alignment="left">
+          </div>
+          <span class="ddk-auth-offline-badge" id="ddk_auth_offline_badge" data-i18n="auth_offline" hidden>Login Google sin conexión</span>
+        </div>
+        <div id="ddk_auth_signed_in" class="ddk-auth-signed-in" hidden>
+          <img id="ddk_auth_avatar" class="ddk-auth-avatar" alt="Avatar" referrerpolicy="no-referrer" hidden>
+          <span id="ddk_auth_initials" class="ddk-auth-initials" aria-hidden="true"></span>
+          <span id="ddk_auth_name" class="ddk-auth-name"></span>
+          <button type="button" class="ddk-auth-logout-btn" id="ddk_auth_logout_btn" data-i18n="auth_logout">Cerrar sesión</button>
+        </div>
+        <div id="ddk_auth_status" class="ddk-auth-status" role="status" aria-live="polite" hidden></div>
+      </div>
     </nav>
   </header>
 
@@ -1518,6 +1547,8 @@
   <script src="js/battery_data.js"></script>
   <script src="js/battery_physics.js"></script>
   <script src="js/battery_ui.js"></script>
+  <script src="js/auth.js"></script>
+  <script id="ddk_gsi_script" src="https://accounts.google.com/gsi/client" async></script>
   <script src="js/app.js"></script>
 </body>
 </html>

@@ -168,7 +168,15 @@
       auto_res_dist: "Autonomía Real Alcanzada",
       auto_res_cons: "Consumo Medio",
       auto_res_est: "Autonomía Total Estimada",
-      auto_res_reached: "¿Llegó a destino?"
+      auto_res_reached: "¿Llegó a destino?",
+
+      auth_logout: "Cerrar sesión",
+      auth_signed_in_as: "Sesión iniciada como",
+      auth_offline: "Login Google sin conexión",
+      auth_file_hint: "Login Google requiere HTTP/HTTPS",
+      auth_err_invalid_credential: "Credencial de Google inválida o expirada.",
+      auth_err_storage: "No se pudo guardar la sesión local.",
+      auth_err_popup: "No se pudo completar el inicio de sesión con Google."
     },
 
     en: {
@@ -332,7 +340,15 @@
       auto_res_dist: "Actual Distance Reached",
       auto_res_cons: "Average Consumption",
       auto_res_est: "Estimated Total Range",
-      auto_res_reached: "Reached destination?"
+      auto_res_reached: "Reached destination?",
+
+      auth_logout: "Sign out",
+      auth_signed_in_as: "Signed in as",
+      auth_offline: "Google Sign-In offline",
+      auth_file_hint: "Google Sign-In requires HTTP/HTTPS",
+      auth_err_invalid_credential: "Invalid or expired Google credential.",
+      auth_err_storage: "Could not save local session.",
+      auth_err_popup: "Could not complete Google Sign-In."
     },
 
     zh: {
@@ -496,7 +512,15 @@
       auto_res_dist: "实际行驶里程",
       auto_res_cons: "平均能耗",
       auto_res_est: "预估总续航里程",
-      auto_res_reached: "是否到达终点？"
+      auto_res_reached: "是否到达终点？",
+
+      auth_logout: "退出登录",
+      auth_signed_in_as: "已登录：",
+      auth_offline: "Google 登录离线不可用",
+      auth_file_hint: "Google 登录需要 HTTP/HTTPS",
+      auth_err_invalid_credential: "Google 凭据无效或已过期。",
+      auth_err_storage: "无法保存本地会话。",
+      auth_err_popup: "无法完成 Google 登录。"
     }
   };
 
