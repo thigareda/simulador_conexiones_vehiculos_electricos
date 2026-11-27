@@ -338,3 +338,47 @@ body {
   -webkit-text-stroke: 3px var(--ddk-purple);
   paint-order: stroke fill;
 }
+
+/* Selector de Idioma (ES / EN / 中文 Mandarín) con contraste en Modo Claro y Oscuro */
+.lang-switcher {
+  background: rgba(255, 255, 255, 0.55) !important;
+  border: 1.5px solid rgba(26, 19, 43, 0.16) !important;
+  border-radius: var(--ddk-radius-pill) !important;
+  padding: 3px !important;
+}
+
+.lang-btn {
+  color: #1A132B !important;
+  font-family: var(--ddk-font-body);
+  font-weight: 800 !important;
+  border-radius: var(--ddk-radius-pill) !important;
+}
+
+.lang-btn:hover {
+  background: rgba(255, 255, 255, 0.85) !important;
+  color: #1A132B !important;
+}
+
+.lang-btn.active {
+  background: var(--ddk-purple) !important;
+  color: #FFFFFF !important;
+}
+
+[data-mode="dark"] .lang-switcher {
+  background: rgba(26, 19, 43, 0.65) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+[data-mode="dark"] .lang-btn {
+  color: #E2E8F0 !important;
+}
+
+[data-mode="dark"] .lang-btn:hover {
+  background: var(--ddk-bg-surface-soft) !important;
+  color: #FFFFFF !important;
+}
+
+[data-mode="dark"] .lang-btn.active {
+  background: var(--ddk-aquamarine) !important;
+  color: #1A132B !important;
+}

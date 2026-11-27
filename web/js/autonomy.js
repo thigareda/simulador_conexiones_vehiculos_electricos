@@ -1003,7 +1003,7 @@
       }
     });
 
-    // Actualizar textos dinámicos al cambiar idioma (ES / 廣東話)
+    // Actualizar textos dinámicos al cambiar idioma (ES / EN / 中文 Mandarín)
     window.addEventListener("sim:langchange", () => {
       renderVehicleSelector();
       renderCycleSelector();

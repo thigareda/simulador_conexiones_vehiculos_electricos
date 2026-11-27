@@ -15,7 +15,7 @@
   const t = (k, ...args) => (window.I18N ? window.I18N.t(k, ...args) : k);
   const pickLabel = (item) => {
     const lang = window.I18N ? window.I18N.getLang() : "es";
-    if (lang === "zh") return item.labelZh || item.labelYue || item.labelEs;
+    if (lang === "zh") return item.labelZh || item.labelEs;
     if (lang === "en") return item.labelEn || item.labelEs;
     return item.labelEs;
   };
@@ -102,11 +102,44 @@
     renderFaultsCatalog();
 
     window.addEventListener("sim:langchange", () => {
+      refreshDesignSelectLabels();
       recalculateDesign();
       renderAuxLoads();
       renderFaultsCatalog();
       renderComparatorTable();
     });
+  }
+
+  function refreshDesignSelectLabels() {
+    if (!window.BatteryData) return;
+    const appSelect = document.getElementById("bat_app_select");
+    if (appSelect) {
+      Array.from(appSelect.options).forEach((opt) => {
+        const app = BatteryData.APPLICATIONS[opt.value];
+        if (app) opt.textContent = pickLabel(app);
+      });
+    }
+    const chemSelect = document.getElementById("bat_chem_select");
+    if (chemSelect) {
+      Array.from(chemSelect.options).forEach((opt) => {
+        const chem = BatteryData.CHEMISTRIES[opt.value];
+        if (chem) opt.textContent = pickLabel(chem);
+      });
+    }
+    const coolingSelect = document.getElementById("bat_cooling_select");
+    if (coolingSelect) {
+      Array.from(coolingSelect.options).forEach((opt) => {
+        const c = BatteryData.COOLING[opt.value];
+        if (c) opt.textContent = pickLabel(c);
+      });
+    }
+    const cellSelect = document.getElementById("bat_cell_select");
+    if (cellSelect) {
+      Array.from(cellSelect.options).forEach((opt) => {
+        const cell = BatteryData.CELLS[opt.value];
+        if (cell) opt.textContent = `${pickLabel(cell)} (${cell.capacityAh} Ah)`;
+      });
+    }
   }
 
   // ---------------------------------------------------------------------------

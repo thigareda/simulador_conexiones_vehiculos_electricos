@@ -1154,7 +1154,7 @@ body {
   }
 }
 
-/* Selector de Idioma (ES / 廣東話) */
+/* Selector de Idioma (ES / EN / 中文 Mandarín) */
 .lang-switcher {
   display: inline-flex;
   align-items: center;

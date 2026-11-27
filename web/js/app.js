@@ -396,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Selector de idioma (ES / 廣東話)
+  // Selector de idioma (ES / EN / 中文 Mandarín)
   document.querySelectorAll(".lang-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const lang = btn.getAttribute("data-lang");
