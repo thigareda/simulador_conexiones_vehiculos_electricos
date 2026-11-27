@@ -10,12 +10,18 @@
   const REGEN_EFF = 0.65;
   const AUX_POWER_W = 400; // Consumo auxiliar base (electrónica/BMS)
 
+  const pickL = (es, en, zh) => {
+    const lang = window.I18N ? window.I18N.getLang() : "es";
+    return lang === "zh" ? zh : (lang === "en" ? en : es);
+  };
+
   // Perfiles de vehículos con parámetros por defecto
   const VEHICLE_PROFILES = {
     sedan: {
       id: "sedan",
       nameEs: "Carro Sedán",
-      nameYue: "私家車（房車）",
+      nameEn: "Sedan Car",
+      nameZh: "纯电动轿车",
       mass: 1650,
       cd: 0.24,
       af: 2.25,
@@ -25,7 +31,8 @@
     suv: {
       id: "suv",
       nameEs: "Camioneta (SUV)",
-      nameYue: "越野車 (SUV)",
+      nameEn: "SUV",
+      nameZh: "纯电动 SUV",
       mass: 2150,
       cd: 0.31,
       af: 2.75,
@@ -35,7 +42,8 @@
     van: {
       id: "van",
       nameEs: "Utilitario de Volteo (Van)",
-      nameYue: "輕型貨車 (Van)",
+      nameEn: "Utility Van",
+      nameZh: "轻型电动厢式货车 (Van)",
       mass: 2850,
       cd: 0.36,
       af: 3.40,
@@ -162,7 +170,8 @@
     NEDC: {
       name: "NEDC",
       descEs: "Ciclo Europeo (urbano + extraurbano suave)",
-      descYue: "歐洲標準循環（市區＋平緩郊區）",
+      descEn: "European Cycle (urban + smooth extra-urban)",
+      descZh: "欧洲标准循环（市区 + 平缓郊区）",
       duration: 240,
       points: [
         [0, 0], [10, 0], [16, 15], [26, 15], [32, 0],
@@ -174,7 +183,8 @@
     WLTC: {
       name: "WLTC",
       descEs: "Ciclo Mundial Armonizado (dinámico, hasta 131 km/h)",
-      descYue: "全球統一輕型車循環（動態，最高 131 km/h）",
+      descEn: "Worldwide Harmonized Cycle (dynamic, up to 131 km/h)",
+      descZh: "全球统一轻型车循环（动态，最高 131 km/h）",
       duration: 240,
       points: [
         [0, 0], [8, 0], [18, 34], [28, 22], [38, 48], [48, 0],
@@ -185,7 +195,8 @@
     CLTC: {
       name: "CLTC",
       descEs: "Ciclo de Prueba de China (más paradas urbanas)",
-      descYue: "中國輕型車行駛循環（較多市區停走）",
+      descEn: "China Light-Duty Test Cycle (more urban stops)",
+      descZh: "中国轻型汽车行驶工况（较多市区启停）",
       duration: 240,
       points: [
         [0, 0], [12, 0], [22, 28], [32, 18], [42, 38], [52, 0],
@@ -396,7 +407,6 @@
     if (!simState.deathAnim) return;
     simState.deathProgress += rawDt;
     const p = simState.deathProgress;
-    const isYue = window.I18N && window.I18N.getLang() === "yue";
 
     // Ocultar vectores de fuerza y efectos normales
     ["vec_traction", "vec_traction_lbl", "vec_drag", "vec_drag_lbl", "vec_grade", "vec_grade_lbl", "auto_fx_wind", "auto_fx_sweat", "auto_fx_sparks", "auto_fx_regen"].forEach(id => {
@@ -422,17 +432,17 @@
         angel.setAttribute("opacity", alpha.toFixed(2));
         angel.setAttribute("transform", `translate(${(110 + sway).toFixed(1)}, ${(20 - lift).toFixed(1)})`);
       }
-      setBubble(isYue ? "上天堂啦 😇!" : "¡Adiós mundo cruel! 😇");
+      setBubble(pickL("¡Adiós mundo cruel! 😇", "Goodbye cruel world! 😇", "飞向天堂啦 😇!"));
     } else if (simState.deathAnim === "ko_face") {
       const eyes = document.querySelector("#auto_vehicle_slot .cartoon-eyes");
       if (eyes) eyes.setAttribute("opacity", "0");
       const ko = document.getElementById("auto_death_ko");
       if (ko) ko.setAttribute("opacity", "1");
-      setBubble(isYue ? "冇電暈低咗 😵!" : "¡Batería K.O.! 😵");
+      setBubble(pickL("¡Batería K.O.! 😵", "Battery K.O.! 😵", "没电晕倒了 😵!"));
     } else if (simState.deathAnim === "grayscale") {
       const slot = document.getElementById("auto_vehicle_slot");
       if (slot) slot.classList.add("veh-grayscale");
-      setBubble(isYue ? "變咗石像 🗿!" : "Sin color... sin vida 🗿");
+      setBubble(pickL("Sin color... sin vida 🗿", "No power... turned to stone 🗿", "变成石像了 🗿!"));
     } else if (simState.deathAnim === "meteor") {
       const meteor = document.getElementById("auto_death_meteor");
       const boom = document.getElementById("auto_death_boom");
@@ -455,7 +465,7 @@
           slot.setAttribute("transform", `translate(${shake.toFixed(1)}, 14) scale(1.06, 0.84)`);
         }
       }
-      setBubble(isYue ? "殞石撞落嚟 💥!" : "¡Meteorito! 💥☄️");
+      setBubble(pickL("¡Meteorito! 💥☄️", "Meteorite! 💥☄️", "陨石撞击 💥!"));
     } else if (simState.deathAnim === "deflate") {
       const slot = document.getElementById("auto_vehicle_slot");
       const fx = document.getElementById("auto_death_deflate_fx");
@@ -469,7 +479,7 @@
       if (fx) {
         fx.setAttribute("opacity", tDef < 0.95 ? "1" : "0");
       }
-      setBubble(isYue ? "漏晒氣呀 💨!" : "¡Me desinflé! 💨");
+      setBubble(pickL("¡Me desinflé! 💨", "Deflated! 💨", "漏气啦 💨!"));
     }
 
     if (p >= 2.3 && !simState.deathModalShown) {
@@ -597,18 +607,17 @@
     const bubble = document.getElementById("auto_comic_bubble");
     const bubbleText = document.getElementById("auto_comic_text");
     if (bubble && bubbleText) {
-      const isYue = window.I18N && window.I18N.getLang() === "yue";
       let msg = "";
       if (simState.soc < 20 && simState.running) {
-        msg = isYue ? "就快冇電 🪫!" : "¡Poca batería 🪫!";
+        msg = pickL("¡Poca batería 🪫!", "Low battery 🪫!", "电量不足 🪫!");
       } else if (simState.forces.powerKw < -0.8) {
-        msg = isYue ? "回電中 ⚡!" : "¡Regenerando ⚡!";
+        msg = pickL("¡Regenerando ⚡!", "Regenerating ⚡!", "能量回收中 ⚡!");
       } else if (simState.currentSlopePct >= 3 && speedKmh > 2) {
-        msg = isYue ? "好斜呀 💦!" : "¡Uf, qué subida 💦!";
+        msg = pickL("¡Uf, qué subida 💦!", "Steep climb 💦!", "好陡的上坡 💦!");
       } else if (speedKmh >= 95) {
-        msg = isYue ? "風阻好大 💨!" : "¡Mucho aire 💨!";
+        msg = pickL("¡Mucho aire 💨!", "High air drag 💨!", "风阻很大 💨!");
       } else if (!simState.running && simState.distanceM === 0) {
-        msg = isYue ? "準備出發! 🚗" : "¡Listo para rodar!";
+        msg = pickL("¡Listo para rodar!", "Ready to roll! 🚗", "准备出发! 🚗");
       }
       bubble.setAttribute("opacity", msg ? "1" : "0");
       if (msg) bubbleText.textContent = msg;
@@ -712,12 +721,11 @@
   function renderVehicleSelector() {
     const container = document.getElementById("auto_vehicle_profiles");
     if (!container) return;
-    const isYue = window.I18N && window.I18N.getLang() === "yue";
 
     container.innerHTML = Object.values(VEHICLE_PROFILES).map(v => `
       <button type="button" class="vehicle-card-btn ${simState.vehicleId === v.id ? "active" : ""}" data-veh-id="${v.id}">
         ${getVehicleSVG(v.id, false)}
-        <span class="vehicle-card-name">${isYue ? v.nameYue : v.nameEs}</span>
+        <span class="vehicle-card-name">${pickL(v.nameEs, v.nameEn, v.nameZh)}</span>
         <span class="vehicle-card-meta">${v.mass} kg · ${v.batteryKwh} kWh</span>
       </button>
     `).join("");
@@ -779,10 +787,9 @@
     const track = document.getElementById("route_segments_track");
     if (!list || !track) return;
 
-    const isYue = window.I18N && window.I18N.getLang() === "yue";
-    const lblSeg = isYue ? "路段" : "Tramo";
-    const lblDist = isYue ? "距離 (km)" : "Dist. (km)";
-    const lblSlope = isYue ? "斜度 (%)" : "Pend. (%)";
+    const lblSeg = pickL("Tramo", "Segment", "路段");
+    const lblDist = pickL("Dist. (km)", "Dist. (km)", "距离 (km)");
+    const lblSlope = pickL("Pend. (%)", "Grade (%)", "坡度 (%)");
 
     list.innerHTML = simState.route.map((seg, idx) => {
       const safeId = Number(seg.id) || 0;
@@ -861,14 +868,13 @@
   function renderCycleSelector() {
     const container = document.getElementById("auto_cycle_selector");
     if (!container) return;
-    const isYue = window.I18N && window.I18N.getLang() === "yue";
 
     container.innerHTML = Object.keys(DRIVING_CYCLES).map(key => {
       const c = DRIVING_CYCLES[key];
       return `
         <button type="button" class="cycle-btn ${simState.cycleKey === key ? "active" : ""}" data-cycle-key="${key}">
           <strong>${c.name}</strong>
-          <span>${isYue ? c.descYue : c.descEs}</span>
+          <span>${pickL(c.descEs, c.descEn, c.descZh)}</span>
         </button>
       `;
     }).join("");
@@ -886,11 +892,10 @@
   function updatePlayButton() {
     const btn = document.getElementById("btn_auto_play");
     if (!btn) return;
-    const isYue = window.I18N && window.I18N.getLang() === "yue";
     if (simState.running) {
-      btn.textContent = isYue ? "⏸ 暫停" : "⏸ Pausar";
+      btn.textContent = pickL("⏸ Pausar", "⏸ Pause", "⏸ 暂停");
     } else {
-      btn.textContent = isYue ? "▶ 開始模擬" : "▶ Iniciar";
+      btn.textContent = pickL("▶ Iniciar", "▶ Start", "▶ 开始模拟");
     }
   }
 
@@ -921,7 +926,6 @@
   function showResultsModal() {
     const modal = document.getElementById("autonomy_results_modal");
     if (!modal) return;
-    const isYue = window.I18N && window.I18N.getLang() === "yue";
 
     const totalKm = getTotalRouteKm();
     const distKm = simState.distanceM / 1000;
@@ -933,11 +937,11 @@
 
     const statusEl = document.getElementById("res_reached_val");
     if (reached) {
-      statusEl.textContent = isYue ? "✔ 成功到達終點" : "✔ Sí, llegó a destino";
+      statusEl.textContent = pickL("✔ Sí, llegó a destino", "✔ Yes, reached destination", "✔ 成功到达终点");
       statusEl.className = "result-box-val result-status-ok";
       if (window.sounds) sounds.playSuccess();
     } else {
-      statusEl.textContent = isYue ? "✖ 電量耗盡（未到終點）" : "✖ No (batería agotada)";
+      statusEl.textContent = pickL("✖ No (batería agotada)", "✖ No (battery depleted)", "✖ 电量耗尽（未到达终点）");
       statusEl.className = "result-box-val result-status-fail";
       if (window.sounds) sounds.playError();
     }

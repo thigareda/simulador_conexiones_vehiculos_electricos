@@ -1,10 +1,10 @@
 /**
- * Paquete de idiomas (Español / 廣東話 - Chino Cantonés)
+ * Paquete de idiomas (Español / English / 中文 - Chino Mandarín)
  * Simulador de Conexiones de Vehículos Eléctricos e Híbridos
  */
 (function () {
   const STORAGE_KEY = "simulador_lang";
-  const SUPPORTED_LANGS = ["es", "yue"];
+  const SUPPORTED_LANGS = ["es", "en", "zh"];
 
   const UI_TRANSLATIONS = {
     es: {
@@ -171,558 +171,675 @@
       auto_res_reached: "¿Llegó a destino?"
     },
 
-    yue: {
-      page_title: "電動車及混能車接線模擬器",
-      brand_title: "EV & HEV 模擬器",
-      brand_subtitle: "電動出行及電路接線",
-      nav_home: "主頁",
-      nav_bev: "純電動車 (BEV)",
-      nav_battery_lab: "🧪 電池實驗室",
-      nav_hev: "混合動力車 (HEV)",
-      nav_notes: "📘 學習筆記",
+    en: {
+      page_title: "Electric & Hybrid Vehicle Wiring Simulator",
+      brand_title: "EV & HEV Simulator",
+      brand_subtitle: "Electromobility & Wiring",
+      nav_home: "Home",
+      nav_bev: "Electric Vehicles (BEV)",
+      nav_battery_lab: "🧪 Battery Lab",
+      nav_hev: "Hybrid Vehicles (HEV)",
+      nav_notes: "📘 Study Notes",
+      nav_eprix: "🏎️ E-Prix",
+      nav_back: "⬅ Back",
+      lang_label: "Language",
+
+      card_battery_tag: "Design & Testing",
+      card_battery_title: "Battery Design Lab",
+      card_battery_desc: "Design electrochemical battery packs (LFP, NCM, LTO, Pb, NiMH), size Ns/Np, evaluate thermal behavior, inject faults, and analyze BMS response including thermal runaway.",
+      card_battery_btn: "Enter Laboratory ➔",
+      bat_title: "🧪 Battery Design & Testing Lab",
+      bat_subtitle: "Ns/Np sizing, dynamic electro-thermal model, auxiliary loads, fault injection, and real-time BMS telemetry.",
+      bat_btn_tutorial: "📖 Tutorial / Quick Guide",
+
+      home_badge: "Simulation & Practice Platform",
+      home_title: "Electric Drive System Learning and Practice Platform",
+      home_desc: "Interactive environment for studying and practicing high-voltage component wiring, auxiliary systems, control harnesses, and operating principles in pure electric and hybrid vehicles.",
+      card_bev_tag: "100% Electric (BEV)",
+      card_bev_title: "Battery Electric Vehicle",
+      card_bev_desc: "Practical wiring simulator for high-voltage traction components (battery, inverter, 3-phase motor, contactors, DC-DC converter) and operating principles diagram.",
+      card_bev_btn: "Explore BEV Modules ➔",
+      card_hev_tag: "Hybrids (HEV)",
+      card_hev_title: "Hybrid Electric Vehicle",
+      card_hev_desc: "Interactive study of hybrid propulsion architectures: Series, Parallel, and Combined (Series-Parallel with planetary power-split device).",
+      card_hev_btn: "Explore HEV Modules ➔",
+      card_eprix_tag: "Racing & Electrochemistry",
+      card_eprix_title: "E-Prix Didaktikos",
+      card_eprix_desc: "Top-down electric racing simulator: 4 vehicles race 4 laps where battery chemistry, C-rate, and regenerative braking decide victory.",
+      card_eprix_btn: "Start E-Prix ➔",
+      card_notes_tag: "Documentation & Maintenance",
+      card_notes_title: "Study Notes",
+      card_notes_desc: "Complete technical guide: BEV architectures, HV/LV isolation, inverter, batteries, contactors, and series, parallel, and combined hybrid systems.",
+      card_notes_btn: "Read Study Notes ➔",
+
+      bev_badge: "BEV Modules",
+      bev_title: "Battery Electric Vehicle Traction System",
+      bev_desc: "Select a learning mode: practical physical wiring simulation between real components or logical operating principles and energy flow analysis.",
+      bev_wiring_tag: "Practical Simulation",
+      bev_wiring_title: "Physical Wiring Simulator",
+      bev_wiring_desc: "Connect the terminals of the DC-DC converter, relay, DC contactor, high-voltage fuses, motor controller, traction battery, and three-phase electric motor.",
+      bev_wiring_btn: "Start Wiring Practice ➔",
+      bev_principles_tag: "Operating Principle",
+      bev_principles_title: "Flow & Principles Diagram",
+      bev_principles_desc: "Establish control relationships (VCU, BMS), bidirectional electric power flow, and mechanical links to the transmission and drive wheels.",
+      bev_principles_btn: "Start Logic Diagram ➔",
+      btn_back_home: "⬅ Back to Main Menu",
+
+      hev_badge: "HEV Modules",
+      hev_title: "Hybrid Electric Vehicle Traction Systems",
+      hev_desc: "Analyze and complete power, mechanical, and fuel connections across the three main automotive hybrid propulsion architectures.",
+      hev_series_tag: "Architecture 1",
+      hev_series_title: "Series Hybrid",
+      hev_series_desc: "The internal combustion engine drives a generator to charge the battery or supply electricity to the electric traction motor.",
+      hev_series_btn: "Open Series Hybrid ➔",
+      hev_parallel_tag: "Architecture 2",
+      hev_parallel_title: "Parallel Hybrid",
+      hev_parallel_desc: "Both the combustion engine and the electric motor are mechanically coupled to the wheels through the transmission.",
+      hev_parallel_btn: "Open Parallel Hybrid ➔",
+      hev_combined_tag: "Architecture 3",
+      hev_combined_title: "Combined Hybrid",
+      hev_combined_desc: "Series-parallel system with a planetary power-split device (PSD), enabling simultaneous mechanical traction and generation.",
+      hev_combined_btn: "Open Combined Hybrid ➔",
+
+      sim_btn_run: "▶ Run / Test",
+      sim_btn_run_title: "Check if the circuit is properly wired",
+      sim_btn_undo: "↩ Undo",
+      sim_btn_undo_title: "Undo last connection (Ctrl+Z)",
+      sim_btn_delete: "🗑 Delete Mode",
+      sim_btn_delete_title: "Enable mode to remove wires by clicking them",
+      sim_btn_clear: "🧹 Clear All",
+      sim_btn_clear_title: "Remove all connections from the canvas",
+      sim_btn_solution: "👁 Show Solution",
+      sim_btn_solution_title: "Show/Hide official wiring diagram",
+      sim_sidebar_cables: "⚡ Wire / Connection Type",
+      sim_sidebar_desc: "📋 Technical Description",
+      sim_sidebar_help: "💡 Quick Instructions",
+      sim_help_1: "Select the wire type from the list above.",
+      sim_help_2: "Click the first terminal (it will highlight in yellow).",
+      sim_help_3: "Click the destination terminal to draw the line.",
+      sim_help_4: "Press <strong>\"Run / Test\"</strong> to verify the system.",
+      sim_help_5: "Click any component to view its technical datasheet.",
+      sim_status_initial: "System ready. Select two terminals to connect.",
+      sim_status_ready_module: "Select a wire type and click two terminals to connect them.",
+      sim_status_cancel_esc: "Terminal selection canceled.",
+      sim_status_undo: "Action undone.",
+      sim_status_cleared: "Canvas cleared.",
+      sim_status_solution_on: "Showing official wiring diagram.",
+      sim_status_solution_off: "Connection editing mode active.",
+      sim_status_no_cables_err: "No connections have been made in the system yet.",
+      sim_status_no_cables_msg: "Test failed: No wires connected.",
+      sim_err_wrong_conn: "Incorrect connection between {0} and {1}.",
+      sim_err_wrong_type: "Connection between {0} and {1} has the wrong wire type or color.",
+      sim_err_wrong_dir: "Connection between {0} and {1} has reversed flow direction.",
+      sim_err_missing: "{0} connection(s) are still missing in the circuit.",
+      sim_status_success: "Success! All system connections are 100% correct. The vehicle operates properly.",
+      sim_status_success_detail: "✔ Circuit validated successfully. All modules and harnesses have nominal continuity.",
+      sim_status_fail: "Test failed ({0}/{1} correct). Check the highlighted circuits.",
+      sim_status_removed_pin: "Wire(s) removed from {0}.",
+      sim_status_start_pin: "Start terminal selected: {0}. Now select the target terminal.",
+      sim_status_cancel_pin: "Selection canceled.",
+      sim_status_exists: "A wire already exists between these two terminals.",
+      sim_status_connected: "Wire connected: {0} -> {1}.",
+      sim_status_line_removed: "Wire removed.",
+
+      notes_badge: "Canonical Technical Reference",
+      notes_title: "Learning & Maintenance Notes",
+      notes_subtitle: "Electrical architecture and BEV & HEV operating logic of the standalone simulator.",
+      notes_btn_back: "⬅ Back",
+      notes_btn_back_title: "Return to previous view",
+      notes_btn_top: "⬆ Top",
+      notes_btn_top_title: "Go to top of document",
+      notes_toc_header: "📑 Table of Contents",
+      notes_btn_back_bottom: "⬅ Return to previous view",
+      notes_btn_top_bottom: "⬆ Back to top",
+      notes_fallback: "Could not initialize the study notes viewer.",
+      notes_toc_empty: "Index unavailable.",
+      notes_lang_notice: "💡 Note: Simulator UI, components, and wiring checks are in English; the full technical reference document below remains in Spanish to preserve canonical terminology.",
+
+      modal_badge: "Technical Datasheet",
+      modal_default_desc: "Electromobility system component.",
+      modal_terminals_title: "Terminals & Connections:",
+
+      bev_autonomy_tag: "Vehicle Dynamics & SOC",
+      bev_autonomy_title: "Virtual Range & Energy Consumption Lab (BEV)",
+      bev_autonomy_desc: "Simulate real-world driving range and energy consumption by varying mass, aerodynamics, road grades, and driving cycles (NEDC, WLTC, CLTC).",
+      bev_autonomy_btn: "Open Range Lab ➔",
+      auto_title: "Virtual Range & Energy Consumption Lab (BEV)",
+      auto_subtitle: "Physical calculation of vehicle dynamics, energy consumption, and range across driving cycles and road grades.",
+      auto_btn_reset: "↺ Reset",
+      auto_hud_cycle: "Cycle:",
+      auto_hud_slope: "Grade:",
+      auto_hud_time: "Time:",
+      auto_route_progress: "Route Progress:",
+      auto_seg_current: "Segment:",
+      auto_tele_title: "📊 Real-Time Telemetry",
+      auto_tele_speed: "Speed",
+      auto_tele_cons: "Inst. Cons.",
+      auto_tele_soc: "Battery (SOC)",
+      auto_tele_energy: "Energy Left",
+      auto_tele_est: "Est. Range / Avg. Consumption",
+      auto_tele_forces: "Force Breakdown (Ft = Fa + Fr + Fp + Fi)",
+      auto_veh_title: "🚗 Vehicle Profile & Physical Parameters",
+      auto_param_mass: "Mass (kg)",
+      auto_param_bat: "Battery (kWh)",
+      auto_param_af: "Frontal Area Af (m²)",
+      auto_param_crr: "Rolling Res. (Crr)",
+      auto_cycle_title: "📈 Driving Cycle",
+      auto_route_title: "🛣 Route Editor (Grades)",
+      auto_btn_add_seg: "+ Add Segment",
+      auto_res_badge: "Simulation Results",
+      auto_res_title: "Range & Consumption Summary",
+      auto_res_dist: "Actual Distance Reached",
+      auto_res_cons: "Average Consumption",
+      auto_res_est: "Estimated Total Range",
+      auto_res_reached: "Reached destination?"
+    },
+
+    zh: {
+      page_title: "纯电动及混合动力汽车接线模拟器",
+      brand_title: "EV & HEV 模拟器",
+      brand_subtitle: "电动出行与电路接线",
+      nav_home: "主页",
+      nav_bev: "纯电动汽车 (BEV)",
+      nav_battery_lab: "🧪 电池实验室",
+      nav_hev: "混合动力汽车 (HEV)",
+      nav_notes: "📘 学习笔记",
       nav_eprix: "🏎️ E-Prix",
       nav_back: "⬅ 返回",
-      lang_label: "語言",
+      lang_label: "语言",
 
-      card_battery_tag: "設計及測試",
-      card_battery_title: "電池設計及測試實驗室 (Battery Design Lab)",
-      card_battery_desc: "設計電化學電池包（LFP、NCM、LTO、鉛酸、鎳氫），計算 Ns/Np 串並聯、熱管理分析、故障注入及 BMS 電池管理系統即時響應。",
-      card_battery_btn: "進入實驗室 ➔",
-      bat_title: "🧪 電池設計及測試實驗室 (Battery Design Lab)",
-      bat_subtitle: "Ns/Np 串並聯匹配、電熱動態模型、輔助負載、故障注入及 BMS 實時監測。",
-      bat_btn_tutorial: "📖 使用教學及指南",
+      card_battery_tag: "设计与测试",
+      card_battery_title: "电池设计与测试实验室 (Battery Design Lab)",
+      card_battery_desc: "设计电化学电池包（LFP、NCM、LTO、铅酸、镍氢），计算 Ns/Np 串并联、热管理评估、故障注入及热失控条件下的 BMS 实时响应分析。",
+      card_battery_btn: "进入实验室 ➔",
+      bat_title: "🧪 电池设计与测试实验室 (Battery Design Lab)",
+      bat_subtitle: "Ns/Np 串并联匹配、电热动态模型、辅助负载、故障注入与 BMS 实时遥测。",
+      bat_btn_tutorial: "📖 教程 / 快速指南",
 
-      home_badge: "模擬及實習平台",
-      home_title: "電動驅動系統學習與接線實習平台",
-      home_desc: "互動式教學環境，俾你學習同實習純電動車（BEV）同混合動力車（HEV）嘅高壓部件接線、輔助系統、控制線束同埋運作原理。",
-      card_bev_tag: "100% 純電動 (BEV)",
-      card_bev_title: "純電動車",
-      card_bev_desc: "實習高壓驅動部件接線（動力電池、逆變器、三相電動機、直流接觸器、DC-DC 轉換器）同埋系統運作原理圖。",
-      card_bev_btn: "進入 BEV 模組 ➔",
-      card_hev_tag: "混合動力 (HEV)",
-      card_hev_title: "混合動力電動車",
-      card_hev_desc: "互動學習三大混能驅動架構：串聯式（Series）、並聯式（Parallel）同埋混聯式（串並聯行星齒輪分流系統）。",
-      card_hev_btn: "進入 HEV 模組 ➔",
-      card_eprix_tag: "競速與電化學",
-      card_eprix_title: "Didaktikos 電動大獎賽",
-      card_eprix_desc: "俯視角電動車競速模擬：4輛車競賽4圈，電池化學特性、充放電倍率（C-rate）和再生制動決定勝負。",
-      card_eprix_btn: "開始 E-Prix 賽事 ➔",
-      card_notes_tag: "技術文檔及維護",
-      card_notes_title: "學習筆記",
-      card_notes_desc: "模擬器完整技術指南：BEV 架構、高低壓隔離、逆變器、電池、接觸器，以及串聯、並聯同混聯混能系統。",
-      card_notes_btn: "查閱學習筆記 ➔",
+      home_badge: "仿真与实训平台",
+      home_title: "电驱动系统学习与接线实训平台",
+      home_desc: "交互式教学环境，用于学习和练习纯电动汽车（BEV）及混合动力汽车（HEV）的高压部件接线、辅助系统、控制线束与工作原理。",
+      card_bev_tag: "100% 纯电动 (BEV)",
+      card_bev_title: "纯电动汽车",
+      card_bev_desc: "高压牵引部件接线实训模拟器（动力电池、逆变器、三相电动机、直流接触器、DC-DC 转换器）及系统工作原理图。",
+      card_bev_btn: "探索 BEV 模块 ➔",
+      card_hev_tag: "混合动力 (HEV)",
+      card_hev_title: "混合动力电动汽车",
+      card_hev_desc: "交互式学习三大混动推进架构：串联式（Series）、并联式（Parallel）以及混联式（带行星齿轮功率分流装置的串并联系统）。",
+      card_hev_btn: "探索 HEV 模块 ➔",
+      card_eprix_tag: "竞速与电化学",
+      card_eprix_title: "Didaktikos 电动大奖赛",
+      card_eprix_desc: "俯视角电动汽车竞速模拟器：4辆赛车角逐4圈，电池化学体系、充放电倍率（C-rate）与再生制动共同决定胜负。",
+      card_eprix_btn: "开始 E-Prix 赛事 ➔",
+      card_notes_tag: "技术文档与维护",
+      card_notes_title: "学习笔记",
+      card_notes_desc: "模拟器完整技术指南：BEV 架构、高低压隔离、逆变器、电池、接触器，以及串联、并联与混联混动系统。",
+      card_notes_btn: "查阅学习笔记 ➔",
 
-      bev_badge: "BEV 模組",
-      bev_title: "純電動車驅動系統",
-      bev_desc: "揀選學習模式：實體部件接線模擬，或者分析邏輯控制原理同能量流向。",
-      bev_wiring_tag: "實戰模擬",
-      bev_wiring_title: "實體接線模擬器",
-      bev_wiring_desc: "連接 DC-DC 轉換器、繼電器、直流接觸器、高壓熔斷器、電機控制器、動力電池同三相電動機嘅各個端子。",
-      bev_wiring_btn: "開始接線實習 ➔",
-      bev_principles_tag: "運作原理",
-      bev_principles_title: "能量流向及原理圖",
-      bev_principles_desc: "建立整車控制（VCU、BMS）訊號關係、雙向電力流向，以及去到傳動系統同車輪嘅機械連接。",
-      bev_principles_btn: "開始原理圖練習 ➔",
-      btn_back_home: "⬅ 返回主選單",
+      bev_badge: "BEV 模块",
+      bev_title: "纯电动汽车牵引系统",
+      bev_desc: "请选择学习模式：真实部件间的物理接线仿真，或逻辑控制原理与能量流向分析。",
+      bev_wiring_tag: "实操仿真",
+      bev_wiring_title: "物理接线模拟器",
+      bev_wiring_desc: "连接 DC-DC 转换器、继电器、直流接触器、高压熔断器、电机控制器、动力电池与三相电动机的各个端子。",
+      bev_wiring_btn: "开始接线实训 ➔",
+      bev_principles_tag: "工作原理",
+      bev_principles_title: "能量流向与原理图",
+      bev_principles_desc: "建立整车控制（VCU、BMS）信号关系、双向电能流向以及通往传动系统与驱动车轮的机械连接。",
+      bev_principles_btn: "开始原理图练习 ➔",
+      btn_back_home: "⬅ 返回主菜单",
 
-      hev_badge: "HEV 模組",
-      hev_title: "混合動力電動車驅動系統",
-      hev_desc: "分析並完成三種主要汽車混能驅動架構入面嘅電力、機械同燃油連接。",
-      hev_series_tag: "架構 1",
-      hev_series_title: "串聯式混能",
-      hev_series_desc: "內燃機只係帶動發電機幫電池充電或者供電俾驅動電動機，由電動機單獨驅動車輪。",
-      hev_series_btn: "開啟串聯式混能 ➔",
-      hev_parallel_tag: "架構 2",
-      hev_parallel_title: "並聯式混能",
-      hev_parallel_desc: "內燃機同電動機都透過傳動系統機械耦合去到車輪，可以一齊或者分別輸出動力。",
-      hev_parallel_btn: "開啟並聯式混能 ➔",
-      hev_combined_tag: "架構 3",
-      hev_combined_title: "混聯式混能",
-      hev_combined_desc: "串並聯系統配合行星齒輪動力分流裝置（PSD），可以同時進行機械驅動同發電。",
-      hev_combined_btn: "開啟混聯式混能 ➔",
+      hev_badge: "HEV 模块",
+      hev_title: "混合动力电动汽车牵引系统",
+      hev_desc: "分析并完成三种主要汽车混动推进架构中的电力、机械与燃油管路连接。",
+      hev_series_tag: "架构 1",
+      hev_series_title: "串联式混动",
+      hev_series_desc: "热机驱动发电机为电池充电，或直接向电驱动电机供电以驱动车辆。",
+      hev_series_btn: "打开串联式混动 ➔",
+      hev_parallel_tag: "架构 2",
+      hev_parallel_title: "并联式混动",
+      hev_parallel_desc: "内燃机与电动机均通过传动系统与车轮实现机械耦合，可共同或独立输出动力。",
+      hev_parallel_btn: "打开并联式混动 ➔",
+      hev_combined_tag: "架构 3",
+      hev_combined_title: "混联式混动",
+      hev_combined_desc: "带行星齿轮功率分流装置（PSD）的串并联系统，可同时实现机械牵引与发电。",
+      hev_combined_btn: "打开混联式混动 ➔",
 
-      sim_btn_run: "▶ 執行 / 測試",
-      sim_btn_run_title: "檢查電路係咪全部接駁正確",
-      sim_btn_undo: "↩ 復原",
-      sim_btn_undo_title: "復原上一步接線 (Ctrl+Z)",
-      sim_btn_delete: "🗑 刪除模式",
-      sim_btn_delete_title: "開啟刪除模式，撳電線或者端子就可以移除接線",
+      sim_btn_run: "▶ 运行 / 测试",
+      sim_btn_run_title: "检查电路接线是否全部正确",
+      sim_btn_undo: "↩ 撤销",
+      sim_btn_undo_title: "撤销上一步连接 (Ctrl+Z)",
+      sim_btn_delete: "🗑 删除模式",
+      sim_btn_delete_title: "启用删除模式，点击导线即可将其移除",
       sim_btn_clear: "🧹 全部清除",
-      sim_btn_clear_title: "清除畫布上面所有接線",
-      sim_btn_solution: "👁 睇標準答案",
-      sim_btn_solution_title: "顯示／隱藏官方標準接線圖",
-      sim_sidebar_cables: "⚡ 電線 / 連接類型",
-      sim_sidebar_desc: "📋 技術說明",
-      sim_sidebar_help: "💡 快速操作指引",
-      sim_help_1: "喺上面清單揀選要嘅電線類型。",
-      sim_help_2: "撳第一個端子（會變黃色高亮）。",
-      sim_help_3: "再撳目標端子就可以拉線連接。",
-      sim_help_4: "撳 <strong>「執行 / 測試」</strong> 檢查成個系統啱唔啱。",
-      sim_help_5: "撳任何部件可以睇佢嘅技術資料卡。",
-      sim_status_initial: "系統就緒，請揀選兩個端子進行連接。",
-      sim_status_ready_module: "請先揀選電線類型，再撳兩個端子將佢哋連埋一齊。",
-      sim_status_cancel_esc: "已取消端子選擇。",
-      sim_status_undo: "已復原上一步操作。",
-      sim_status_cleared: "已清除畫布所有接線。",
-      sim_status_solution_on: "而家顯示緊官方標準接線圖。",
-      sim_status_solution_off: "已返去接線編輯模式。",
-      sim_status_no_cables_err: "系統入面仲未有任何接線。",
-      sim_status_no_cables_msg: "測試失敗：仲未接駁任何電線。",
-      sim_err_wrong_conn: "{0} 同 {1} 之間嘅接線唔啱。",
-      sim_err_wrong_type: "{0} 同 {1} 之間嘅電線類型或者顏色唔啱。",
-      sim_err_wrong_dir: "{0} 同 {1} 之間嘅訊號／電力流向調轉咗。",
-      sim_err_missing: "電路仲爭 {0} 條接線未完成。",
-      sim_status_success: "成功！所有系統接線 100% 正確，車輛可以正常運作。",
-      sim_status_success_detail: "✔ 電路驗證通過！所有模組同線束導通正常。",
-      sim_status_fail: "測試未通過（啱咗 {0}/{1} 條）。請檢查標示咗嘅線路。",
-      sim_status_removed_pin: "已移除 {0} 嘅相關接線。",
-      sim_status_start_pin: "已揀選起點：{0}。而家請揀選目標端子。",
-      sim_status_cancel_pin: "已取消選擇。",
-      sim_status_exists: "呢兩個端子之間已經有線連住咗。",
-      sim_status_connected: "已接駁：{0} -> {1}。",
-      sim_status_line_removed: "已刪除該條電線。",
+      sim_btn_clear_title: "清除画布上的所有连接",
+      sim_btn_solution: "👁 查看标准答案",
+      sim_btn_solution_title: "显示或隐藏官方标准接线图",
+      sim_sidebar_cables: "⚡ 导线 / 连接类型",
+      sim_sidebar_desc: "📋 技术说明",
+      sim_sidebar_help: "💡 快速操作指南",
+      sim_help_1: "在上方列表中选择所需的导线类型。",
+      sim_help_2: "点击第一个端子（将以黄色高亮显示）。",
+      sim_help_3: "点击目标端子即可绘制连接线。",
+      sim_help_4: "点击<strong>“运行 / 测试”</strong>以验证整个系统。",
+      sim_help_5: "点击任意部件可查看其技术参数卡。",
+      sim_status_initial: "系统就绪，请选择两个端子进行连接。",
+      sim_status_ready_module: "请选择一种导线类型，然后点击两个端子将其连接。",
+      sim_status_cancel_esc: "已取消端子选择。",
+      sim_status_undo: "已撤销操作。",
+      sim_status_cleared: "画布已清空。",
+      sim_status_solution_on: "正在显示官方标准接线图。",
+      sim_status_solution_off: "接线编辑模式已激活。",
+      sim_status_no_cables_err: "系统中尚未建立任何连接。",
+      sim_status_no_cables_msg: "测试失败：尚未连接任何导线。",
+      sim_err_wrong_conn: "{0} 与 {1} 之间的连接不正确。",
+      sim_err_wrong_type: "{0} 与 {1} 之间的导线类型或颜色有误。",
+      sim_err_wrong_dir: "{0} 与 {1} 之间的信号或功率流向相反。",
+      sim_err_missing: "电路中还有 {0} 条连接尚未完成。",
+      sim_status_success: "成功！所有系统接线 100% 正确，车辆运行正常。",
+      sim_status_success_detail: "✔ 电路验证通过！所有模块和线束均保持正常导通。",
+      sim_status_fail: "测试未通过（正确 {0}/{1} 条）。请检查标出的线路。",
+      sim_status_removed_pin: "已移除 {0} 上的导线。",
+      sim_status_start_pin: "已选择起点：{0}。现在请选择目标端子。",
+      sim_status_cancel_pin: "已取消选择。",
+      sim_status_exists: "这两个端子之间已经存在导线。",
+      sim_status_connected: "已连接导线：{0} -> {1}。",
+      sim_status_line_removed: "导线已删除。",
 
-      notes_badge: "標準技術參考",
-      notes_title: "學習及維護技術筆記",
-      notes_subtitle: "純電動車（BEV）及混能車（HEV）模擬器嘅電氣架構同運作邏輯。",
+      notes_badge: "规范技术参考",
+      notes_title: "学习与维护技术笔记",
+      notes_subtitle: "独立仿真器的 BEV 与 HEV 电气架构及运行逻辑。",
       notes_btn_back: "⬅ 返回",
-      notes_btn_back_title: "返回上一個畫面",
-      notes_btn_top: "⬆ 返頂",
-      notes_btn_top_title: "返去文檔最頂",
-      notes_toc_header: "📑 目錄索引",
-      notes_btn_back_bottom: "⬅ 返回上一個畫面",
-      notes_btn_top_bottom: "⬆ 返回頂部",
-      notes_fallback: "無法初始化學習筆記檢視器。",
-      notes_toc_empty: "暫時冇目錄。",
-      notes_lang_notice: "💡 提示：模擬器介面、部件同接線驗證已經切換為廣東話；以下完整長篇技術參考文檔暫時保留西班牙文原文以確保技術術語一致。",
+      notes_btn_back_title: "返回上一视图",
+      notes_btn_top: "⬆ 顶部",
+      notes_btn_top_title: "返回文档顶部",
+      notes_toc_header: "📑 目录索引",
+      notes_btn_back_bottom: "⬅ 返回上一视图",
+      notes_btn_top_bottom: "⬆ 返回顶部",
+      notes_fallback: "无法初始化学习笔记查看器。",
+      notes_toc_empty: "目录不可用。",
+      notes_lang_notice: "💡 提示：模拟器界面、部件和接线验证已切换为简体中文（普通话）；下方完整长篇技术参考文档暂时保留西班牙语原文以确保术语一致。",
 
-      modal_badge: "技術資料卡",
-      modal_default_desc: "電動車系統部件。",
-      modal_terminals_title: "端子及接線定義：",
+      modal_badge: "技术参数卡",
+      modal_default_desc: "电驱动系统部件。",
+      modal_terminals_title: "端子与连接：",
 
-      bev_autonomy_tag: "車輛動力學及 SOC",
-      bev_autonomy_title: "純電動車續航及能耗虛擬實驗室 (BEV)",
-      bev_autonomy_desc: "透過調整車重、空氣動力學、路線斜度同駕駛循環（NEDC、WLTC、CLTC）模擬真實續航里程同電能消耗。",
-      bev_autonomy_btn: "開啟續航實驗室 ➔",
-      auto_title: "純電動車續航及能耗虛擬實驗室 (BEV)",
-      auto_subtitle: "基於車輛動力學方程計算不同駕駛循環同斜坡路線下嘅能耗同續航表現。",
-      auto_btn_reset: "↺ 重設",
-      auto_hud_cycle: "循環：",
-      auto_hud_slope: "斜度：",
-      auto_hud_time: "時間：",
-      auto_route_progress: "路線進度：",
+      bev_autonomy_tag: "车辆动力学与 SOC",
+      bev_autonomy_title: "纯电动汽车续航与能耗虚拟实验室 (BEV)",
+      bev_autonomy_desc: "通过调节整备质量、空气动力学、路线坡度与驾驶循环（NEDC、WLTC、CLTC），仿真真实续航里程与电能消耗。",
+      bev_autonomy_btn: "打开续航实验室 ➔",
+      auto_title: "纯电动汽车续航与能耗虚拟实验室 (BEV)",
+      auto_subtitle: "基于车辆动力学物理模型计算不同驾驶循环与坡度下的能耗和续航。",
+      auto_btn_reset: "↺ 重置",
+      auto_hud_cycle: "循环：",
+      auto_hud_slope: "坡度：",
+      auto_hud_time: "时间：",
+      auto_route_progress: "路线进度：",
       auto_seg_current: "路段：",
-      auto_tele_title: "📊 實時遙測數據",
-      auto_tele_speed: "車速",
-      auto_tele_cons: "即時能耗",
-      auto_tele_soc: "電量 (SOC)",
-      auto_tele_energy: "剩餘電能",
-      auto_tele_est: "預計總續航／平均能耗",
-      auto_tele_forces: "牽引力分佈 (Ft = Fa + Fr + Fp + Fi)",
-      auto_veh_title: "🚗 車輛設定檔及物理參數",
-      auto_param_mass: "車重 (kg)",
-      auto_param_bat: "電池容量 (kWh)",
-      auto_param_af: "迎風面積 Af (m²)",
-      auto_param_crr: "滾阻系數 (Crr)",
-      auto_cycle_title: "📈 駕駛循環測試",
-      auto_route_title: "🛣 路線斜度編輯器",
-      auto_btn_add_seg: "+ 新增路段",
-      auto_res_badge: "模擬結果",
-      auto_res_title: "續航及能耗總結",
-      auto_res_dist: "實際行駛距離",
+      auto_tele_title: "📊 实时遥测数据",
+      auto_tele_speed: "车速",
+      auto_tele_cons: "瞬时能耗",
+      auto_tele_soc: "电池电量 (SOC)",
+      auto_tele_energy: "剩余电能",
+      auto_tele_est: "预估续航 / 平均能耗",
+      auto_tele_forces: "受力分解 (Ft = Fa + Fr + Fp + Fi)",
+      auto_veh_title: "🚗 车辆配置与物理参数",
+      auto_param_mass: "质量 (kg)",
+      auto_param_bat: "电池容量 (kWh)",
+      auto_param_af: "迎风面积 Af (m²)",
+      auto_param_crr: "滚阻系数 (Crr)",
+      auto_cycle_title: "📈 驾驶循环",
+      auto_route_title: "🛣 路线编辑器（坡度）",
+      auto_btn_add_seg: "+ 添加路段",
+      auto_res_badge: "仿真结果",
+      auto_res_title: "续航与能耗总结",
+      auto_res_dist: "实际行驶里程",
       auto_res_cons: "平均能耗",
-      auto_res_est: "預計總續航里程",
-      auto_res_reached: "係咪到達終點？"
+      auto_res_est: "预估总续航里程",
+      auto_res_reached: "是否到达终点？"
     }
   };
 
-  // Traducciones al Chino Cantonés (廣東話) para los 5 módulos de SIMULATOR_DATA
-  const MODULE_TRANSLATIONS_YUE = {
-    bevWiring: {
-      title: "純電動車實體接線模擬器 (BEV)",
-      subtitle: "高壓、低壓部件同埋控制線束嘅實體接線實習",
-      description: "接駁電動車驅動系統部件（動力電池、直流接觸器、DC-DC 轉換器、熔斷器、電機控制器／逆變器同三相電動機）。請為每條線路揀選正確嘅電線類型。",
-      cableTypes: {
-        hv_pos: { name: "高壓供電正極 (+)", desc: "高壓動力正極線路（紅色）" },
-        hv_neg: { name: "高壓供電負極 (-)", desc: "高壓動力負極線路（黑色）" },
-        lv_pos: { name: "低壓輔助供電 (+12V)", desc: "12V 低壓輔助正極線路（紫色）" },
-        lv_neg: { name: "低壓迴路 (-12V / 接地)", desc: "12V 低壓負極／接地迴路（灰色）" },
-        mcu_harness: { name: "控制器訊號線束", desc: "油門踏板、波棍同儀錶板控制訊號（藍色）" }
+  // Traducciones al Inglés (en) y Chino Mandarín Simplificado (zh) para los 5 módulos de SIMULATOR_DATA
+  const MODULE_TRANSLATIONS = {
+    en: {
+      bevWiring: {
+        title: "BEV Physical Wiring Simulator",
+        subtitle: "Practical wiring of HV, LV components and control harnesses",
+        description: "Connect the traction system components (traction battery, DC contactor, DC-DC converter, fuses, motor controller/inverter, and 3-phase motor). Select the proper wire type for each line.",
+        cableTypes: {
+          hv_pos: { name: "High Voltage Positive (+)", desc: "HV positive power line (Red)" },
+          hv_neg: { name: "High Voltage Negative (-)", desc: "HV negative return line (Black)" },
+          lv_pos: { name: "Low Voltage Auxiliary (+12V)", desc: "12V auxiliary positive supply (Purple)" },
+          lv_neg: { name: "Low Voltage Return (-12V / GND)", desc: "12V negative / ground return (Gray)" },
+          mcu_harness: { name: "Controller Signal Harness", desc: "Accelerator pedal, gear selector & dashboard signals (Blue)" }
+        },
+        devices: {
+          DCDCZHQ: {
+            name: "DC-DC Converter",
+            desc: "Steps down HV traction battery DC power to 12V DC for auxiliary loads and 12V battery charging.",
+            terminals: {
+              DCDCZHQ_1: { name: "HV Input (+)", label: "In +" },
+              DCDCZHQ_4: { name: "HV Input (-)", label: "In -" },
+              DCDCZHQ_2: { name: "12V Output (+)", label: "Out +" },
+              DCDCZHQ_3: { name: "12V Output (-)", label: "Out -" }
+            }
+          },
+          RDQ1: {
+            name: "Fuse 1 (DC-DC)",
+            desc: "Overcurrent protection fuse for the DC-DC converter HV input.",
+            terminals: { RDQ1_1: { name: "Fuse 1 Out", label: "Out" }, RDQ1_2: { name: "Fuse 1 In", label: "In" } }
+          },
+          DXLJQ1: {
+            name: "Positive Busbar",
+            desc: "Distributes HV positive power to the motor controller and DC-DC converter.",
+            terminals: { DXLJQ1_1: { name: "Out to DC-DC", label: "Out" }, DXLJQ1_2: { name: "Main Power In (+)", label: "In +" }, DXLJQ1_3: { name: "Out to Controller", label: "Out" } }
+          },
+          RDQ2: {
+            name: "Fuse 2 (Controller)",
+            desc: "High-current fuse protecting the inverter/motor controller HV input.",
+            terminals: { RDQ2_1: { name: "Fuse 2 In", label: "In" }, RDQ2_2: { name: "Fuse 2 Out", label: "Out" } }
+          },
+          DY12V: {
+            name: "12V Auxiliary Battery",
+            desc: "Supplies 12V power to control systems, ECU, relays, and contactor coils.",
+            terminals: {
+              DY12V_1: { name: "Control Supply (+)", label: "Aux +" },
+              DY12V_2: { name: "Positive Terminal (+)", label: "+" },
+              DY12V_3: { name: "Negative Terminal (-)", label: "-" },
+              DY12V_4: { name: "Contactor Coil Return (-)", label: "GND" }
+            }
+          },
+          DXLJQ2: {
+            name: "Negative Busbar",
+            desc: "Common junction busbar for the HV negative return circuit.",
+            terminals: {
+              DXLJQ2_1: { name: "DC-DC Return (-)", label: "DC-DC (-)" },
+              DXLJQ2_2: { name: "Battery Negative (-)", label: "Battery (-)" },
+              DXLJQ2_3: { name: "Controller Return (-)", label: "MCU (-)" }
+            }
+          },
+          JDQKG: {
+            name: "Relay Switch (Ignition)",
+            desc: "Closes the 12V control circuit on ignition to energize the HV contactor.",
+            terminals: { JDQKG_1: { name: "Relay Control In", label: "In" }, JDQKG_2: { name: "Out to Contactor", label: "Out" } }
+          },
+          DLDY: {
+            name: "Traction Battery (HV)",
+            desc: "Stores high-voltage electrical energy (Li-ion pack) to propel the vehicle.",
+            terminals: { DLDY_1: { name: "Negative (-)", label: "-" }, DLDY_2: { name: "Positive (+)", label: "+" } }
+          },
+          JJKG: {
+            name: "Emergency Disconnect Switch",
+            desc: "Manual service disconnect (MSD) to isolate HV during emergencies or maintenance.",
+            terminals: { JJKG_1: { name: "Battery Input (+)", label: "In" }, JJKG_2: { name: "Out to Contactor", label: "Out" } }
+          },
+          ZLJCQ: {
+            name: "DC Contactor",
+            desc: "High-voltage electromagnetic power relay that connects or disconnects the traction battery.",
+            terminals: {
+              ZLJCQ_1: { name: "HV Power In (+)", label: "Pwr In" },
+              ZLJCQ_2: { name: "Control Coil (+12V)", label: "Coil +" },
+              ZLJCQ_3: { name: "Control Coil (-12V)", label: "Coil -" },
+              ZLJCQ_4: { name: "HV Power Out (+)", label: "Pwr Out" }
+            }
+          },
+          RDQ3: {
+            name: "Fuse 3 (HV Main)",
+            desc: "Main traction high-voltage circuit protection fuse.",
+            terminals: { RDQ3_1: { name: "Fuse 3 In", label: "In" }, RDQ3_2: { name: "Fuse 3 Out", label: "Out" } }
+          },
+          DDJKZQ: {
+            name: "Motor Controller (MCU Inverter)",
+            desc: "Converts DC to 3-phase AC to control torque, speed, and regenerative braking.",
+            terminals: {
+              DDJKZQ_1: { name: "Phase W", label: "W" },
+              DDJKZQ_2: { name: "DC Link (-)", label: "-" },
+              DDJKZQ_3: { name: "Phase V", label: "V" },
+              DDJKZQ_4: { name: "DC Link (+)", label: "+" },
+              DDJKZQ_5: { name: "Phase U", label: "U" },
+              DDJKZQ_6: { name: "Signal Harness Port", label: "Harness" }
+            }
+          },
+          DDJ: {
+            name: "Three-Phase Electric Motor",
+            desc: "3-phase AC synchronous or induction motor converting electrical energy into mechanical torque.",
+            terminals: { DDJ_1: { name: "Phase U", label: "U" }, DDJ_2: { name: "Phase V", label: "V" }, DDJ_3: { name: "Phase W", label: "W" } }
+          },
+          JSTB: { name: "Accelerator Pedal", desc: "Accelerator Pedal Position (APP) sensor sending torque demand.", terminals: { JSTB: { name: "Pedal Signal Out", label: "Signal" } } },
+          DWKG: { name: "Gear Selector Switch", desc: "Drive mode selector (P Park, R Reverse, N Neutral, D Drive).", terminals: { DWKG: { name: "Gear Signal Out", label: "Signal" } } },
+          YB: { name: "Instrument Cluster", desc: "Digital dashboard displaying speed, SOC, power, and warnings.", terminals: { YB: { name: "Cluster Signal In", label: "Signal" } } }
+        }
       },
-      devices: {
-        DCDCZHQ: {
-          name: "DC-DC 轉換器",
-          desc: "將高壓動力電池直流電降壓到 12V 直流電，供電俾車內輔助設備同幫 12V 電池充電。",
-          terminals: {
-            DCDCZHQ_1: { name: "高壓輸入 (+)", label: "輸入 +" },
-            DCDCZHQ_4: { name: "高壓輸入 (-)", label: "輸入 -" },
-            DCDCZHQ_2: { name: "12V 輸出 (+)", label: "輸出 +" },
-            DCDCZHQ_3: { name: "12V 輸出 (-)", label: "輸出 -" }
-          }
+      bevPrinciples: {
+        title: "BEV Operating Principles System",
+        subtitle: "Block diagram: control signals, power flow, and mechanical drive",
+        description: "Establish logical connections and energy flow between VCU, inverter, motor, transmission, BMS, and auxiliary systems.",
+        cableTypes: {
+          sig_right: { name: "Control Signal (Right ->)", desc: "Data / control command flowing right" },
+          sig_left: { name: "Control Signal (<- Left)", desc: "Data / control command flowing left" },
+          sig_bi: { name: "Control Signal (Bidirectional <->)", desc: "Bidirectional CAN bus communication" },
+          pwr_right: { name: "Power Flow (Right =>)", desc: "Electric power flowing right" },
+          pwr_left: { name: "Power Flow (<= Left)", desc: "Electric power flowing left" },
+          pwr_bi: { name: "Power Flow (Bidirectional <=>)", desc: "Bidirectional power (drive & regeneration)" },
+          mech: { name: "Mechanical Link (Double ==)", desc: "Drive shaft or mechanical torque coupling" }
         },
-        RDQ1: {
-          name: "熔斷器 1 (DC-DC)",
-          desc: "DC-DC 轉換器高壓輸入端嘅過流保護熔斷器。",
-          terminals: {
-            RDQ1_1: { name: "熔斷器 1 輸出", label: "輸出" },
-            RDQ1_2: { name: "熔斷器 1 輸入", label: "輸入" }
-          }
+        devices: {
+          ZDTB: { name: "Brake Pedal", terminals: { ZDTB: { name: "Signal Out" } } },
+          JSTB: { name: "Accelerator Pedal", terminals: { JSTB: { name: "Signal Out" } } },
+          DKDY: { name: "Vehicle Control Unit (VCU)", terminals: { DKDY_L1: { name: "Brake In" }, DKDY_L2: { name: "Throttle In" }, DKDY_R: { name: "Inverter Control" }, DKDY_B: { name: "BMS Bus" } } },
+          GLZHQ: { name: "Power Converter (Inverter)", terminals: { GLZHQ_L: { name: "VCU Control" }, GLZHQ_R: { name: "3-Phase Power" }, GLZHQ_B: { name: "Battery DC Power" } } },
+          SXGYDJ: { name: "3-Phase Induction Motor", terminals: { SXGYDJ_L: { name: "Power In" }, SXGYDJ_R: { name: "Drive Shaft" } } },
+          JXCDZZ: { name: "Mechanical Transmission", terminals: { JXCDZZ_L: { name: "Motor In" }, JXCDZZ_T: { name: "Wheel 1 Half-Shaft" }, JXCDZZ_B: { name: "Wheel 2 Half-Shaft" } } },
+          CL1: { name: "Front / Left Wheel", terminals: { CL1: { name: "Axle" } } },
+          CL2: { name: "Rear / Right Wheel", terminals: { CL2: { name: "Axle" } } },
+          NLGLXT: { name: "Energy Management (BMS)", terminals: { NLGLXT_T: { name: "To VCU" }, NLGLXT_R: { name: "To Battery" }, NLGLXT_B: { name: "To Charger" } } },
+          XDC: { name: "Traction Battery (HV)", terminals: { XDC_T: { name: "To Inverter" }, XDC_L: { name: "BMS Monitor" }, XDC_R: { name: "To Auxiliary" }, XDC_B: { name: "Charging" } } },
+          FZDLY: { name: "Auxiliary Power (DC-DC)", terminals: { FZDLY_L: { name: "HV Supply" }, FZDLY_R: { name: "Steering Supply" }, FZDLY_B: { name: "HVAC Supply" } } },
+          DLZXDY: { name: "Electric Power Steering (EPS)", terminals: { DLZXDY_L: { name: "EPS Power" }, DLZXDY_R: { name: "Steering Input" } } },
+          ZXP: { name: "Steering Wheel", terminals: { ZXP: { name: "Angle Sensor" } } },
+          CDXT: { name: "On-Board Charger (OBC)", terminals: { CDXT_L: { name: "BMS Control" }, CDXT_T: { name: "Out to Battery" }, CDXT_B: { name: "Grid Input" } } },
+          WDKZDY: { name: "Thermal / HVAC System", terminals: { WDKZDY: { name: "Power In" } } },
+          WJDY: { name: "External Grid (Charge Port)", terminals: { WJDY: { name: "AC / DC Power" } } }
+        }
+      },
+      hybridSeries: {
+        title: "Series Hybrid System",
+        subtitle: "ICE drives generator only; electric motor exclusively drives wheels",
+        description: "In a series hybrid, the combustion engine has no mechanical link to the wheels and only generates electricity for the battery and traction motor.",
+        cableTypes: {
+          elec: { name: "Electrical Link (Solid)", desc: "Electric power path" },
+          mech: { name: "Mechanical Link (Double)", desc: "Mechanical shaft / torque coupling" },
+          fuel: { name: "Fuel Line (Red)", desc: "Fuel delivery from tank" }
         },
-        DXLJQ1: {
-          name: "正極分電排",
-          desc: "將高壓正極電源分流去電機控制器同 DC-DC 轉換器。",
-          terminals: {
-            DXLJQ1_1: { name: "輸出至 DC-DC", label: "輸出" },
-            DXLJQ1_2: { name: "主電源輸入 (+)", label: "輸入 +" },
-            DXLJQ1_3: { name: "輸出至控制器", label: "輸出" }
-          }
+        devices: {
+          YX: { name: "Fuel Tank", terminals: { YX_R: { name: "Fuel Out" } } },
+          FDOJ: { name: "Combustion Engine (ICE)", terminals: { FDOJ_L: { name: "Fuel In" }, FDOJ_B: { name: "Shaft to Generator" } } },
+          FDIJ: { name: "Generator", terminals: { FDIJ_T: { name: "From ICE Shaft" }, FDIJ_B: { name: "AC Power Out" } } },
+          XDC: { name: "Traction Battery", terminals: { XDC_R: { name: "Battery Power" } } },
+          GLZHQ: { name: "Converter / Inverter", terminals: { GLZHQ_T: { name: "From Generator" }, GLZHQ_L: { name: "Battery Port" }, GLZHQ_R: { name: "To Motor" } } },
+          FDOJ2: { name: "Traction Electric Motor", terminals: { FDOJ2_L: { name: "Power In" }, FDOJ2_R: { name: "Output Shaft" } } },
+          CGZZ: { name: "Transmission / Wheels", terminals: { CGZZ_L: { name: "Mechanical In" } } }
+        }
+      },
+      hybridParallel: {
+        title: "Parallel Hybrid System",
+        subtitle: "Both ICE and electric motor deliver mechanical torque to the wheels",
+        description: "Both powertrains are mechanically coupled to the transmission via clutches or gear couplers.",
+        cableTypes: {
+          elec: { name: "Electrical Link (Solid)", desc: "Electric power path" },
+          mech: { name: "Mechanical Link (Double)", desc: "Mechanical shaft / torque coupling" },
+          fuel: { name: "Fuel Line (Red)", desc: "Fuel supply" }
         },
-        RDQ2: {
-          name: "熔斷器 2 (控制器)",
-          desc: "保護逆變器／電機控制器高壓輸入嘅大電流熔斷器。",
-          terminals: {
-            RDQ2_1: { name: "熔斷器 2 輸入", label: "輸入" },
-            RDQ2_2: { name: "熔斷器 2 輸出", label: "輸出" }
-          }
+        devices: {
+          YX: { name: "Fuel Tank", terminals: { YX_R: { name: "Fuel Out" } } },
+          FDJ: { name: "Combustion Engine (ICE)", terminals: { FDJ_L: { name: "Fuel In" }, FDJ_R: { name: "Mechanical Out" } } },
+          XDC: { name: "Traction Battery", terminals: { XDC_R: { name: "Power Terminal" } } },
+          GLZHQ: { name: "Converter / Inverter", terminals: { GLZHQ_L: { name: "To Battery" }, GLZHQ_R: { name: "To Motor" } } },
+          DDJ: { name: "Electric Motor", terminals: { DDJ_L: { name: "Power In" }, DDJ_R: { name: "Mechanical Out" } } },
+          CDZZ: { name: "Mechanical Coupler & Transmission", terminals: { CDZZ_L1: { name: "ICE In" }, CDZZ_L2: { name: "Motor In" } } }
+        }
+      },
+      hybridCombined: {
+        title: "Combined Hybrid System (Series-Parallel)",
+        subtitle: "Planetary power-split device: simultaneous direct drive and generation",
+        description: "Combines series and parallel advantages via a planetary Power-Split Device (PSD).",
+        cableTypes: {
+          elec: { name: "Electrical Link (Solid)", desc: "Electric power path" },
+          mech: { name: "Mechanical Link (Double)", desc: "Mechanical shaft / torque coupling" },
+          fuel: { name: "Fuel Line (Red)", desc: "Fuel supply" }
         },
-        DY12V: {
-          name: "12V 輔助電池",
-          desc: "為控制系統、車載電腦、繼電器同接觸器線圈提供 12V 電源。",
-          terminals: {
-            DY12V_1: { name: "控制供電 (+)", label: "輔助 +" },
-            DY12V_2: { name: "正極端子 (+)", label: "+" },
-            DY12V_3: { name: "負極端子 (-)", label: "-" },
-            DY12V_4: { name: "接觸器線圈負極迴路 (-)", label: "GND" }
-          }
-        },
-        DXLJQ2: {
-          name: "負極分電排",
-          desc: "高壓負極電源迴路嘅公共匯流接點。",
-          terminals: {
-            DXLJQ2_1: { name: "DC-DC 負極迴路 (-)", label: "DC-DC (-)" },
-            DXLJQ2_2: { name: "動力電池負極 (-)", label: "動力電池 (-)" },
-            DXLJQ2_3: { name: "控制器負極迴路 (-)", label: "控制器 (-)" }
-          }
-        },
-        JDQKG: {
-          name: "繼電器開關（匙膽）",
-          desc: "著車時接通 12V 控制線路，啟動高壓接觸器。",
-          terminals: {
-            JDQKG_1: { name: "繼電器控制輸入", label: "輸入" },
-            JDQKG_2: { name: "輸出至接觸器", label: "輸出" }
-          }
-        },
-        DLDY: {
-          name: "動力電池 (HV)",
-          desc: "儲存高壓電能（鋰離子電池組）以驅動車輛行駛。",
-          terminals: {
-            DLDY_1: { name: "負極 (-)", label: "-" },
-            DLDY_2: { name: "正極 (+)", label: "+" }
-          }
-        },
-        JJKG: {
-          name: "緊急斷電開關",
-          desc: "發生緊急情況或者維修保養時手動切斷高壓迴路（MSD）。",
-          terminals: {
-            JJKG_1: { name: "電池正極輸入 (+)", label: "輸入" },
-            JJKG_2: { name: "輸出至接觸器", label: "輸出" }
-          }
-        },
-        ZLJCQ: {
-          name: "直流接觸器 (DC)",
-          desc: "高壓電磁功率繼電器，負責接通或切斷主動力電池供電。",
-          terminals: {
-            ZLJCQ_1: { name: "高壓功率輸入 (+)", label: "功率輸入" },
-            ZLJCQ_2: { name: "控制線圈 (+12V)", label: "線圈 +" },
-            ZLJCQ_3: { name: "控制線圈 (-12V)", label: "線圈 -" },
-            ZLJCQ_4: { name: "高壓功率輸出 (+)", label: "功率輸出" }
-          }
-        },
-        RDQ3: {
-          name: "熔斷器 3（高壓主線）",
-          desc: "主驅動高壓迴路嘅總保護熔斷器。",
-          terminals: {
-            RDQ3_1: { name: "熔斷器 3 輸入", label: "輸入" },
-            RDQ3_2: { name: "熔斷器 3 輸出", label: "輸出" }
-          }
-        },
-        DDJKZQ: {
-          name: "電機控制器（逆變器 MCU）",
-          desc: "將直流電轉換成三相交流電，控制扭力、轉速同動能回收煞車。",
-          terminals: {
-            DDJKZQ_1: { name: "功率相線 W", label: "W" },
-            DDJKZQ_2: { name: "直流電源 (-)", label: "-" },
-            DDJKZQ_3: { name: "功率相線 V", label: "V" },
-            DDJKZQ_4: { name: "直流電源 (+)", label: "+" },
-            DDJKZQ_5: { name: "功率相線 U", label: "U" },
-            DDJKZQ_6: { name: "訊號線束接口", label: "線束" }
-          }
-        },
-        DDJ: {
-          name: "三相電動機",
-          desc: "三相交流同步或感應電動機，將電能轉化為機械驅動力。",
-          terminals: {
-            DDJ_1: { name: "U 相端子", label: "U" },
-            DDJ_2: { name: "V 相端子", label: "V" },
-            DDJ_3: { name: "W 相端子", label: "W" }
-          }
-        },
-        JSTB: {
-          name: "油門踏板",
-          desc: "加速踏板位置感應器（APP），向控制器發送加速扭力指令。",
-          terminals: {
-            JSTB: { name: "油門訊號輸出", label: "訊號" }
-          }
-        },
-        DWKG: {
-          name: "波棍／檔位開關",
-          desc: "波檔選擇器（P 停車、R 後波、N 空波、D 前進）。",
-          terminals: {
-            DWKG: { name: "檔位訊號輸出", label: "訊號" }
-          }
-        },
-        YB: {
-          name: "儀錶板",
-          desc: "數碼儀錶，顯示車速、電量（SOC）、功率同系統警示。",
-          terminals: {
-            YB: { name: "儀錶訊號輸入", label: "訊號" }
-          }
+        devices: {
+          YX: { name: "Fuel Tank", terminals: { YX_R: { name: "Fuel Out" } } },
+          FDJ: { name: "Combustion Engine (ICE)", terminals: { FDJ_L: { name: "Fuel In" }, FDJ_R: { name: "Shaft to PSD" }, FDJ_B: { name: "Shaft to Generator" } } },
+          FDJ1: { name: "Generator (MG1)", terminals: { FDJ1_T: { name: "From ICE Shaft" }, FDJ1_B: { name: "Power to Inverter" } } },
+          XDC: { name: "Traction Battery", terminals: { XDC_R: { name: "Battery Power" } } },
+          GLZHQ: { name: "Bidirectional Inverter", terminals: { GLZHQ_T: { name: "From Generator" }, GLZHQ_L: { name: "Battery Port" }, GLZHQ_R: { name: "To Motor" } } },
+          DDJ: { name: "Traction Motor (MG2)", terminals: { DDJ_L: { name: "Power In" }, DDJ_R: { name: "Shaft to Transmission" } } },
+          CDZZ: { name: "Planetary PSD & Transmission", terminals: { CDZZ_L1: { name: "ICE In" }, CDZZ_L2: { name: "Motor In" } } }
         }
       }
     },
 
-    bevPrinciples: {
-      title: "純電動車運作原理系統 (BEV)",
-      subtitle: "功能方塊圖：控制訊號、電力流向同機械傳動關係",
-      description: "建立整車控制器（VCU）、功率轉換器、電動機、傳動系統、電池管理系統（BMS）同輔助系統之間嘅邏輯連接同能量流向。",
-      cableTypes: {
-        sig_right: { name: "控制訊號（向右 ->）", desc: "向右傳輸嘅數據／控制指令" },
-        sig_left: { name: "控制訊號（<- 向左）", desc: "向左傳輸嘅數據／控制指令" },
-        sig_bi: { name: "控制訊號（雙向 <->）", desc: "雙向 CAN 總線通訊" },
-        pwr_right: { name: "電力流向（向右 =>）", desc: "向右輸出嘅電能流向" },
-        pwr_left: { name: "電力流向（<= 向左）", desc: "向左輸出嘅電能流向" },
-        pwr_bi: { name: "電力流向（雙向 <=>）", desc: "雙向電力流（驅動及動能回收）" },
-        mech: { name: "機械連接（雙線 ==）", desc: "傳動軸或機械扭力耦合" }
-      },
-      devices: {
-        ZDTB: { name: "煞車踏板", terminals: { ZDTB: { name: "訊號輸出" } } },
-        JSTB: { name: "油門踏板", terminals: { JSTB: { name: "訊號輸出" } } },
-        DKDY: {
-          name: "整車控制器 (VCU)",
-          terminals: {
-            DKDY_L1: { name: "煞車輸入" },
-            DKDY_L2: { name: "油門輸入" },
-            DKDY_R: { name: "控制逆變器" },
-            DKDY_B: { name: "連接 BMS 總線" }
-          }
+    zh: {
+      bevWiring: {
+        title: "纯电动汽车物理接线模拟器 (BEV)",
+        subtitle: "高压、低压部件与控制线束的物理接线实训",
+        description: "连接电动汽车电驱动系统部件（动力电池、直流接触器、DC-DC 转换器、熔断器、电机控制器/逆变器与三相电动机）。请为每条线路选择正确的导线类型。",
+        cableTypes: {
+          hv_pos: { name: "高压供电正极 (+)", desc: "高压动力正极线路（红色）" },
+          hv_neg: { name: "高压供电负极 (-)", desc: "高压动力负极回路（黑色）" },
+          lv_pos: { name: "低压辅助供电 (+12V)", desc: "12V 低压辅助正极线路（紫色）" },
+          lv_neg: { name: "低压回路 (-12V / 接地)", desc: "12V 低压负极/接地回路（灰色）" },
+          mcu_harness: { name: "控制器信号线束", desc: "加速踏板、档位开关与仪表盘控制信号（蓝色）" }
         },
-        GLZHQ: {
-          name: "功率轉換器（逆變器）",
-          terminals: {
-            GLZHQ_L: { name: "VCU 控制" },
-            GLZHQ_R: { name: "三相電力" },
-            GLZHQ_B: { name: "電池直流電力" }
-          }
-        },
-        SXGYDJ: {
-          name: "三相感應電動機",
-          terminals: {
-            SXGYDJ_L: { name: "電力輸入" },
-            SXGYDJ_R: { name: "機械傳動軸" }
-          }
-        },
-        JXCDZZ: {
-          name: "機械傳動裝置",
-          terminals: {
-            JXCDZZ_L: { name: "電動機輸入" },
-            JXCDZZ_T: { name: "車輪 1 半軸" },
-            JXCDZZ_B: { name: "車輪 2 半軸" }
-          }
-        },
-        CL1: { name: "前／左車輪", terminals: { CL1: { name: "車軸" } } },
-        CL2: { name: "後／右車輪", terminals: { CL2: { name: "車軸" } } },
-        NLGLXT: {
-          name: "能量管理系統 (BMS)",
-          terminals: {
-            NLGLXT_T: { name: "連接 VCU" },
-            NLGLXT_R: { name: "連接電池" },
-            NLGLXT_B: { name: "連接充電器" }
-          }
-        },
-        XDC: {
-          name: "動力電池 (HV)",
-          terminals: {
-            XDC_T: { name: "供電至逆變器" },
-            XDC_L: { name: "BMS 監控" },
-            XDC_R: { name: "供電至輔助系統" },
-            XDC_B: { name: "電池充電" }
-          }
-        },
-        FZDLY: {
-          name: "輔助電源 (DC-DC)",
-          terminals: {
-            FZDLY_L: { name: "高壓供電" },
-            FZDLY_R: { name: "轉向供電" },
-            FZDLY_B: { name: "冷氣溫控供電" }
-          }
-        },
-        DLZXDY: {
-          name: "電動輔助轉向 (EPS)",
-          terminals: {
-            DLZXDY_L: { name: "EPS 供電" },
-            DLZXDY_R: { name: "軚盤輸入" }
-          }
-        },
-        ZXP: { name: "軚盤", terminals: { ZXP: { name: "轉角感應器" } } },
-        CDXT: {
-          name: "車載充電機 (OBC)",
-          terminals: {
-            CDXT_L: { name: "BMS 控制" },
-            CDXT_T: { name: "輸出至電池" },
-            CDXT_B: { name: "外部電網輸入" }
-          }
-        },
-        WDKZDY: { name: "熱管理／冷氣系統", terminals: { WDKZDY: { name: "電源輸入" } } },
-        WJDY: { name: "外部電網（充電口）", terminals: { WJDY: { name: "交流／直流電" } } }
-      }
-    },
-
-    hybridSeries: {
-      title: "串聯式混能系統",
-      subtitle: "內燃機只係帶動發電機發電；純粹由電動機驅動車輪",
-      description: "喺串聯式架構入面，內燃機同車輪之間冇機械連接，佢只負責發電俾動力電池同驅動電動機。",
-      cableTypes: {
-        elec: { name: "電力連接（實線）", desc: "電能傳輸路徑" },
-        mech: { name: "機械連接（雙線）", desc: "機械轉動／扭力耦合" },
-        fuel: { name: "燃油管路（紅色）", desc: "由油缸輸送電油／柴油" }
-      },
-      devices: {
-        YX: { name: "油缸", terminals: { YX_R: { name: "燃油輸出" } } },
-        FDOJ: {
-          name: "內燃機",
-          terminals: {
-            FDOJ_L: { name: "燃油輸入" },
-            FDOJ_B: { name: "傳動軸至發電機" }
-          }
-        },
-        FDIJ: {
-          name: "發電機",
-          terminals: {
-            FDIJ_T: { name: "來自內燃機傳動軸" },
-            FDIJ_B: { name: "交流電力輸出" }
-          }
-        },
-        XDC: { name: "動力電池", terminals: { XDC_R: { name: "電池電力" } } },
-        GLZHQ: {
-          name: "轉換器／逆變器",
-          terminals: {
-            GLZHQ_T: { name: "來自發電機輸入" },
-            GLZHQ_L: { name: "電池接口" },
-            GLZHQ_R: { name: "輸出至電動機" }
-          }
-        },
-        FDOJ2: {
-          name: "驅動電動機",
-          terminals: {
-            FDOJ2_L: { name: "電力輸入" },
-            FDOJ2_R: { name: "動力輸出軸" }
-          }
-        },
-        CGZZ: { name: "傳動系統／車輪", terminals: { CGZZ_L: { name: "機械輸入" } } }
-      }
-    },
-
-    hybridParallel: {
-      title: "並聯式混能系統",
-      subtitle: "內燃機同電動機都可以直接向車輪輸出機械扭力",
-      description: "兩副動力裝置都透過離合器或者齒輪耦合器機械連接去傳動系統。",
-      cableTypes: {
-        elec: { name: "電力連接（實線）", desc: "電能傳輸路徑" },
-        mech: { name: "機械連接（雙線）", desc: "機械轉動／扭力耦合" },
-        fuel: { name: "燃油管路（紅色）", desc: "燃油供應" }
-      },
-      devices: {
-        YX: { name: "油缸", terminals: { YX_R: { name: "燃油輸出" } } },
-        FDJ: {
-          name: "內燃機",
-          terminals: {
-            FDJ_L: { name: "燃油輸入" },
-            FDJ_R: { name: "機械輸出軸" }
-          }
-        },
-        XDC: { name: "動力電池", terminals: { XDC_R: { name: "電力端子" } } },
-        GLZHQ: {
-          name: "轉換器／逆變器",
-          terminals: {
-            GLZHQ_L: { name: "連接電池" },
-            GLZHQ_R: { name: "連接電動機" }
-          }
-        },
-        DDJ: {
-          name: "電動機",
-          terminals: {
-            DDJ_L: { name: "電力輸入" },
-            DDJ_R: { name: "機械輸出軸" }
-          }
-        },
-        CDZZ: {
-          name: "機械耦合器及傳動系統",
-          terminals: {
-            CDZZ_L1: { name: "內燃機輸入" },
-            CDZZ_L2: { name: "電動機輸入" }
-          }
+        devices: {
+          DCDCZHQ: {
+            name: "DC-DC 转换器",
+            desc: "将高压动力电池直流电降压至 12V 直流电，为车载辅助设备供电并为 12V 蓄电池充电。",
+            terminals: {
+              DCDCZHQ_1: { name: "高压输入 (+)", label: "输入 +" },
+              DCDCZHQ_4: { name: "高压输入 (-)", label: "输入 -" },
+              DCDCZHQ_2: { name: "12V 输出 (+)", label: "输出 +" },
+              DCDCZHQ_3: { name: "12V 输出 (-)", label: "输出 -" }
+            }
+          },
+          RDQ1: { name: "熔断器 1 (DC-DC)", desc: "DC-DC 转换器高压输入端的过流保护熔断器。", terminals: { RDQ1_1: { name: "熔断器 1 输出", label: "输出" }, RDQ1_2: { name: "熔断器 1 输入", label: "输入" } } },
+          DXLJQ1: { name: "正极分电排", desc: "将高压正极电源分配至电机控制器与 DC-DC 转换器。", terminals: { DXLJQ1_1: { name: "输出至 DC-DC", label: "输出" }, DXLJQ1_2: { name: "主电源输入 (+)", label: "输入 +" }, DXLJQ1_3: { name: "输出至控制器", label: "输出" } } },
+          RDQ2: { name: "熔断器 2 (控制器)", desc: "保护逆变器/电机控制器高压输入的大电流熔断器。", terminals: { RDQ2_1: { name: "熔断器 2 输入", label: "输入" }, RDQ2_2: { name: "熔断器 2 输出", label: "输出" } } },
+          DY12V: {
+            name: "12V 辅助蓄电池",
+            desc: "为控制系统、车载电脑、继电器及接触器线圈提供 12V 电源。",
+            terminals: {
+              DY12V_1: { name: "控制供电 (+)", label: "辅助 +" },
+              DY12V_2: { name: "正极端子 (+)", label: "+" },
+              DY12V_3: { name: "负极端子 (-)", label: "-" },
+              DY12V_4: { name: "接触器线圈负极回路 (-)", label: "GND" }
+            }
+          },
+          DXLJQ2: {
+            name: "负极分电排",
+            desc: "高压负极电源回路的公共汇流排。",
+            terminals: { DXLJQ2_1: { name: "DC-DC 负极回路 (-)", label: "DC-DC (-)" }, DXLJQ2_2: { name: "动力电池负极 (-)", label: "动力电池 (-)" }, DXLJQ2_3: { name: "控制器负极回路 (-)", label: "控制器 (-)" } }
+          },
+          JDQKG: { name: "继电器开关（点火开关）", desc: "接通 12V 控制线路以吸合高压接触器。", terminals: { JDQKG_1: { name: "继电器控制输入", label: "输入" }, JDQKG_2: { name: "输出至接触器", label: "输出" } } },
+          DLDY: { name: "动力电池 (HV)", desc: "储存高压电能（锂离子电池组）以驱动车辆行驶。", terminals: { DLDY_1: { name: "负极 (-)", label: "-" }, DLDY_2: { name: "正极 (+)", label: "+" } } },
+          JJKG: { name: "紧急断电开关", desc: "发生紧急情况或维修保养时手动切断高压回路（MSD）。", terminals: { JJKG_1: { name: "电池正极输入 (+)", label: "输入" }, JJKG_2: { name: "输出至接触器", label: "输出" } } },
+          ZLJCQ: {
+            name: "直流接触器 (DC)",
+            desc: "高压电磁功率继电器，负责接通或切断主动力电池供电。",
+            terminals: { ZLJCQ_1: { name: "高压功率输入 (+)", label: "功率输入" }, ZLJCQ_2: { name: "控制线圈 (+12V)", label: "线圈 +" }, ZLJCQ_3: { name: "控制线圈 (-12V)", label: "线圈 -" }, ZLJCQ_4: { name: "高压功率输出 (+)", label: "功率输出" } }
+          },
+          RDQ3: { name: "熔断器 3（高压主线）", desc: "主驱动高压回路的总保护熔断器。", terminals: { RDQ3_1: { name: "熔断器 3 输入", label: "输入" }, RDQ3_2: { name: "熔断器 3 输出", label: "输出" } } },
+          DDJKZQ: {
+            name: "电机控制器（逆变器 MCU）",
+            desc: "将直流电转换为三相交流电，控制转矩、转速及能量回收制动。",
+            terminals: {
+              DDJKZQ_1: { name: "功率相线 W", label: "W" }, DDJKZQ_2: { name: "直流电源 (-)", label: "-" },
+              DDJKZQ_3: { name: "功率相线 V", label: "V" }, DDJKZQ_4: { name: "直流电源 (+)", label: "+" },
+              DDJKZQ_5: { name: "功率相线 U", label: "U" }, DDJKZQ_6: { name: "信号线束接口", label: "线束" }
+            }
+          },
+          DDJ: { name: "三相电动机", desc: "三相交流同步或感应电动机，将电能转化为机械驱动力。", terminals: { DDJ_1: { name: "U 相端子", label: "U" }, DDJ_2: { name: "V 相端子", label: "V" }, DDJ_3: { name: "W 相端子", label: "W" } } },
+          JSTB: { name: "加速踏板", desc: "加速踏板位置传感器（APP），向控制器发送加速转矩指令。", terminals: { JSTB: { name: "踏板信号输出", label: "信号" } } },
+          DWKG: { name: "档位开关", desc: "档位选择器（P 驻车、R 倒车、N 空档、D 前进）。", terminals: { DWKG: { name: "档位信号输出", label: "信号" } } },
+          YB: { name: "仪表盘", desc: "数字仪表，显示车速、电量（SOC）、功率与系统告警。", terminals: { YB: { name: "仪表信号输入", label: "信号" } } }
         }
-      }
-    },
-
-    hybridCombined: {
-      title: "混聯式混能系統（串並聯）",
-      subtitle: "行星齒輪動力分流裝置：同時支援直接機械驅動同發電",
-      description: "結合串聯同並聯嘅優點，透過行星齒輪動力分流裝置（PSD，例如 Toyota Hybrid Synergy Drive）靈活分配動力。",
-      cableTypes: {
-        elec: { name: "電力連接（實線）", desc: "電能傳輸路徑" },
-        mech: { name: "機械連接（雙線）", desc: "機械轉動／扭力耦合" },
-        fuel: { name: "燃油管路（紅色）", desc: "燃油供應" }
       },
-      devices: {
-        YX: { name: "油缸", terminals: { YX_R: { name: "燃油輸出" } } },
-        FDJ: {
-          name: "內燃機",
-          terminals: {
-            FDJ_L: { name: "燃油輸入" },
-            FDJ_R: { name: "傳動軸至分流器" },
-            FDJ_B: { name: "傳動軸至發電機" }
-          }
+      bevPrinciples: {
+        title: "纯电动汽车工作原理系统 (BEV)",
+        subtitle: "功能框图：控制信号、电力流向与机械传动关系",
+        description: "建立整车控制器（VCU）、功率转换器、电动机、传动系统、电池管理系统（BMS）与辅助系统之间的逻辑连接及能量流向。",
+        cableTypes: {
+          sig_right: { name: "控制信号（向右 ->）", desc: "向右传输的数据/控制指令" },
+          sig_left: { name: "控制信号（<- 向左）", desc: "向左传输的数据/控制指令" },
+          sig_bi: { name: "控制信号（双向 <->）", desc: "双向 CAN 总线通信" },
+          pwr_right: { name: "电力流向（向右 =>）", desc: "向右输出的电能流向" },
+          pwr_left: { name: "电力流向（<= 向左）", desc: "向左输出的电能流向" },
+          pwr_bi: { name: "电力流向（双向 <=>）", desc: "双向电力流（驱动与再生制动）" },
+          mech: { name: "机械连接（双线 ==）", desc: "传动轴或机械转矩耦合" }
         },
-        FDJ1: {
-          name: "發電機 (MG1)",
-          terminals: {
-            FDJ1_T: { name: "來自內燃機傳動軸" },
-            FDJ1_B: { name: "電力輸出至逆變器" }
-          }
-        },
-        XDC: { name: "動力電池", terminals: { XDC_R: { name: "電池電力" } } },
-        GLZHQ: {
-          name: "雙向轉換器／逆變器",
-          terminals: {
-            GLZHQ_T: { name: "來自發電機輸入" },
-            GLZHQ_L: { name: "電池接口" },
-            GLZHQ_R: { name: "輸出至電動機" }
-          }
-        },
-        DDJ: {
-          name: "驅動電動機 (MG2)",
-          terminals: {
-            DDJ_L: { name: "電力輸入" },
-            DDJ_R: { name: "傳動軸至傳動系統" }
-          }
-        },
-        CDZZ: {
-          name: "行星齒輪分流器及傳動系統",
-          terminals: {
-            CDZZ_L1: { name: "內燃機輸入" },
-            CDZZ_L2: { name: "電動機輸入" }
-          }
+        devices: {
+          ZDTB: { name: "制动踏板", terminals: { ZDTB: { name: "信号输出" } } },
+          JSTB: { name: "加速踏板", terminals: { JSTB: { name: "信号输出" } } },
+          DKDY: { name: "整车控制器 (VCU)", terminals: { DKDY_L1: { name: "制动输入" }, DKDY_L2: { name: "加速输入" }, DKDY_R: { name: "控制逆变器" }, DKDY_B: { name: "连接 BMS 总线" } } },
+          GLZHQ: { name: "功率转换器（逆变器）", terminals: { GLZHQ_L: { name: "VCU 控制" }, GLZHQ_R: { name: "三相电力" }, GLZHQ_B: { name: "电池直流电力" } } },
+          SXGYDJ: { name: "三相感应电动机", terminals: { SXGYDJ_L: { name: "电力输入" }, SXGYDJ_R: { name: "机械传动轴" } } },
+          JXCDZZ: { name: "机械传动装置", terminals: { JXCDZZ_L: { name: "电动机输入" }, JXCDZZ_T: { name: "车轮 1 半轴" }, JXCDZZ_B: { name: "车轮 2 半轴" } } },
+          CL1: { name: "前/左车轮", terminals: { CL1: { name: "车轴" } } },
+          CL2: { name: "后/右车轮", terminals: { CL2: { name: "车轴" } } },
+          NLGLXT: { name: "能量管理系统 (BMS)", terminals: { NLGLXT_T: { name: "连接 VCU" }, NLGLXT_R: { name: "连接电池" }, NLGLXT_B: { name: "连接充电机" } } },
+          XDC: { name: "动力电池 (HV)", terminals: { XDC_T: { name: "供电至逆变器" }, XDC_L: { name: "BMS 监控" }, XDC_R: { name: "供电至辅助系统" }, XDC_B: { name: "电池充电" } } },
+          FZDLY: { name: "辅助电源 (DC-DC)", terminals: { FZDLY_L: { name: "高压供电" }, FZDLY_R: { name: "转向供电" }, FZDLY_B: { name: "空调温控供电" } } },
+          DLZXDY: { name: "电动助力转向 (EPS)", terminals: { DLZXDY_L: { name: "EPS 供电" }, DLZXDY_R: { name: "方向盘输入" } } },
+          ZXP: { name: "方向盘", terminals: { ZXP: { name: "转角传感器" } } },
+          CDXT: { name: "车载充电机 (OBC)", terminals: { CDXT_L: { name: "BMS 控制" }, CDXT_T: { name: "输出至电池" }, CDXT_B: { name: "外部电网输入" } } },
+          WDKZDY: { name: "热管理/空调系统", terminals: { WDKZDY: { name: "电源输入" } } },
+          WJDY: { name: "外部电网（充电口）", terminals: { WJDY: { name: "交流/直流电" } } }
+        }
+      },
+      hybridSeries: {
+        title: "串联式混动系统",
+        subtitle: "内燃机仅驱动发电机发电；完全由电动机驱动车轮",
+        description: "在串联式架构中，内燃机与车轮之间没有机械连接，仅负责发电以供给动力电池和驱动电动机。",
+        cableTypes: { elec: { name: "电力连接（实线）", desc: "电能传输路径" }, mech: { name: "机械连接（双线）", desc: "机械转动/转矩耦合" }, fuel: { name: "燃油管路（红色）", desc: "由油箱输送汽油/柴油" } },
+        devices: {
+          YX: { name: "油箱", terminals: { YX_R: { name: "燃油输出" } } },
+          FDOJ: { name: "内燃机", terminals: { FDOJ_L: { name: "燃油输入" }, FDOJ_B: { name: "传动轴至发电机" } } },
+          FDIJ: { name: "发电机", terminals: { FDIJ_T: { name: "来自内燃机传动轴" }, FDIJ_B: { name: "交流电力输出" } } },
+          XDC: { name: "动力电池", terminals: { XDC_R: { name: "电池电力" } } },
+          GLZHQ: { name: "转换器/逆变器", terminals: { GLZHQ_T: { name: "来自发电机输入" }, GLZHQ_L: { name: "电池接口" }, GLZHQ_R: { name: "输出至电动机" } } },
+          FDOJ2: { name: "驱动电动机", terminals: { FDOJ2_L: { name: "电力输入" }, FDOJ2_R: { name: "动力输出轴" } } },
+          CGZZ: { name: "传动系统/车轮", terminals: { CGZZ_L: { name: "机械输入" } } }
+        }
+      },
+      hybridParallel: {
+        title: "并联式混动系统",
+        subtitle: "内燃机与电动机均可直接向车轮输出机械转矩",
+        description: "两套动力装置均通过离合器或齿轮耦合器与传动系统实现机械连接。",
+        cableTypes: { elec: { name: "电力连接（实线）", desc: "电能传输路径" }, mech: { name: "机械连接（双线）", desc: "机械转动/转矩耦合" }, fuel: { name: "燃油管路（红色）", desc: "燃油供应" } },
+        devices: {
+          YX: { name: "油箱", terminals: { YX_R: { name: "燃油输出" } } },
+          FDJ: { name: "内燃机", terminals: { FDJ_L: { name: "燃油输入" }, FDJ_R: { name: "机械输出轴" } } },
+          XDC: { name: "动力电池", terminals: { XDC_R: { name: "电力端子" } } },
+          GLZHQ: { name: "转换器/逆变器", terminals: { GLZHQ_L: { name: "连接电池" }, GLZHQ_R: { name: "连接电动机" } } },
+          DDJ: { name: "电动机", terminals: { DDJ_L: { name: "电力输入" }, DDJ_R: { name: "机械输出轴" } } },
+          CDZZ: { name: "机械耦合器及传动系统", terminals: { CDZZ_L1: { name: "内燃机输入" }, CDZZ_L2: { name: "电动机输入" } } }
+        }
+      },
+      hybridCombined: {
+        title: "混联式混动系统（串并联）",
+        subtitle: "行星齿轮功率分流装置：同时支持直接机械驱动与发电",
+        description: "结合串联与并联优势，通过行星齿轮功率分流装置（PSD）灵活分配动力。",
+        cableTypes: { elec: { name: "电力连接（实线）", desc: "电能传输路径" }, mech: { name: "机械连接（双线）", desc: "机械转动/转矩耦合" }, fuel: { name: "燃油管路（红色）", desc: "燃油供应" } },
+        devices: {
+          YX: { name: "油箱", terminals: { YX_R: { name: "燃油输出" } } },
+          FDJ: { name: "内燃机", terminals: { FDJ_L: { name: "燃油输入" }, FDJ_R: { name: "传动轴至分流器" }, FDJ_B: { name: "传动轴至发电机" } } },
+          FDJ1: { name: "发电机 (MG1)", terminals: { FDJ1_T: { name: "来自内燃机传动轴" }, FDJ1_B: { name: "电力输出至逆变器" } } },
+          XDC: { name: "动力电池", terminals: { XDC_R: { name: "电池电力" } } },
+          GLZHQ: { name: "双向转换器/逆变器", terminals: { GLZHQ_T: { name: "来自发电机输入" }, GLZHQ_L: { name: "电池接口" }, GLZHQ_R: { name: "输出至电动机" } } },
+          DDJ: { name: "驱动电动机 (MG2)", terminals: { DDJ_L: { name: "电力输入" }, DDJ_R: { name: "传动轴至传动系统" } } },
+          CDZZ: { name: "行星齿轮分流器及传动系统", terminals: { CDZZ_L1: { name: "内燃机输入" }, CDZZ_L2: { name: "电动机输入" } } }
         }
       }
     }
@@ -730,7 +847,11 @@
 
   let currentLang = "es";
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    let saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === "yue") {
+      saved = "zh";
+      localStorage.setItem(STORAGE_KEY, "zh");
+    }
     if (saved && SUPPORTED_LANGS.includes(saved)) {
       currentLang = saved;
     }
@@ -752,59 +873,49 @@
 
   function getModuleText(moduleKey, fallbackCfg) {
     const fb = fallbackCfg || (window.SIMULATOR_DATA && window.SIMULATOR_DATA[moduleKey]) || {};
-    if (currentLang === "yue" && MODULE_TRANSLATIONS_YUE[moduleKey]) {
-      const m = MODULE_TRANSLATIONS_YUE[moduleKey];
+    const m = MODULE_TRANSLATIONS[currentLang]?.[moduleKey];
+    if (m) {
       return {
         title: m.title || fb.title || "",
         subtitle: m.subtitle || fb.subtitle || "",
         description: m.description || fb.description || ""
       };
     }
-    return {
-      title: fb.title || "",
-      subtitle: fb.subtitle || "",
-      description: fb.description || ""
-    };
+    return { title: fb.title || "", subtitle: fb.subtitle || "", description: fb.description || "" };
   }
 
   function getCableText(moduleKey, cableId, fallbackCable) {
     const fb = fallbackCable || {};
-    if (currentLang === "yue") {
-      const c = MODULE_TRANSLATIONS_YUE[moduleKey]?.cableTypes?.[cableId];
-      if (c) {
-        return { name: c.name || fb.name || "", desc: c.desc || fb.desc || "" };
-      }
+    const c = MODULE_TRANSLATIONS[currentLang]?.[moduleKey]?.cableTypes?.[cableId];
+    if (c) {
+      return { name: c.name || fb.name || "", desc: c.desc || fb.desc || "" };
     }
     return { name: fb.name || "", desc: fb.desc || "" };
   }
 
   function getDeviceText(moduleKey, deviceId, fallbackDevice) {
     const fb = fallbackDevice || {};
-    if (currentLang === "yue") {
-      const d = MODULE_TRANSLATIONS_YUE[moduleKey]?.devices?.[deviceId];
-      if (d) {
-        return { name: d.name || fb.name || "", desc: d.desc || fb.desc || "" };
-      }
+    const d = MODULE_TRANSLATIONS[currentLang]?.[moduleKey]?.devices?.[deviceId];
+    if (d) {
+      return { name: d.name || fb.name || "", desc: d.desc || fb.desc || "" };
     }
     return { name: fb.name || "", desc: fb.desc || "" };
   }
 
   function getTerminalText(moduleKey, deviceId, termId, fallbackTerm) {
     const fb = fallbackTerm || {};
-    if (currentLang === "yue") {
-      const tr = MODULE_TRANSLATIONS_YUE[moduleKey]?.devices?.[deviceId]?.terminals?.[termId];
-      if (tr) {
-        return {
-          name: tr.name || fb.name || "",
-          label: tr.label !== undefined ? tr.label : fb.label
-        };
-      }
+    const tr = MODULE_TRANSLATIONS[currentLang]?.[moduleKey]?.devices?.[deviceId]?.terminals?.[termId];
+    if (tr) {
+      return {
+        name: tr.name || fb.name || "",
+        label: tr.label !== undefined ? tr.label : fb.label
+      };
     }
     return { name: fb.name || "", label: fb.label };
   }
 
   function applyTranslations() {
-    document.documentElement.lang = currentLang === "yue" ? "zh-HK" : "es";
+    document.documentElement.lang = currentLang === "zh" ? "zh-CN" : (currentLang === "en" ? "en" : "es");
     document.title = t("page_title");
 
     document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -822,13 +933,11 @@
       el.setAttribute("title", t(key));
     });
 
-    // Actualizar botones del selector de idioma
     document.querySelectorAll(".lang-btn").forEach(btn => {
       const lang = btn.getAttribute("data-lang");
       btn.classList.toggle("active", lang === currentLang);
     });
 
-    // Aviso en vista de notas cuando está en cantonés
     const noticeEl = document.getElementById("notes_lang_notice");
     if (noticeEl) {
       const msg = t("notes_lang_notice");
@@ -848,6 +957,7 @@
   }
 
   window.I18N = {
+    get currentLang() { return currentLang; },
     getLang: () => currentLang,
     setLang,
     t,

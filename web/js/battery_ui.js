@@ -13,6 +13,12 @@
   "use strict";
 
   const t = (k, ...args) => (window.I18N ? window.I18N.t(k, ...args) : k);
+  const pickLabel = (item) => {
+    const lang = window.I18N ? window.I18N.getLang() : "es";
+    if (lang === "zh") return item.labelZh || item.labelYue || item.labelEs;
+    if (lang === "en") return item.labelEn || item.labelEs;
+    return item.labelEs;
+  };
 
   // Estado del Laboratorio
   const labState = {
@@ -149,7 +155,7 @@
         const app = BatteryData.APPLICATIONS[k];
         const opt = document.createElement("option");
         opt.value = app.id;
-        opt.textContent = (window.I18N && window.I18N.currentLang === "yue") ? app.labelYue : app.labelEs;
+        opt.textContent = pickLabel(app);
         appSelect.appendChild(opt);
       });
       appSelect.value = labState.design.appId;
@@ -179,7 +185,7 @@
         if (chem.selectable === false) return;
         const opt = document.createElement("option");
         opt.value = chem.id;
-        opt.textContent = (window.I18N && window.I18N.currentLang === "yue") ? chem.labelYue : chem.labelEs;
+        opt.textContent = pickLabel(chem);
         chemSelect.appendChild(opt);
       });
       chemSelect.value = labState.design.chemId;
@@ -198,7 +204,7 @@
         const c = BatteryData.COOLING[k];
         const opt = document.createElement("option");
         opt.value = c.id;
-        opt.textContent = (window.I18N && window.I18N.currentLang === "yue") ? c.labelYue : c.labelEs;
+        opt.textContent = pickLabel(c);
         coolingSelect.appendChild(opt);
       });
       coolingSelect.value = labState.design.coolingId;
@@ -255,7 +261,7 @@
       if (cell.chems && cell.chems.includes(activeChem)) {
         const opt = document.createElement("option");
         opt.value = cell.id;
-        opt.textContent = `${(window.I18N && window.I18N.currentLang === "yue") ? cell.labelYue : cell.labelEs} (${cell.capacityAh} Ah)`;
+        opt.textContent = `${pickLabel(cell)} (${cell.capacityAh} Ah)`;
         cellSelect.appendChild(opt);
       }
     });
@@ -965,7 +971,7 @@
     BatteryData.FAULT_GROUPS.forEach((grp) => {
       const card = document.createElement("div");
       card.className = "fault-group-card";
-      const grpTitle = (window.I18N && window.I18N.currentLang === "yue") ? grp.labelYue : grp.labelEs;
+      const grpTitle = pickLabel(grp);
       card.innerHTML = `<div class="fault-group-title">${grpTitle}</div>`;
 
       // Fallas de este grupo
@@ -978,7 +984,7 @@
         item.className = `fault-item ${isChecked ? "active" : ""}`;
         item.innerHTML = `
           <div class="fault-item-header">
-            <span class="fault-label">${(window.I18N && window.I18N.currentLang === "yue") ? fault.labelYue : fault.labelEs}</span>
+            <span class="fault-label">${pickLabel(fault)}</span>
             <input type="checkbox" data-fault-id="${fault.id}" ${isChecked ? "checked" : ""}>
           </div>
           <span class="fault-effect-desc">${fault.effectEs}</span>
