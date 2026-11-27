@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="260" viewBox="0 0 260 260" fill="none">
+  <title>Patrón Espacial de Robots Didaktikos</title>
+  <!-- Burbujas cromáticas suaves -->
+  <circle cx="38" cy="36" r="14" fill="#F53240" opacity="0.14"/>
+  <circle cx="215" cy="48" r="18" fill="#02C8A7" opacity="0.14"/>
+  <circle cx="145" cy="128" r="12" fill="#F9BE02" opacity="0.16"/>
+  <circle cx="52" cy="196" r="20" fill="#914499" opacity="0.12"/>
+  <circle cx="218" cy="212" r="10" fill="#7CDBD5" opacity="0.22"/>
+  <!-- Cabeza Robot 1 (Purple) -->
+  <g transform="translate(86, 28) rotate(22) scale(0.42)" opacity="0.18">
+    <line x1="33" y1="28" x2="18" y2="12" stroke="#914499" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="16" cy="10" r="7" fill="#914499"/>
+    <line x1="87" y1="28" x2="102" y2="12" stroke="#914499" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="104" cy="10" r="7" fill="#914499"/>
+    <path d="M60 22 C88 22 104 42 104 65 C104 82 92 90 60 90 C28 90 16 82 16 65 C16 42 32 22 60 22 Z" stroke="#914499" stroke-width="11" fill="none"/>
+    <ellipse cx="44" cy="61" rx="6.5" ry="11" fill="#914499"/>
+    <ellipse cx="76" cy="61" rx="6.5" ry="11" fill="#914499"/>
+  </g>
+  <!-- Cabeza Robot 2 (Coral) -->
+  <g transform="translate(178, 124) rotate(-25) scale(0.36)" opacity="0.18">
+    <line x1="33" y1="28" x2="18" y2="12" stroke="#F53240" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="16" cy="10" r="7" fill="#F53240"/>
+    <line x1="87" y1="28" x2="102" y2="12" stroke="#F53240" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="104" cy="10" r="7" fill="#F53240"/>
+    <path d="M60 22 C88 22 104 42 104 65 C104 82 92 90 60 90 C28 90 16 82 16 65 C16 42 32 22 60 22 Z" stroke="#F53240" stroke-width="11" fill="none"/>
+    <ellipse cx="44" cy="61" rx="6.5" ry="11" fill="#F53240"/>
+    <ellipse cx="76" cy="61" rx="6.5" ry="11" fill="#F53240"/>
+  </g>
+  <!-- Cabeza Robot 3 (Golden) -->
+  <g transform="translate(96, 178) rotate(14) scale(0.38)" opacity="0.20">
+    <line x1="33" y1="28" x2="18" y2="12" stroke="#F9BE02" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="16" cy="10" r="7" fill="#F9BE02"/>
+    <line x1="87" y1="28" x2="102" y2="12" stroke="#F9BE02" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="104" cy="10" r="7" fill="#F9BE02"/>
+    <path d="M60 22 C88 22 104 42 104 65 C104 82 92 90 60 90 C28 90 16 82 16 65 C16 42 32 22 60 22 Z" stroke="#F9BE02" stroke-width="11" fill="none"/>
+    <ellipse cx="44" cy="61" rx="6.5" ry="11" fill="#F9BE02"/>
+    <ellipse cx="76" cy="61" rx="6.5" ry="11" fill="#F9BE02"/>
+  </g>
+</svg>

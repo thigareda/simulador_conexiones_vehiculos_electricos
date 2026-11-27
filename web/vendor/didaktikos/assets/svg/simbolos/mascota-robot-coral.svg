@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" fill="none">
+  <title>Mascota Robot Didaktikos (Bright Coral)</title>
+  <line x1="33" y1="28" x2="18" y2="12" stroke="#F53240" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="16" cy="10" r="7" fill="#F53240"/>
+  <line x1="87" y1="28" x2="102" y2="12" stroke="#F53240" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="104" cy="10" r="7" fill="#F53240"/>
+  <rect x="24" y="22" width="22" height="16" rx="6" transform="rotate(-24 24 22)" fill="#F53240"/>
+  <rect x="76" y="14" width="22" height="16" rx="6" transform="rotate(24 76 14)" fill="#F53240"/>
+  <path d="M60 22 C88 22 104 42 104 65 C104 82 92 90 60 90 C28 90 16 82 16 65 C16 42 32 22 60 22 Z" stroke="#F53240" stroke-width="11" fill="none"/>
+  <ellipse cx="44" cy="61" rx="6.5" ry="11" fill="#F53240"/>
+  <ellipse cx="76" cy="61" rx="6.5" ry="11" fill="#F53240"/>
+</svg>

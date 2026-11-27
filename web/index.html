@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="sky" data-mode="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulador de Conexiones de Vehículos Eléctricos e Híbridos</title>
+  <title>Didaktikos — Simulador de Conexiones de Vehículos Eléctricos e Híbridos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Fredoka:wght@600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/autonomy.css">
   <link rel="stylesheet" href="css/battery_lab.css">
   <link rel="stylesheet" href="eprix/eprix.css">
-  <link rel="icon" href="img/electric_motor.png" type="image/png">
+  <link rel="stylesheet" href="vendor/didaktikos/css/didaktikos-tokens.css">
+  <link rel="stylesheet" href="vendor/didaktikos/css/didaktikos-components.css">
+  <link rel="stylesheet" href="css/didaktikos-theme-bridge.css">
+  <link rel="icon" href="vendor/didaktikos/assets/svg/logos/isotipo-cohete-d.svg" type="image/svg+xml">
 </head>
 <body>
 
-  <!-- Barra de Navegación Superior -->
+  <!-- Barra de Navegación Superior (HUD Gamificado Didaktikos) -->
   <header class="top-navbar">
     <div class="brand" id="nav_brand">
-      <div class="brand-icon">⚡</div>
+      <div class="brand-icon--didaktikos">
+        <img src="vendor/didaktikos/assets/svg/logos/isotipo-cohete-d.svg" alt="Didaktikos">
+      </div>
       <div>
         <div class="brand-title" data-i18n="brand_title">Simulador EV & HEV</div>
         <div class="brand-subtitle" data-i18n="brand_subtitle">Electromovilidad & Conexiones</div>
@@ -29,6 +37,16 @@
       <button class="nav-btn" id="nav_notes" data-i18n="nav_notes">📘 Anotaciones</button>
       <button class="nav-btn" id="nav_eprix" data-i18n="nav_eprix">🏎️ E-Prix</button>
       <button class="nav-btn" id="nav_back" style="display: none;" data-i18n="nav_back">⬅ Volver</button>
+      <div class="ddk-theme-controls" role="group" aria-label="Temas y modo Didaktikos">
+        <div class="ddk-theme-dots">
+          <button class="ddk-dot-btn" data-ddk-theme="sky" title="Novato (Sky)" style="background:#7CDBD5;" aria-pressed="true"></button>
+          <button class="ddk-dot-btn" data-ddk-theme="golden" title="Principiante (Golden)" style="background:#F9BE02;" aria-pressed="false"></button>
+          <button class="ddk-dot-btn" data-ddk-theme="coral" title="Intermedio (Coral)" style="background:#F53240;" aria-pressed="false"></button>
+          <button class="ddk-dot-btn" data-ddk-theme="aquamarine" title="Avanzado (Aquamarine)" style="background:#02C8A7;" aria-pressed="false"></button>
+          <button class="ddk-dot-btn" data-ddk-theme="purple" title="Experto (Purple)" style="background:#914499;" aria-pressed="false"></button>
+        </div>
+        <button class="ddk-mode-btn" id="ddk_mode_toggle" aria-pressed="true" title="Cambiar modo claro/oscuro">🌙 Oscuro</button>
+      </div>
       <div class="lang-switcher" role="group" aria-label="Language selector">
         <button class="lang-btn active" data-lang="es" title="Español">ES</button>
         <button class="lang-btn" data-lang="yue" title="廣東話 (Chino Cantonés)">廣東話</button>
@@ -1487,6 +1505,7 @@
   </div>
 
   <!-- Scripts -->
+  <script src="js/theme.js"></script>
   <script src="js/data.js"></script>
   <script src="js/i18n.js"></script>
   <script src="js/audio.js"></script>

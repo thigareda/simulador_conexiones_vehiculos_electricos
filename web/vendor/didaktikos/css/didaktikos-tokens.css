@@ -1,0 +1,115 @@
+/* ==========================================================================
+   DIDAKTIKOS — Sistema de Design Tokens (5 Temas Oficiales + Modo Oscuro)
+   ========================================================================== */
+
+:root,
+[data-theme="sky"] {
+  /* Paleta Oficial de Marca */
+  --ddk-sky: #7CDBD5;
+  --ddk-coral: #F53240;
+  --ddk-golden: #F9BE02;
+  --ddk-aquamarine: #02C8A7;
+  --ddk-purple: #914499;
+  --ddk-plum-dark: #542454;
+  --ddk-success: #22C55E;
+
+  /* Tema Activo (Por defecto: Sky / Novato) */
+  --ddk-accent: #7CDBD5;
+  --ddk-accent-strong: #02C8A7;
+  --ddk-accent-contrast: #1A132B;
+
+  /* Superficies Modo Claro */
+  --ddk-bg-canvas: #DDFEF8;
+  --ddk-bg-surface: #FFFFFF;
+  --ddk-bg-surface-soft: #CAF6EE;
+  --ddk-bg-input: #E6DCEB;
+  --ddk-hud-bg: linear-gradient(180deg, #57D9C9 0%, #9EF2E5 100%);
+  --ddk-nav-bg: linear-gradient(180deg, #1ED4B7 0%, #9AF3E6 100%);
+  --ddk-border-subtle: rgba(26, 19, 43, 0.12);
+
+  /* Tipografía y Estilo Sticker */
+  --ddk-font-display: 'Bruno Ace', 'Orbitron', sans-serif;
+  --ddk-font-sticker: 'Fredoka', 'Nunito', sans-serif;
+  --ddk-font-body: 'Nunito', system-ui, -apple-system, sans-serif;
+  --ddk-text-primary: #1A132B;
+  --ddk-text-secondary: #475569;
+  --ddk-sticker-stroke: #914499;
+
+  /* Gradientes Gamificados */
+  --ddk-grad-play-primary: linear-gradient(180deg, #27C9A9 0%, #F28B7B 100%);
+  --ddk-grad-play-secondary: linear-gradient(180deg, #F28B7B 0%, #27C9A9 100%);
+  --ddk-grad-logo-card: linear-gradient(180deg, #8E54E9 0%, #4776E6 65%, #2B1E4A 100%);
+
+  /* Radios y Elevación */
+  --ddk-radius-sm: 10px;
+  --ddk-radius-md: 18px;
+  --ddk-radius-lg: 26px;
+  --ddk-radius-pill: 9999px;
+  --ddk-shadow-card: 0 8px 22px rgba(26, 19, 43, 0.12);
+  --ddk-shadow-hud: 0 4px 14px rgba(2, 200, 167, 0.22);
+}
+
+/* Tema 2: Bright Coral (Intermedio) */
+[data-theme="coral"] {
+  --ddk-accent: #F53240;
+  --ddk-accent-strong: #D92332;
+  --ddk-accent-contrast: #FFFFFF;
+  --ddk-bg-canvas: #FFE8EA;
+  --ddk-bg-surface-soft: #FFD0D4;
+  --ddk-hud-bg: linear-gradient(180deg, #F53240 0%, #FF8A93 100%);
+  --ddk-nav-bg: linear-gradient(180deg, #F53240 0%, #FF9AA2 100%);
+  --ddk-shadow-hud: 0 4px 14px rgba(245, 50, 64, 0.24);
+}
+
+/* Tema 3: Golden (Principiante) */
+[data-theme="golden"] {
+  --ddk-accent: #F9BE02;
+  --ddk-accent-strong: #E0A800;
+  --ddk-accent-contrast: #1A132B;
+  --ddk-bg-canvas: #FFF7D6;
+  --ddk-bg-surface-soft: #FEEB9E;
+  --ddk-hud-bg: linear-gradient(180deg, #F9BE02 0%, #FFE066 100%);
+  --ddk-nav-bg: linear-gradient(180deg, #F9BE02 0%, #FFE680 100%);
+  --ddk-shadow-hud: 0 4px 14px rgba(249, 190, 2, 0.26);
+}
+
+/* Tema 4: Aquamarine (Avanzado) */
+[data-theme="aquamarine"] {
+  --ddk-accent: #02C8A7;
+  --ddk-accent-strong: #00A388;
+  --ddk-accent-contrast: #FFFFFF;
+  --ddk-bg-canvas: #D7FBF4;
+  --ddk-bg-surface-soft: #A8F3E5;
+  --ddk-hud-bg: linear-gradient(180deg, #02C8A7 0%, #6CE8D2 100%);
+  --ddk-nav-bg: linear-gradient(180deg, #02C8A7 0%, #7CEBDB 100%);
+  --ddk-shadow-hud: 0 4px 14px rgba(2, 200, 167, 0.26);
+}
+
+/* Tema 5: Royal Purple (Experto) */
+[data-theme="purple"] {
+  --ddk-accent: #914499;
+  --ddk-accent-strong: #542454;
+  --ddk-accent-contrast: #FFFFFF;
+  --ddk-bg-canvas: #F5E6F7;
+  --ddk-bg-surface-soft: #E7C8EB;
+  --ddk-hud-bg: linear-gradient(180deg, #914499 0%, #C47ACC 100%);
+  --ddk-nav-bg: linear-gradient(180deg, #914499 0%, #C884D0 100%);
+  --ddk-shadow-hud: 0 4px 14px rgba(145, 68, 153, 0.26);
+}
+
+/* ==========================================================================
+   MODO OSCURO ESPACIAL (Inspirado en #542454 y cohete espacial)
+   ========================================================================== */
+[data-mode="dark"] {
+  --ddk-bg-canvas: #1A132B;
+  --ddk-bg-surface: #281D42;
+  --ddk-bg-surface-soft: #362759;
+  --ddk-bg-input: #32254D;
+  --ddk-text-primary: #F8FAFC;
+  --ddk-text-secondary: #CBD5E1;
+  --ddk-border-subtle: rgba(255, 255, 255, 0.14);
+  --ddk-hud-bg: linear-gradient(180deg, #362759 0%, #24193C 100%);
+  --ddk-nav-bg: linear-gradient(180deg, #2D1F4A 0%, #1A132B 100%);
+  --ddk-shadow-card: 0 10px 28px rgba(0, 0, 0, 0.48);
+  --ddk-shadow-hud: 0 4px 16px rgba(0, 0, 0, 0.45);
+}

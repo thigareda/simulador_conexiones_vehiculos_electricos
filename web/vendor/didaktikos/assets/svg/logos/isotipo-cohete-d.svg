@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 160" fill="none">
+  <title>Isotipo D Cohete Didaktikos</title>
+  <!-- Contenedor D -->
+  <path d="M12 10 H62 C98 10 118 36 118 76 C118 118 96 146 58 146 C42 146 32 135 32 122 C32 110 42 104 54 104 C74 104 86 92 86 76 C86 58 74 46 54 46 H12 Z" fill="#F53240"/>
+  <rect x="12" y="10" width="54" height="106" rx="10" fill="#F53240"/>
+  <!-- Estrellas de 4 puntas -->
+  <path d="M26 24 L29 31 L36 34 L29 37 L26 44 L23 37 L16 34 L23 31 Z" fill="#FFFFFF"/>
+  <path d="M46 18 L48 23 L53 25 L48 27 L46 32 L44 27 L39 25 L44 23 Z" fill="#FFFFFF"/>
+  <path d="M38 38 L40 42 L44 44 L40 46 L38 50 L36 46 L32 44 L36 42 Z" fill="#FFFFFF"/>
+  <!-- Cohete espacial blanco despegando -->
+  <g transform="translate(62 82) rotate(32)">
+    <path d="M0 -38 C14 -24 18 -4 14 20 L-14 20 C-18 -4 -14 -24 0 -38 Z" fill="#FFFFFF"/>
+    <path d="M-14 8 L-26 24 L-12 22 Z" fill="#FFFFFF"/>
+    <path d="M14 8 L26 24 L12 22 Z" fill="#FFFFFF"/>
+    <path d="M-8 20 L8 20 L4 34 L-4 34 Z" fill="#FFFFFF" opacity="0.85"/>
+    <!-- Ventanilla con silueta dorada -->
+    <circle cx="0" cy="-8" r="9.5" fill="#F9BE02"/>
+    <circle cx="0" cy="-10" r="4" fill="#FFFFFF"/>
+    <path d="M-5 -2 C-5 -5 5 -5 5 -2 L6 1 L-6 1 Z" fill="#FFFFFF"/>
+  </g>
+</svg>

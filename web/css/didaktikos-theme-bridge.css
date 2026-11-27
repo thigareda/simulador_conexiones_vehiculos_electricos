@@ -1,0 +1,340 @@
+/* ==========================================================================
+   DIDAKTIKOS THEME BRIDGE — Integración Total en \Simulador
+   Mapea las variables originales (--bg-*, --accent-*, --eprix-*) hacia los
+   Design Tokens oficiales de \Estilos-globales (5 temas + Modo Oscuro Espacial)
+   ========================================================================== */
+
+:root,
+html[data-theme] {
+  --bg-primary: var(--ddk-bg-canvas);
+  --bg-secondary: var(--ddk-bg-surface);
+  --bg-tertiary: var(--ddk-bg-surface-soft);
+  --bg-card: var(--ddk-bg-surface);
+  --border-color: var(--ddk-border-subtle);
+  --border-glow: var(--ddk-accent-strong);
+
+  --accent-cyan: var(--ddk-aquamarine);
+  --accent-blue: var(--ddk-sky);
+  --accent-electric: var(--ddk-purple);
+  --accent-purple: var(--ddk-purple);
+  --accent-orange: var(--ddk-golden);
+  --accent-red: var(--ddk-coral);
+  --accent-green: var(--ddk-aquamarine);
+
+  --text-main: var(--ddk-text-primary);
+  --text-muted: var(--ddk-text-secondary);
+  --text-dim: var(--ddk-text-secondary);
+
+  --radius-sm: var(--ddk-radius-sm);
+  --radius-md: var(--ddk-radius-md);
+  --radius-lg: var(--ddk-radius-lg);
+
+  --font-family: var(--ddk-font-body);
+  --shadow-card: var(--ddk-shadow-card);
+}
+
+/* Mapeo completo para E-Prix Didaktikos */
+:where(.eprix) {
+  --eprix-bg: var(--ddk-bg-canvas);
+  --eprix-surface: var(--ddk-bg-surface);
+  --eprix-surface-card: var(--ddk-bg-surface);
+  --eprix-surface-hover: var(--ddk-bg-surface-soft);
+  --eprix-border: var(--ddk-border-subtle);
+  --eprix-border-accent: var(--ddk-accent-strong);
+
+  --eprix-cyan: var(--ddk-aquamarine);
+  --eprix-blue: var(--ddk-sky);
+  --eprix-electric: var(--ddk-purple);
+  --eprix-purple: var(--ddk-purple);
+  --eprix-orange: var(--ddk-golden);
+  --eprix-red: var(--ddk-coral);
+  --eprix-green: var(--ddk-aquamarine);
+  --eprix-yellow: var(--ddk-golden);
+
+  --eprix-text-main: var(--ddk-text-primary);
+  --eprix-text-muted: var(--ddk-text-secondary);
+  --eprix-text-dim: var(--ddk-text-secondary);
+  --eprix-font: var(--ddk-font-body);
+  --eprix-radius-sm: var(--ddk-radius-sm);
+  --eprix-radius-md: var(--ddk-radius-md);
+  --eprix-radius-lg: var(--ddk-radius-lg);
+  --eprix-shadow: var(--ddk-shadow-card);
+}
+
+/* Fondo global con patrón espacial Didaktikos */
+body {
+  font-family: var(--ddk-font-body);
+  background-color: var(--ddk-bg-canvas);
+  color: var(--ddk-text-primary);
+  background-image: url('../vendor/didaktikos/assets/svg/patrones/patron-robots-espacial.svg');
+  background-size: 280px 280px;
+  background-repeat: repeat;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Barra superior estilo HUD Gamificado Didaktikos */
+.top-navbar {
+  background: var(--ddk-hud-bg) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--ddk-border-subtle) !important;
+  box-shadow: var(--ddk-shadow-hud);
+  padding: 0.65rem 1.25rem !important;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.brand {
+  gap: 10px;
+}
+
+.brand-icon--didaktikos {
+  width: 42px;
+  height: 42px;
+  background: var(--ddk-bg-surface);
+  border-radius: 12px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+  border: 2px solid var(--ddk-accent-strong);
+}
+
+.brand-icon--didaktikos img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.brand-title {
+  font-family: var(--ddk-font-display);
+  font-size: 1.05rem !important;
+  color: #1A132B;
+  letter-spacing: 0.02em;
+}
+
+.brand-subtitle {
+  font-family: var(--ddk-font-body);
+  font-weight: 800;
+  color: var(--ddk-plum-dark) !important;
+  font-size: 0.72rem !important;
+}
+
+[data-mode="dark"] .brand-title {
+  color: #FFFFFF;
+}
+
+[data-mode="dark"] .brand-subtitle {
+  color: var(--ddk-sky) !important;
+}
+
+/* Botones de navegación tipo píldora gamificada */
+.nav-links {
+  flex-wrap: wrap;
+  gap: 6px !important;
+}
+
+.nav-btn {
+  border-radius: var(--ddk-radius-pill) !important;
+  font-family: var(--ddk-font-body);
+  font-weight: 700 !important;
+  color: #1A132B !important;
+  background: rgba(255, 255, 255, 0.55) !important;
+  border: 1.5px solid rgba(26, 19, 43, 0.12) !important;
+  padding: 7px 13px !important;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.9) !important;
+  transform: translateY(-1px);
+}
+
+.nav-btn.active {
+  background: var(--ddk-purple) !important;
+  color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 3px 10px rgba(145, 68, 153, 0.35);
+}
+
+[data-mode="dark"] .nav-btn {
+  color: #F8FAFC !important;
+  background: rgba(26, 19, 43, 0.55) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+
+[data-mode="dark"] .nav-btn:hover {
+  background: var(--ddk-bg-surface-soft) !important;
+}
+
+[data-mode="dark"] .nav-btn.active {
+  background: var(--ddk-accent-strong) !important;
+  color: #1A132B !important;
+  border-color: #FFFFFF !important;
+}
+
+/* Controles de Tema y Modo Oscuro en Navbar */
+.ddk-theme-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  border-radius: var(--ddk-radius-pill);
+  background: rgba(255, 255, 255, 0.45);
+  border: 1.5px solid rgba(26, 19, 43, 0.14);
+}
+
+[data-mode="dark"] .ddk-theme-controls {
+  background: rgba(26, 19, 43, 0.65);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.ddk-theme-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ddk-dot-btn {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.28);
+  transition: transform 0.15s ease;
+}
+
+.ddk-dot-btn:hover,
+.ddk-dot-btn[aria-pressed="true"] {
+  transform: scale(1.22);
+  outline: 2px solid var(--ddk-text-primary);
+}
+
+.ddk-mode-btn {
+  border: none;
+  border-radius: var(--ddk-radius-pill);
+  background: var(--ddk-bg-surface);
+  color: var(--ddk-text-primary);
+  font-family: var(--ddk-font-body);
+  font-weight: 800;
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Portada Hero estilo Sticker Didaktikos */
+.hero-badge {
+  background: var(--ddk-golden) !important;
+  color: #1A132B !important;
+  border: 2px solid #1A132B !important;
+  font-family: var(--ddk-font-display);
+  font-weight: 700;
+  box-shadow: 0 3px 0 rgba(26, 19, 43, 0.25);
+}
+
+.hero-title {
+  font-family: var(--ddk-font-sticker);
+  font-weight: 700 !important;
+  background: none !important;
+  -webkit-background-clip: border-box !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  color: #FFFFFF !important;
+  -webkit-text-stroke: 4px var(--ddk-purple);
+  paint-order: stroke fill;
+  text-shadow: 0 4px 0 rgba(84, 36, 84, 0.32);
+}
+
+/* Tarjetas de Módulos Gamificadas */
+.module-card {
+  background: var(--ddk-bg-surface) !important;
+  border: 2px solid var(--ddk-border-subtle) !important;
+  border-radius: var(--ddk-radius-lg) !important;
+  box-shadow: var(--ddk-shadow-card) !important;
+}
+
+.module-card::before {
+  height: 6px !important;
+  opacity: 1 !important;
+  background: linear-gradient(90deg, var(--ddk-sky), var(--ddk-aquamarine), var(--ddk-golden), var(--ddk-coral), var(--ddk-purple)) !important;
+}
+
+.module-card:hover {
+  border-color: var(--ddk-accent-strong) !important;
+  box-shadow: 0 14px 30px rgba(26, 19, 43, 0.22) !important;
+}
+
+.card-tag {
+  background: var(--ddk-bg-surface-soft);
+  color: var(--ddk-text-primary) !important;
+  display: inline-block;
+  width: fit-content;
+  padding: 4px 12px;
+  border-radius: var(--ddk-radius-pill);
+  font-weight: 800;
+  font-size: 0.75rem;
+}
+
+.card-title {
+  font-family: var(--ddk-font-sticker);
+  color: var(--ddk-text-primary);
+}
+
+.card-btn,
+.btn-neon-action,
+.action-btn.btn-primary {
+  background: var(--ddk-grad-play-primary) !important;
+  color: #1A132B !important;
+  border: none !important;
+  border-radius: var(--ddk-radius-pill) !important;
+  font-family: var(--ddk-font-display) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+}
+
+.card-btn:hover,
+.btn-neon-action:hover,
+.action-btn.btn-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+}
+
+.card-icon-banner {
+  background: linear-gradient(135deg, var(--ddk-bg-surface-soft), rgba(145, 68, 153, 0.14)) !important;
+  border: 2px solid var(--ddk-border-subtle) !important;
+}
+
+/* Lab de Baterías, Autonomía y E-Prix ajustes de contraste claro/oscuro */
+.battery-tabs-bar,
+.battery-panel,
+.auto-header,
+.battery-header,
+.sim-sidebar,
+.sim-canvas-wrapper,
+.eprix .eprix-card,
+.eprix .eprix-panel {
+  background: var(--ddk-bg-surface) !important;
+  border-color: var(--ddk-border-subtle) !important;
+  color: var(--ddk-text-primary);
+}
+
+[data-mode="light"] .sim-canvas-wrapper,
+[data-mode="light"] .card-img-preview[style*="background"] {
+  background: #1B243A !important; /* Mantiene contraste de cables y componentes oscuros en el lienzo de trabajo */
+}
+
+.eprix {
+  background-color: var(--ddk-bg-canvas) !important;
+  background-image: url('../vendor/didaktikos/assets/svg/patrones/patron-robots-espacial.svg') !important;
+  background-size: 280px 280px !important;
+}
+
+.eprix .eprix-title {
+  font-family: var(--ddk-font-sticker);
+  color: #FFFFFF !important;
+  -webkit-text-stroke: 3px var(--ddk-purple);
+  paint-order: stroke fill;
+}

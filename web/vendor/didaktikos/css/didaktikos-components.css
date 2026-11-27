@@ -1,0 +1,255 @@
+/* ==========================================================================
+   DIDAKTIKOS — Componentes UI Gamificados Reutilizables
+   ========================================================================== */
+
+.ddk-app {
+  font-family: var(--ddk-font-body);
+  background-color: var(--ddk-bg-canvas);
+  color: var(--ddk-text-primary);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.ddk-bg-pattern {
+  background-color: var(--ddk-bg-canvas);
+  background-image: url('../assets/svg/patrones/patron-robots-espacial.svg');
+  background-size: 260px 260px;
+  background-repeat: repeat;
+}
+
+/* --- Tipografía Sticker (Contorno grueso + relleno blanco) --- */
+.ddk-sticker-title {
+  font-family: var(--ddk-font-sticker);
+  font-weight: 700;
+  color: #FFFFFF;
+  -webkit-text-stroke: 4px var(--ddk-sticker-stroke);
+  paint-order: stroke fill;
+  letter-spacing: 0.02em;
+  text-shadow: 0 3px 0 rgba(84, 36, 84, 0.35);
+}
+
+.ddk-sticker-dark {
+  font-family: var(--ddk-font-sticker);
+  font-weight: 700;
+  color: #FFFFFF;
+  -webkit-text-stroke: 3.5px #1A132B;
+  paint-order: stroke fill;
+}
+
+.ddk-font-display {
+  font-family: var(--ddk-font-display);
+}
+
+/* --- HUD Superior de Juego (5 celdas + módulo central de Puntos) --- */
+.ddk-hud {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.6fr 1fr 1fr;
+  align-items: stretch;
+  background: var(--ddk-hud-bg);
+  box-shadow: var(--ddk-shadow-hud);
+  border-bottom: 1px solid var(--ddk-border-subtle);
+  padding: 6px 8px;
+  gap: 6px;
+  position: relative;
+}
+
+.ddk-hud-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--ddk-border-subtle);
+  padding: 4px;
+  position: relative;
+}
+
+.ddk-hud-cell:last-child {
+  border-right: none;
+}
+
+.ddk-hud-points {
+  background: var(--ddk-hud-bg);
+  border-radius: 0 0 14px 14px;
+  margin-bottom: -10px;
+  padding: 6px 10px 10px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.16);
+  border: 1px solid var(--ddk-border-subtle);
+  border-top: none;
+}
+
+.ddk-points-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.18);
+  color: #FFFFFF;
+  border-radius: var(--ddk-radius-pill);
+  padding: 3px 6px 3px 12px;
+  font-family: var(--ddk-font-display);
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.ddk-points-plus {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #84CC16;
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+/* --- Botones Gamificados --- */
+.ddk-btn-play {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 14px 10px 22px;
+  border: none;
+  border-radius: var(--ddk-radius-pill);
+  background: var(--ddk-grad-play-primary);
+  color: #1A132B;
+  font-family: var(--ddk-font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.ddk-btn-play--alt {
+  background: var(--ddk-grad-play-secondary);
+}
+
+.ddk-btn-play:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px rgba(0, 0, 0, 0.2);
+}
+
+.ddk-btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 20px;
+  border: none;
+  border-radius: var(--ddk-radius-pill);
+  background: var(--ddk-aquamarine);
+  color: #FFFFFF;
+  font-family: var(--ddk-font-sticker);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.ddk-btn-pill--coral { background: var(--ddk-coral); }
+.ddk-btn-pill--golden { background: var(--ddk-golden); color: #1A132B; }
+.ddk-btn-pill--purple { background: var(--ddk-purple); }
+
+.ddk-btn-pill:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+/* --- Interruptor OFF / ON (Pantalla Ajustes) --- */
+.ddk-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 72px;
+  height: 30px;
+  border-radius: var(--ddk-radius-pill);
+  background: #FFFFFF;
+  border: 2px solid var(--ddk-border-subtle);
+  cursor: pointer;
+  padding: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.ddk-toggle[aria-checked="true"] {
+  background: var(--ddk-aquamarine);
+  border-color: var(--ddk-aquamarine);
+}
+
+.ddk-toggle-thumb {
+  width: 34px;
+  height: 22px;
+  border-radius: var(--ddk-radius-pill);
+  background: var(--ddk-aquamarine);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.ddk-toggle[aria-checked="true"] .ddk-toggle-thumb {
+  transform: translateX(30px);
+  background: #FFFFFF;
+}
+
+/* --- Tarjetas y Barra de Progreso --- */
+.ddk-card {
+  background: var(--ddk-bg-surface);
+  border-radius: var(--ddk-radius-md);
+  border: 1px solid var(--ddk-border-subtle);
+  box-shadow: var(--ddk-shadow-card);
+  padding: 16px;
+}
+
+.ddk-progress-track {
+  width: 100%;
+  height: 12px;
+  background: var(--ddk-bg-surface);
+  border: 1.5px solid var(--ddk-border-subtle);
+  border-radius: var(--ddk-radius-pill);
+  overflow: hidden;
+}
+
+.ddk-progress-fill {
+  height: 100%;
+  background: var(--ddk-purple);
+  border-radius: var(--ddk-radius-pill);
+}
+
+/* --- Barra de Navegación Inferior con Robot Central Elevado --- */
+.ddk-bottom-nav {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: end;
+  background: var(--ddk-nav-bg);
+  border-top: 1px solid var(--ddk-border-subtle);
+  padding: 6px 4px 4px;
+  gap: 2px;
+}
+
+.ddk-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 4px 2px;
+  font-family: var(--ddk-font-display);
+  font-size: 0.62rem;
+  color: var(--ddk-text-primary);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+[data-mode="dark"] .ddk-nav-item {
+  color: #F8FAFC;
+}
+
+.ddk-nav-center-robot {
+  background: var(--ddk-nav-bg);
+  border: 1px solid var(--ddk-border-subtle);
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  margin-top: -16px;
+  padding: 6px 4px 4px;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.14);
+}
