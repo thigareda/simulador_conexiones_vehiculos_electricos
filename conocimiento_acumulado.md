@@ -159,3 +159,24 @@ La ejecución de la solicitud de planificación y limpieza fue orquestada por el
 - **Escaneo de configuración global:** `%USERPROFILE%\.gemini\config\{global_workflows,workflows}` y `workflows.json`.
 - **Escaneo de configuración de workspace:** Directorios `.agents`, `_agents`, `.agent`, `_agent`.
 - **Resultado:** No existen archivos de workflows obsoletos pendientes de migración. La configuración global y del espacio de trabajo está limpia y adaptada a la especificación moderna de *skills*.
+
+---
+
+## 8. Marco Legal, Derechos de Autor (LFDA México) y Licenciamiento Híbrido (GPL v3 + HEUL v1.0)
+- **Titularidad moral y patrimonial:** Tomás Emmanuel Higareda Pliego.
+- **Naturaleza del contenido:** Material didáctico original y exclusivo (código fuente, diagramas, esquemas Figma, base de datos, lógica, imágenes y marcas).
+- **Esquema de licenciamiento adoptado:**
+  - **Licencia base copyleft:** GNU General Public License v3 (GPL v3), asegurando atribución perpetua y copyleft estricto en derivados.
+  - **Aviso contractual de adhesión:** HEUL v1.0 (*Aviso Contractual de Uso Educativo Exclusivo*).
+  - **Identificador estándar SPDX:** `GPL-3.0-only AND LicenseRef-HEUL-1.0`.
+- **Condiciones y restricciones contractuales:**
+  - **Uso permitido:** Únicamente con fines de aprendizaje en clases impartidas directamente por el autor.
+  - **Prohibición estricta:** Fines comerciales (apps, SaaS, consultoría), proyectos externos o impartición por otros docentes/instituciones.
+  - **Deslinde institucional (LFDA Art. 83):** Obra realizada fuera de horario laboral e independiente; no constituye obra por encargo ni propiedad del Instituto Tecnológico de Zacatepec (ITZ).
+  - **Contribuciones de alumnos (LFDA Art. 109):** Ejercicios y pull requests se ceden voluntariamente a dominio público sin reserva de derechos.
+  - **Cumplimiento de librerías de terceros:** Reconocimiento de licencias originales de fabricantes y código abierto referenciadas en `THIRDPARTY.md`.
+  - **Consecuencias por infracción:** Sanciones bajo Arts. 27, 83, 86 y 231 de la LFDA (multas de 1,000 a 40,000 UMAs, cese, indemnización civil y acción penal si hay lucro), con protección internacional bajo Convenio de Berna y DMCA.
+- **Protocolo de publicación en GitHub:**
+  - Al crear el repositorio en GitHub, seleccionar **"None"** en el selector de licencias (las plantillas de GitHub no contemplan restricciones de uso o modelos híbridos).
+  - Subir manualmente a la raíz del repositorio el archivo `LICENSE` (o `LICENSE.md`) con el texto íntegro de GPL v3 concatenado con las cláusulas de HEUL v1.0.
+  - Incorporar el bloque de cabecera SPDX obligatorio en cada archivo de código (`.py`, `.js`, `.sql`) y aviso fijado en lienzos de diseño (Figma).
